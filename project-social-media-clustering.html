@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indonesian Social Media Text-Clustering — Darrell Lokadeva Lim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Darrell</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BANNER -->
+  <div class="project-detail-hero">
+    <div class="project-detail-banner" style="background: linear-gradient(135deg, #0D4F5C 0%, #0891B2 50%, #06B6D4 100%);">
+      <div class="project-detail-banner-pattern"></div>
+    </div>
+    <div class="project-detail-overlay"></div>
+    <div class="container project-detail-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="projects.html">Projects</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Social Media Clustering</span>
+      </div>
+      <h1 class="project-detail-title">Indonesian Social Media<br>Text-Clustering System</h1>
+      <div class="project-detail-meta">
+        <span class="meta-badge">🗓 Jun 2026</span>
+        <span class="meta-badge">🏢 PT Nolimit Indonesia</span>
+        <span class="meta-badge">🔒 Company Project</span>
+        <span class="meta-badge">🗂 NLP · Topic Modeling</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="project-detail-body">
+    <div class="container">
+
+      <!-- TOOL TAGS -->
+      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+        <span class="tag">Python</span>
+        <span class="tag">BERTopic</span>
+        <span class="tag">UMAP</span>
+        <span class="tag">HDBSCAN</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">rake-nltk</span>
+        <span class="tag">langdetect</span>
+        <span class="tag">fasttext</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">uvicorn</span>
+        <span class="tag">Multilingual Embeddings</span>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">01</span>
+            <span class="ps-title">Problem</span>
+          </div>
+          <div class="ps-content">
+            <h3>Making sense of 148K+ noisy Indonesian social media posts at scale</h3>
+            <p>Government ministries and corporate clients needed to understand what people were talking about on social media — at scale, in real time, and in Indonesian, a language with heavy informal slang, code-switching, and abbreviations that break standard NLP pipelines.</p>
+            <p>The raw data came from three platforms (Twitter, Facebook, Instagram), was highly unstructured, and contained a mix of Indonesian, English, and regional dialects within a single post. The challenge was to surface 20–50 coherent, human-interpretable topic clusters per project run from this noise — automatically, without manual labelling — and serve the results via an API for downstream analytics dashboards.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">02</span>
+            <span class="ps-title">Process</span>
+          </div>
+          <div class="ps-content">
+            <h3>Production-grade BERTopic pipeline with memory-resilient embedding storage</h3>
+            <ul>
+              <li>Used <strong style="color:var(--text-2)">langdetect</strong> and <strong style="color:var(--text-2)">fasttext</strong> for language identification to filter and route posts, handling the mixed-language nature of Indonesian social media content before any embedding step.</li>
+              <li>Generated multilingual sentence embeddings using <strong style="color:var(--text-2)">LazarusNLP/all-indo-e5-small-v4</strong>, a model fine-tuned on Indonesian text, to produce semantically meaningful representations of informal short-form posts.</li>
+              <li>Implemented <strong style="color:var(--text-2)">chunked float16 memmap embedding storage</strong> to handle large-scale post volumes (148K+) in a memory-resilient way, avoiding out-of-memory errors during batch processing.</li>
+              <li>Applied <strong style="color:var(--text-2)">UMAP</strong> for dimensionality reduction followed by <strong style="color:var(--text-2)">HDBSCAN</strong>-based clustering via <strong style="color:var(--text-2)">BERTopic</strong>, producing 20–50 coherent topic clusters per project run with noise points isolated as outliers.</li>
+              <li>Integrated <strong style="color:var(--text-2)">LLM-assisted topic labeling</strong> to automatically name and rank the largest themes, replacing generic keyword-based labels with human-readable cluster titles.</li>
+              <li>Used <strong style="color:var(--text-2)">rake-nltk</strong> for keyword extraction within clusters to supplement topic descriptions with representative terms from the raw posts.</li>
+              <li>Wrapped the full pipeline in a <strong style="color:var(--text-2)">FastAPI</strong> endpoint (served via uvicorn) for downstream consumption by government and corporate analytics clients through the Nolimit platform.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">03</span>
+            <span class="ps-title">Result</span>
+          </div>
+          <div class="ps-content">
+            <div class="result-highlight">
+              <div class="result-stat">
+                <div class="result-stat-val">148K+</div>
+                <div class="result-stat-label">Posts processed per run</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">~49</div>
+                <div class="result-stat-label">Topic clusters per project</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">3</div>
+                <div class="result-stat-label">Platforms (Twitter, FB, IG)</div>
+              </div>
+            </div>
+            <p>The pipeline successfully processed 148K+ short-form Indonesian social media posts per project run, consistently producing ~49 coherent, human-interpretable topic clusters — including automatic LLM-generated labels for the largest themes. The float16 memmap approach kept memory usage manageable throughout large-batch runs without sacrificing embedding quality.</p>
+            <p>The system was deployed as a FastAPI service integrated into PT Nolimit Indonesia's analytics platform, serving government ministry clients and corporate accounts with structured topic intelligence derived from unstructured social media data. This project was the most technically complex work of the internship, combining multilingual NLP, unsupervised learning, and production API development into a single end-to-end system.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="project-gallery" data-reveal>
+        <div class="project-gallery-title">Gallery</div>
+        <div class="gallery-grid">
+          <div class="gallery-item" style="background:linear-gradient(135deg,#0D4F5C,#0891B2)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🗂</div>
+              <div class="gallery-placeholder-text">Topic Cluster Output</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#0891B2,#06B6D4)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🔵</div>
+              <div class="gallery-placeholder-text">UMAP Embedding Space</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#0D4F5C,#0891B2)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">⚡</div>
+              <div class="gallery-placeholder-text">FastAPI Endpoint</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="project-nav" data-reveal>
+        <a href="projects.html" class="project-nav-back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          All Projects
+        </a>
+        <div class="project-nav-next">
+          <span class="project-nav-label">Next Project</span>
+          <a href="project-hotel-booking.html" class="project-nav-title">
+            Hotel Booking Prediction
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

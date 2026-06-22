@@ -1032,6 +1032,91 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .project-nav-title:hover svg { transform: translateX(4px); }
 
 /* =============================================
+   WORK EXPERIENCE SECTION
+   ============================================= */
+.exp-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.exp-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 2rem;
+  transition: var(--t);
+}
+.exp-card:hover { border-color: var(--border-mid); }
+.exp-header {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.exp-logo {
+  width: 52px; height: 52px;
+  border-radius: var(--r);
+  background: var(--gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--bg-0);
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+.exp-meta { flex: 1; min-width: 0; }
+.exp-role { font-size: 1.1rem; font-weight: 700; color: var(--text-1); margin-bottom: 0.2rem; }
+.exp-company { font-size: 0.925rem; font-weight: 600; color: var(--sky); margin-bottom: 0.4rem; }
+.exp-details {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-4);
+  flex-wrap: wrap;
+}
+.exp-dot { opacity: 0.4; }
+.exp-type {
+  background: rgba(56,189,248,0.08);
+  border: 1px solid rgba(56,189,248,0.2);
+  color: var(--sky);
+  padding: 0.15rem 0.55rem;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+.exp-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1.25rem;
+}
+.exp-bullets li {
+  position: relative;
+  color: var(--text-3);
+  font-size: 0.925rem;
+  line-height: 1.85;
+}
+.exp-bullets li::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 0.67rem;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--sky);
+  flex-shrink: 0;
+}
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+/* =============================================
    FOOTER
    ============================================= */
 .footer {
