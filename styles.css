@@ -912,21 +912,33 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .ps-content h3 { font-size: 1.1rem; font-weight: 700; color: var(--text-1); margin-bottom: 0.85rem; }
 .ps-content p { color: var(--text-3); line-height: 1.85; font-size: 0.975rem; margin-bottom: 0.75rem; }
 .ps-content p:last-child { margin-bottom: 0; }
-.ps-content ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.ps-content ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; padding-left: 1.25rem; }
 .ps-content li {
-  display: flex;
-  gap: 0.75rem;
+  position: relative;
   color: var(--text-3);
   font-size: 0.975rem;
-  line-height: 1.75;
+  line-height: 1.85;
 }
 .ps-content li::before {
   content: '';
-  width: 6px; height: 6px;
+  position: absolute;
+  left: -1rem;
+  top: 0.65rem;
+  width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--sky);
   flex-shrink: 0;
-  margin-top: 0.55rem;
+}
+.ps-content code {
+  display: inline;
+  background: var(--bg-3);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.82em;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  color: var(--sky);
+  border: 1px solid var(--border);
+  white-space: nowrap;
 }
 .result-highlight {
   display: grid;
