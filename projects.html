@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Darrell Lokadeva Lim</title>
+  <meta name="description" content="Data science and machine learning projects by Darrell Lokadeva Lim.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Darrell</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== PROJECTS HERO ==================== -->
+  <div class="projects-hero">
+    <div class="projects-hero-bg"></div>
+    <div class="container">
+      <div class="section-tag" style="margin-bottom:0.85rem">Portfolio</div>
+      <h1 data-reveal>
+        <span class="gradient-text">Projects</span> &amp; Work
+      </h1>
+      <p style="margin-top:0.75rem; color:var(--text-3); font-size:1.025rem; max-width:480px; line-height:1.75;" data-reveal data-reveal-delay="2">
+        Four end-to-end data projects spanning machine learning, statistical analysis, NLP, and computer vision.
+      </p>
+    </div>
+  </div>
+
+  <!-- ==================== PROJECTS GRID ==================== -->
+  <div class="container">
+    <div class="projects-grid">
+
+      <!-- Card 1: Hotel Booking -->
+      <div class="project-card" data-reveal data-reveal-delay="1">
+        <div class="project-cover" style="background: linear-gradient(135deg, #0369A1 0%, #0EA5E9 50%, #38BDF8 100%);">
+          <div class="project-cover-pattern"></div>
+          <div class="project-cover-num">01</div>
+          <div class="project-cover-icon">🏨</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-date">May 2026</span>
+          </div>
+          <h2 class="project-card-title">Hotel Booking Cancellation Prediction</h2>
+          <p class="project-card-desc">
+            End-to-end ML classification pipeline on 83,573+ hotel booking records to predict cancellations. HistGradientBoosting selected as best model (F1 0.74) with threshold analysis enabling business-driven deployment decisions.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Scikit-learn</span>
+            <span class="tag">HistGradientBoosting</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">Seaborn</span>
+          </div>
+          <div class="project-card-footer">
+            <a href="project-hotel-booking.html" class="project-link">
+              View Project
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/mdevx3/Darrell-PWDK-Capstone-3" target="_blank" rel="noopener" class="project-gh">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Amazon SaaS -->
+      <div class="project-card" data-reveal data-reveal-delay="2">
+        <div class="project-cover" style="background: linear-gradient(135deg, #B45309 0%, #D97706 50%, #FBBF24 100%);">
+          <div class="project-cover-pattern"></div>
+          <div class="project-cover-num">02</div>
+          <div class="project-cover-icon">📊</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-date">Apr 2026</span>
+          </div>
+          <h2 class="project-card-title">Amazon SaaS Sales Data Analysis</h2>
+          <p class="project-card-desc">
+            Statistical analysis of 9,994 global B2B SaaS transactions using Mann-Whitney U and Spearman correlation. Uncovered that discounts above 20% triggered extreme losses — including a $70K+ deficit from one product.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">SciPy</span>
+            <span class="tag">Tableau</span>
+            <span class="tag">Seaborn</span>
+          </div>
+          <div class="project-card-footer">
+            <a href="project-amazon-saas.html" class="project-link">
+              View Project
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/mdevx3/Darrell-PWDK-Capstone-2" target="_blank" rel="noopener" class="project-gh">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Sign Language -->
+      <div class="project-card" data-reveal data-reveal-delay="3">
+        <div class="project-cover" style="background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 50%, #A78BFA 100%);">
+          <div class="project-cover-pattern"></div>
+          <div class="project-cover-num">03</div>
+          <div class="project-cover-icon">🤟</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-date">Apr – May 2025</span>
+          </div>
+          <h2 class="project-card-title">Real-Time Sign Language Interpreter</h2>
+          <p class="project-card-desc">
+            Co-developed a real-time ASL-to-text interpreter using Mediapipe hand landmark detection and a TensorFlow deep learning model trained on gesture datasets, achieving one of the top course scores.
+          </p>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">Mediapipe</span>
+            <span class="tag">Java</span>
+          </div>
+          <div class="project-card-footer">
+            <a href="project-sign-language.html" class="project-link">
+              View Project
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: International Debt -->
+      <div class="project-card" data-reveal data-reveal-delay="4">
+        <div class="project-cover" style="background: linear-gradient(135deg, #065F46 0%, #059669 50%, #34D399 100%);">
+          <div class="project-cover-pattern"></div>
+          <div class="project-cover-num">04</div>
+          <div class="project-cover-icon">🌍</div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-date">May 2025</span>
+          </div>
+          <h2 class="project-card-title">International Debt Analysis</h2>
+          <p class="project-card-desc">
+            Analyzed 2,300+ international debt indicators across 124 debtor nations using complex SQL aggregations in PostgreSQL. Identified China as the highest-indebted country and extracted key insights for financial reporting.
+          </p>
+          <div class="project-tags">
+            <span class="tag">SQL</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Aggregations</span>
+            <span class="tag">GROUP BY</span>
+          </div>
+          <div class="project-card-footer">
+            <a href="project-international-debt.html" class="project-link">
+              View Project
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="https://github.com/mdevx3/international-debt-analysis" target="_blank" rel="noopener" class="project-gh">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">
+          &copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.
+        </div>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Sign Language Interpreter — Darrell Lokadeva Lim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Darrell</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BANNER -->
+  <div class="project-detail-hero">
+    <div class="project-detail-banner" style="background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 50%, #A78BFA 100%);">
+      <div class="project-detail-banner-pattern"></div>
+    </div>
+    <div class="project-detail-overlay"></div>
+    <div class="container project-detail-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="projects.html">Projects</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Sign Language</span>
+      </div>
+      <h1 class="project-detail-title">Real-Time Sign<br>Language Interpreter</h1>
+      <div class="project-detail-meta">
+        <span class="meta-badge">🗓 Apr – May 2025</span>
+        <span class="meta-badge">👁 Computer Vision</span>
+        <span class="meta-badge">🤝 Team Project</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="project-detail-body">
+    <div class="container">
+
+      <!-- TOOL TAGS -->
+      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+        <span class="tag">Python</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">Mediapipe</span>
+        <span class="tag">Java</span>
+        <span class="tag">Hand Landmark Detection</span>
+        <span class="tag">Deep Learning</span>
+        <span class="tag">Real-Time Inference</span>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">01</span>
+            <span class="ps-title">Problem</span>
+          </div>
+          <div class="ps-content">
+            <h3>Bridging the communication gap for the deaf community</h3>
+            <p>Deaf and hard-of-hearing individuals face significant communication barriers in everyday interactions — from healthcare appointments to workplace conversations. Most people do not know ASL (American Sign Language), and professional interpreters are costly and not always available.</p>
+            <p>The goal was to build a real-time system capable of translating ASL hand gestures into readable text, operating at video frame rate without specialised hardware — making it accessible as a lightweight software tool.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">02</span>
+            <span class="ps-title">Process</span>
+          </div>
+          <div class="ps-content">
+            <h3>Combining landmark detection with deep learning classification</h3>
+            <ul>
+              <li>Used <strong style="color:var(--text-2)">Google Mediapipe</strong> to extract 21 3D hand landmark keypoints per frame from the live webcam feed — providing a structured, low-dimensional representation of hand pose that is robust to lighting and skin tone variation.</li>
+              <li>Trained a <strong style="color:var(--text-2)">TensorFlow deep learning model</strong> on a labelled gesture dataset, mapping sequences of landmark coordinates to ASL letter/word classes.</li>
+              <li>Integrated the full pipeline with <strong style="color:var(--text-2)">OpenCV</strong> for real-time video capture and frame-by-frame inference, overlaying the predicted text label on the live video stream.</li>
+              <li>Built a Java-based frontend component for the user interface, connecting to the Python inference backend over a local bridge.</li>
+              <li>Validated accuracy using held-out gesture samples and iterated on the model architecture to improve classification confidence on ambiguous hand shapes.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">03</span>
+            <span class="ps-title">Result</span>
+          </div>
+          <div class="ps-content">
+            <div class="result-highlight">
+              <div class="result-stat">
+                <div class="result-stat-val">Real-Time</div>
+                <div class="result-stat-label">Inference Speed</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">21</div>
+                <div class="result-stat-label">3D Keypoints per Frame</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">Top Score</div>
+                <div class="result-stat-label">Course Achievement</div>
+              </div>
+            </div>
+            <p>The system achieved real-time ASL-to-text translation operating at live video frame rate on a standard laptop. The Mediapipe + TensorFlow architecture proved highly effective — landmark-based input made the model invariant to background and lighting conditions that would challenge pixel-based approaches.</p>
+            <p>The project earned one of the top scores in the course, demonstrating both the technical soundness of the approach and its practical accessibility impact. It also served as a strong foundation for exploring multi-word gesture sequences and continuous sign language recognition as future extensions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="project-gallery" data-reveal>
+        <div class="project-gallery-title">Gallery</div>
+        <div class="gallery-grid">
+          <div class="gallery-item" style="background:linear-gradient(135deg,#4C1D95,#7C3AED)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🤚</div>
+              <div class="gallery-placeholder-text">Hand Landmark Detection</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#6D28D9,#A78BFA)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🧠</div>
+              <div class="gallery-placeholder-text">Model Architecture</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#4C1D95,#7C3AED)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🖥</div>
+              <div class="gallery-placeholder-text">Live Demo Interface</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="project-nav" data-reveal>
+        <a href="project-amazon-saas.html" class="project-nav-back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Amazon SaaS
+        </a>
+        <div class="project-nav-next">
+          <span class="project-nav-label">Next Project</span>
+          <a href="project-international-debt.html" class="project-nav-title">
+            International Debt Analysis
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

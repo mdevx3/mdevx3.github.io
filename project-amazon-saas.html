@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon SaaS Sales Analysis — Darrell Lokadeva Lim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Darrell</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BANNER -->
+  <div class="project-detail-hero">
+    <div class="project-detail-banner" style="background: linear-gradient(135deg, #92400E 0%, #D97706 50%, #FBBF24 100%);">
+      <div class="project-detail-banner-pattern"></div>
+    </div>
+    <div class="project-detail-overlay"></div>
+    <div class="container project-detail-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="projects.html">Projects</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Amazon SaaS</span>
+      </div>
+      <h1 class="project-detail-title">Amazon SaaS<br>Sales Data Analysis</h1>
+      <div class="project-detail-meta">
+        <span class="meta-badge">🗓 Apr 2026</span>
+        <span class="meta-badge">📊 Data Analysis</span>
+        <span class="meta-badge">📁 Capstone 2</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="project-detail-body">
+    <div class="container">
+
+      <!-- TOOL TAGS -->
+      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+        <span class="tag">Python</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Seaborn</span>
+        <span class="tag">SciPy</span>
+        <span class="tag">Mann-Whitney U</span>
+        <span class="tag">Spearman Correlation</span>
+        <span class="tag">Tableau</span>
+        <span class="tag">EDA</span>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">01</span>
+            <span class="ps-title">Problem</span>
+          </div>
+          <div class="ps-content">
+            <h3>Why is aggressive discounting destroying profitability?</h3>
+            <p>A global B2B SaaS company was struggling to understand why revenue was growing while profitability was deteriorating. The dataset contained 9,994 transactions across multiple geographies, customer segments, and product lines — with discount rates ranging from 0% to 85%.</p>
+            <p>The core question was whether discounting was driving genuine growth or merely eroding margins. Answering it required going beyond summary statistics to rigorous statistical testing that could hold up to business scrutiny.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">02</span>
+            <span class="ps-title">Process</span>
+          </div>
+          <div class="ps-content">
+            <h3>Statistical testing to move beyond gut-feel analysis</h3>
+            <ul>
+              <li>Performed comprehensive EDA — distribution analysis, outlier detection, and segment-level profiling — to understand the dataset's shape before testing any hypothesis.</li>
+              <li>Applied the <strong style="color:var(--text-2)">Mann-Whitney U test</strong> (non-parametric) to compare profit distributions between high-discount and low-discount transaction groups, avoiding assumptions about normality in the highly skewed data.</li>
+              <li>Used <strong style="color:var(--text-2)">Spearman rank correlation</strong> to quantify the monotonic relationship between discount rate and profit, segmented by product and customer type.</li>
+              <li>Broke down losses by product, region, and customer segment (SMB, Enterprise, Strategic) to identify where the worst-performing combinations were concentrated.</li>
+              <li>Built an interactive Tableau dashboard visualising discount vs. profit by region and product, with drill-down filters for stakeholder exploration.</li>
+              <li>Synthesised findings into a stakeholder presentation with specific, actionable pricing and discount cap recommendations.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">03</span>
+            <span class="ps-title">Result</span>
+          </div>
+          <div class="ps-content">
+            <div class="result-highlight">
+              <div class="result-stat">
+                <div class="result-stat-val">$70K+</div>
+                <div class="result-stat-label">Deficit from one product</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">20%</div>
+                <div class="result-stat-label">Discount threshold</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">9,994</div>
+                <div class="result-stat-label">Transactions Analyzed</div>
+              </div>
+            </div>
+            <p>Statistical analysis confirmed a strong negative relationship between discount rate and profit: discounts above 20% triggered non-linear profit collapse, not just margin compression. The most severe case was the "ContactMatcher" product in the SMB segment, which generated a $70K+ cumulative deficit.</p>
+            <p>The Tableau dashboard and stakeholder presentation delivered three concrete recommendations: cap SMB discounts at 15%, discontinue or reprice "ContactMatcher" in the SMB tier, and implement a discount approval workflow for deals above 20% in the Enterprise segment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="project-gallery" data-reveal>
+        <div class="project-gallery-title">Gallery</div>
+        <div class="gallery-grid">
+          <div class="gallery-item" style="background:linear-gradient(135deg,#92400E,#D97706)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📊</div>
+              <div class="gallery-placeholder-text">Discount vs. Profit Chart</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#B45309,#FBBF24)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📋</div>
+              <div class="gallery-placeholder-text">Tableau Dashboard</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#92400E,#D97706)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🌍</div>
+              <div class="gallery-placeholder-text">Regional Heatmap</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="project-nav" data-reveal>
+        <a href="project-hotel-booking.html" class="project-nav-back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Hotel Booking
+        </a>
+        <div class="project-nav-next">
+          <span class="project-nav-label">Next Project</span>
+          <a href="project-sign-language.html" class="project-nav-title">
+            Sign Language Interpreter
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

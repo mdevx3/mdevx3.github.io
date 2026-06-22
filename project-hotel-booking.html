@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Booking Cancellation Prediction — Darrell Lokadeva Lim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Darrell</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BANNER -->
+  <div class="project-detail-hero">
+    <div class="project-detail-banner" style="background: linear-gradient(135deg, #0369A1 0%, #0EA5E9 50%, #38BDF8 100%);">
+      <div class="project-detail-banner-pattern"></div>
+    </div>
+    <div class="project-detail-overlay"></div>
+    <div class="container project-detail-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="projects.html">Projects</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Hotel Booking</span>
+      </div>
+      <h1 class="project-detail-title">Hotel Booking<br>Cancellation Prediction</h1>
+      <div class="project-detail-meta">
+        <span class="meta-badge">🗓 May 2026</span>
+        <span class="meta-badge">🤖 Machine Learning</span>
+        <span class="meta-badge">📁 Capstone 3</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="project-detail-body">
+    <div class="container">
+
+      <!-- TOOL TAGS -->
+      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+        <span class="tag">Python</span>
+        <span class="tag">Scikit-learn</span>
+        <span class="tag">HistGradientBoosting</span>
+        <span class="tag">Logistic Regression</span>
+        <span class="tag">Random Forest</span>
+        <span class="tag">Decision Tree</span>
+        <span class="tag">RobustScaler</span>
+        <span class="tag">OneHotEncoder</span>
+        <span class="tag">Pandas</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Seaborn</span>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">01</span>
+            <span class="ps-title">Problem</span>
+          </div>
+          <div class="ps-content">
+            <h3>Predicting cancellations to protect hotel revenue</h3>
+            <p>Hotels lose significant revenue when bookings are cancelled at the last minute. With a base cancellation rate of 37% across over 83,573 booking records, the challenge was building a reliable ML classifier that could predict which bookings were likely to cancel — early enough for the hotel to act.</p>
+            <p>The dataset presented two core challenges: a moderate class imbalance (63% not cancelled, 37% cancelled), and a mix of numerical and categorical features requiring a well-designed preprocessing pipeline before any model could be reliably benchmarked.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">02</span>
+            <span class="ps-title">Process</span>
+          </div>
+          <div class="ps-content">
+            <h3>End-to-end scikit-learn pipeline with benchmarking</h3>
+            <ul>
+              <li>Built a unified scikit-learn <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">Pipeline</code> combining <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">RobustScaler</code> (for numerical features resilient to outliers) and <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">OneHotEncoder</code> for categoricals, ensuring no data leakage between train and test sets.</li>
+              <li>Benchmarked four classifiers: Logistic Regression, Decision Tree, Random Forest, and HistGradientBoosting, evaluating each on F1-score, precision, and recall.</li>
+              <li>Addressed the 63/37 class imbalance using <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">class_weight="balanced"</code> to prevent the model from over-predicting the majority class.</li>
+              <li>Engineered binary flags (domestic vs. international guests) and additional categorical indicators from existing features to improve predictive signal.</li>
+              <li>Conducted a decision-threshold sweep on the best model to identify operating points that align with different business priorities (maximum recall vs. optimal F1).</li>
+              <li>Used feature importance analysis to rank predictors and validate that domain-intuitive features drove the model's decisions.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">03</span>
+            <span class="ps-title">Result</span>
+          </div>
+          <div class="ps-content">
+            <div class="result-highlight">
+              <div class="result-stat">
+                <div class="result-stat-val">0.74</div>
+                <div class="result-stat-label">F1-Score (test set)</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">~96%</div>
+                <div class="result-stat-label">Max Recall (threshold 0.26)</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">83K+</div>
+                <div class="result-stat-label">Booking Records Analyzed</div>
+              </div>
+            </div>
+            <p>HistGradientBoosting outperformed all benchmarks with an F1-score of 0.74 on the held-out test set. Threshold analysis revealed two practical operating points: a threshold of 0.26 for maximum recall (~96%) — useful when the hotel wants to flag every at-risk booking — and a threshold of 0.48 for optimal F1, better suited when false positives have significant operational cost.</p>
+            <p><strong style="color:var(--text-2)">Top predictive features:</strong> <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">deposit_type</code> and <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">market_segment</code> emerged as the strongest signals, confirming domain intuition that non-refundable deposits and certain booking channels are highly correlated with cancellation likelihood.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="project-gallery" data-reveal>
+        <div class="project-gallery-title">Gallery</div>
+        <div class="gallery-grid">
+          <div class="gallery-item" style="background:linear-gradient(135deg,#0369A1,#0EA5E9)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📈</div>
+              <div class="gallery-placeholder-text">Feature Importance Chart</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#0284C7,#38BDF8)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📉</div>
+              <div class="gallery-placeholder-text">Threshold Analysis Curve</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#0369A1,#0EA5E9)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🔲</div>
+              <div class="gallery-placeholder-text">Confusion Matrix</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="project-nav" data-reveal>
+        <a href="projects.html" class="project-nav-back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          All Projects
+        </a>
+        <div class="project-nav-next">
+          <span class="project-nav-label">Next Project</span>
+          <a href="project-amazon-saas.html" class="project-nav-title">
+            Amazon SaaS Analysis
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

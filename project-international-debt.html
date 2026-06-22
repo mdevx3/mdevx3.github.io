@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>International Debt Analysis — Darrell Lokadeva Lim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Darrell</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BANNER -->
+  <div class="project-detail-hero">
+    <div class="project-detail-banner" style="background: linear-gradient(135deg, #064E3B 0%, #059669 50%, #34D399 100%);">
+      <div class="project-detail-banner-pattern"></div>
+    </div>
+    <div class="project-detail-overlay"></div>
+    <div class="container project-detail-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="projects.html">Projects</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>International Debt</span>
+      </div>
+      <h1 class="project-detail-title">International<br>Debt Analysis</h1>
+      <div class="project-detail-meta">
+        <span class="meta-badge">🗓 May 2025</span>
+        <span class="meta-badge">🗄 SQL Analytics</span>
+        <span class="meta-badge">🌍 124 Nations</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="project-detail-body">
+    <div class="container">
+
+      <!-- TOOL TAGS -->
+      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+        <span class="tag">SQL</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">GROUP BY</span>
+        <span class="tag">Aggregations</span>
+        <span class="tag">Subqueries</span>
+        <span class="tag">Window Functions</span>
+        <span class="tag">Financial Analysis</span>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">01</span>
+            <span class="ps-title">Problem</span>
+          </div>
+          <div class="ps-content">
+            <h3>Extracting global debt patterns from 2,300+ raw indicators</h3>
+            <p>International debt data from the World Bank spans hundreds of indicator types across 124 debtor nations — a highly dimensional dataset that is difficult to interpret without careful aggregation and cross-dimensional analysis. The raw data is structured but unwieldy: understanding which countries carry the highest debt burdens, which debt categories dominate, and how repayment obligations compare across nations requires complex SQL work, not just simple queries.</p>
+            <p>The challenge was to produce a clean, interpretable financial analysis using SQL alone — no Python, no visualisation libraries — demonstrating mastery of relational data modelling and query design.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">02</span>
+            <span class="ps-title">Process</span>
+          </div>
+          <div class="ps-content">
+            <h3>Multi-dimensional aggregation across countries and indicators</h3>
+            <ul>
+              <li>Designed layered SQL queries in <strong style="color:var(--text-2)">PostgreSQL</strong> to aggregate 2,300+ debt indicators across 124 nations, using <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">GROUP BY</code> with multiple dimensions to surface total debt, principal repayments, and interest obligations by country and indicator category.</li>
+              <li>Used correlated subqueries to identify the single country with the highest total principal repayments, and to extract the most common debt indicator type across the dataset.</li>
+              <li>Handled <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">NULL</code> values carefully with <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">COALESCE</code> and conditional aggregation to prevent skewed totals where individual indicator records were missing.</li>
+              <li>Ranked countries by total debt using <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">ORDER BY</code> and <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">LIMIT</code> patterns, and cross-referenced against debt category breakdowns to understand whether debt was concentrated in long-term borrowing, short-term instruments, or concessional lending.</li>
+              <li>Structured the final query outputs into a financial reporting format — a series of named result sets suitable for presentation to a policy analysis audience.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">03</span>
+            <span class="ps-title">Result</span>
+          </div>
+          <div class="ps-content">
+            <div class="result-highlight">
+              <div class="result-stat">
+                <div class="result-stat-val">2,300+</div>
+                <div class="result-stat-label">Debt Indicators</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">124</div>
+                <div class="result-stat-label">Debtor Nations</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">#1</div>
+                <div class="result-stat-label">China by total repayments</div>
+              </div>
+            </div>
+            <p>China emerged as the highest-indebted nation by total principal repayments — a finding consistent with its large infrastructure borrowing portfolio under development finance programmes. The analysis also revealed that long-term external debt dominated the dataset, with a small number of high-income and upper-middle-income countries accounting for a disproportionate share of total obligations.</p>
+            <p>The project demonstrated that production-quality financial insight is achievable with SQL alone — no Python needed — and reinforced strong query design habits around NULL handling, aggregation correctness, and result interpretability.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GALLERY -->
+      <div class="project-gallery" data-reveal>
+        <div class="project-gallery-title">Gallery</div>
+        <div class="gallery-grid">
+          <div class="gallery-item" style="background:linear-gradient(135deg,#064E3B,#059669)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🌍</div>
+              <div class="gallery-placeholder-text">Country Debt Rankings</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#047857,#34D399)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">🗄</div>
+              <div class="gallery-placeholder-text">SQL Query Output</div>
+            </div>
+          </div>
+          <div class="gallery-item" style="background:linear-gradient(135deg,#064E3B,#059669)">
+            <div class="gallery-placeholder">
+              <div class="gallery-placeholder-icon">📑</div>
+              <div class="gallery-placeholder-text">Indicator Breakdown</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="project-nav" data-reveal>
+        <a href="project-sign-language.html" class="project-nav-back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sign Language
+        </a>
+        <div class="project-nav-next">
+          <span class="project-nav-label">Back to start</span>
+          <a href="projects.html" class="project-nav-title">
+            All Projects
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
