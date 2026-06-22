@@ -315,7 +315,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   animation: pulseDot 2s ease infinite;
 }
 .hero-name {
-  font-size: clamp(4rem, 11vw, 7.5rem);
+  font-size: clamp(2.5rem, 6.5vw, 5rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   background: var(--gradient-text);
