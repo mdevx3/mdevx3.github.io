@@ -134,6 +134,30 @@
         </div>
       </div>
 
+      <!-- RESULTS FIGURES -->
+      <div class="figure-gallery" data-reveal>
+        <div class="figure-gallery-title">Model Performance</div>
+        <div class="figure-gallery-sub">Evaluation visualizations from the final HistGradientBoosting classifier on the held-out test set.</div>
+        <div class="figure-grid">
+          <div class="figure-card">
+            <img src="images/hotel-feature-importance.png" alt="Permutation feature importance bar chart" loading="lazy">
+            <div class="figure-cap"><strong>Feature Importance</strong> — permutation importance ranks <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">deposit_type</code> and <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">market_segment</code> as the dominant cancellation signals.</div>
+          </div>
+          <div class="figure-card">
+            <img src="images/hotel-confusion-matrix.png" alt="Confusion matrix of cancellation predictions" loading="lazy">
+            <div class="figure-cap"><strong>Confusion Matrix</strong> — 4,854 cancellations correctly caught against 1,302 missed, reflecting the high-recall operating point.</div>
+          </div>
+          <div class="figure-card">
+            <img src="images/hotel-roc-curve.png" alt="ROC curve with AUC 0.89" loading="lazy">
+            <div class="figure-cap"><strong>ROC Curve</strong> — AUC of 0.89 confirms strong separation between cancelled and honoured bookings.</div>
+          </div>
+          <div class="figure-card">
+            <img src="images/hotel-pr-curve.png" alt="Precision-recall curve with average precision 0.85" loading="lazy">
+            <div class="figure-cap"><strong>Precision–Recall Curve</strong> — average precision of 0.85, the more honest metric for this imbalanced cancellation problem.</div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- NAVIGATION -->
       <div class="project-nav" data-reveal>
