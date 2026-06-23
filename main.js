@@ -112,19 +112,39 @@ document.querySelectorAll('[data-stagger-container]').forEach(el => {
 /* === CONTACT FORM === */
 const form = document.querySelector('.contact-form form');
 if (form) {
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = form.querySelector('.form-submit');
     const original = btn.innerHTML;
-    btn.innerHTML = 'Message sent ✓';
     btn.disabled = true;
     btn.style.opacity = '0.7';
+    btn.innerHTML = 'Sending…';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        btn.innerHTML = 'Message sent ✓';
+        form.reset();
+      } else {
+        console.error('Web3Forms error:', data);
+        btn.innerHTML = 'Something went wrong — email me directly';
+      }
+    } catch (err) {
+      console.error('Contact form network error:', err);
+      btn.innerHTML = 'Network error — email me directly';
+    }
+
     setTimeout(() => {
       btn.innerHTML = original;
       btn.disabled = false;
       btn.style.opacity = '';
-      form.reset();
-    }, 3000);
+    }, 4000);
   });
 }
 
