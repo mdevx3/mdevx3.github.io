@@ -406,6 +406,12 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   flex-shrink: 0;
   letter-spacing: -0.04em;
 }
+.about-photo img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
 .about-photo::before {
   content: '';
   position: absolute;
