@@ -99,10 +99,12 @@
           <div class="ps-content">
             <h3>Statistical testing to move beyond gut-feel analysis</h3>
             <ul>
+              <li>Cleaned and standardised the dataset — corrected data types, fixed subregion misclassifications (e.g. Israel placed in EU-EAST), and confirmed zero missing values or duplicates across 9,994 rows.</li>
               <li>Performed comprehensive EDA — distribution analysis, outlier detection, and segment-level profiling — to understand the dataset's shape before testing any hypothesis.</li>
-              <li>Applied the <strong style="color:var(--text-2)">Mann-Whitney U test</strong> (non-parametric) to compare profit distributions between high-discount and low-discount transaction groups, avoiding assumptions about normality in the highly skewed data.</li>
-              <li>Used <strong style="color:var(--text-2)">Spearman rank correlation</strong> to quantify the monotonic relationship between discount rate and profit, segmented by product and customer type.</li>
-              <li>Broke down losses by product, region, and customer segment (SMB, Enterprise, Strategic) to identify where the worst-performing combinations were concentrated.</li>
+              <li>Ran a <strong style="color:var(--text-2)">D'Agostino-Pearson normality test</strong> on both groups (discounted vs. non-discounted), confirmed non-normality in both, and selected a non-parametric approach accordingly.</li>
+              <li>Applied the <strong style="color:var(--text-2)">Mann-Whitney U test</strong> to compare profit distributions between discounted and non-discounted transactions — yielding a medium-to-large effect size (rank-biserial ≈ 0.50).</li>
+              <li>Used <strong style="color:var(--text-2)">Spearman rank correlation</strong> (ρ = −0.54, p ≈ 0) to quantify the monotonic inverse relationship between discount rate and profit.</li>
+              <li>Drilled down with heatmaps mapping total losses per product against both discount level and customer segment to surface where each product's leakage was concentrated.</li>
               <li>Built an interactive Tableau dashboard visualising discount vs. profit by region and product, with drill-down filters for stakeholder exploration.</li>
               <li>Synthesised findings into a stakeholder presentation with specific, actionable pricing and discount cap recommendations.</li>
             </ul>
