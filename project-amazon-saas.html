@@ -126,16 +126,17 @@
                 <div class="result-stat-label">Deficit from one product</div>
               </div>
               <div class="result-stat">
-                <div class="result-stat-val">20%</div>
-                <div class="result-stat-label">Discount threshold</div>
+                <div class="result-stat-val">30%</div>
+                <div class="result-stat-label">Tipping point discount</div>
               </div>
               <div class="result-stat">
-                <div class="result-stat-val">9,994</div>
-                <div class="result-stat-label">Transactions Analyzed</div>
+                <div class="result-stat-val">1,871</div>
+                <div class="result-stat-label">Loss-making transactions</div>
               </div>
             </div>
-            <p>Statistical analysis confirmed a strong negative relationship between discount rate and profit: discounts above 20% triggered non-linear profit collapse, not just margin compression. The most severe case was the "ContactMatcher" product in the SMB segment, which generated a $70K+ cumulative deficit.</p>
-            <p>The Tableau dashboard and stakeholder presentation delivered three concrete recommendations: cap SMB discounts at 15%, discontinue or reprice "ContactMatcher" in the SMB tier, and implement a discount approval workflow for deals above 20% in the Enterprise segment.</p>
+            <p>Every single one of the 1,871 loss-making transactions had a discount — and every one of the 4,798 non-discounted transactions was profitable. The margin stays healthy up to a 20% discount (+11.8%), but collapses at 30% (−10.1%) with the loss rate jumping from 13.7% to 91.6%. Discounts ≥ 30% alone account for ~$135K in losses — 88.7% of the company's total leakage.</p>
+            <p>The SMB segment bore the deepest losses (−$84,946), driven by its combination of high transaction volume and thin margins. "ContactMatcher" was the worst single product at −$70,923. A key exception: "FinanceHub" loses money even at low discounts (20–30%), pointing to a cost structure problem rather than excessive discounting — requiring re-pricing rather than a cap.</p>
+            <p>Recommendations: cap all discounts at 20% with managerial approval required above that threshold; shift SMB incentives away from price cuts toward bundling and extended trials; re-price FinanceHub at the base level; and implement automated margin alerts for any transaction projecting a loss before it closes.</p>
           </div>
         </div>
       </div>
