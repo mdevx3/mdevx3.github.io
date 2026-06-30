@@ -544,6 +544,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   transition: var(--t-med);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .project-card:hover {
   border-color: var(--border-mid);
@@ -646,6 +647,11 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   color: var(--sky);
   transition: var(--t);
 }
+.project-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
 .project-link svg { transition: transform var(--t); }
 .project-link:hover { color: var(--text-1); }
 .project-link:hover svg { transform: translateX(4px); }
@@ -656,6 +662,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   font-size: 0.75rem;
   color: var(--text-4);
   transition: var(--t);
+  position: relative;
 }
 .project-gh:hover { color: var(--text-2); }
 
