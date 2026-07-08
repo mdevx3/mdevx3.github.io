@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cycle Monitoring System — Darrell Lokadeva Lim</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav scrolled" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Darrell</a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="projects.html" class="active">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- BANNER -->
+  <div class="project-detail-hero">
+    <div class="project-detail-banner" style="background: linear-gradient(135deg, #1E3A5F 0%, #1D4ED8 50%, #3B82F6 100%);">
+      <div class="project-detail-banner-pattern"></div>
+    </div>
+    <div class="project-detail-overlay"></div>
+    <div class="container project-detail-header">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <a href="projects.html">Projects</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Cycle Monitoring System</span>
+      </div>
+      <h1 class="project-detail-title">Cycle Monitoring<br>System</h1>
+      <div class="project-detail-meta">
+        <span class="meta-badge">🗓 Jun 2026</span>
+        <span class="meta-badge">🏢 PT Nolimit Indonesia</span>
+        <span class="meta-badge">🔒 Company Project</span>
+        <span class="meta-badge">📡 Real-Time Monitoring</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="project-detail-body">
+    <div class="container">
+
+      <!-- TOOL TAGS -->
+      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+        <span class="tag">Python</span>
+        <span class="tag">Django</span>
+        <span class="tag">JWT</span>
+        <span class="tag">InfluxDB</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">beanstalkd</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">REST API</span>
+      </div>
+
+      <!-- PROBLEM -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">01</span>
+            <span class="ps-title">Problem</span>
+          </div>
+          <div class="ps-content">
+            <h3>No visibility into whether tens of thousands of crawl jobs were actually running on schedule</h3>
+            <p>PT Nolimit Indonesia's social media ingestion pipeline runs continuous crawl jobs across Twitter/X and Instagram for thousands of tracked keywords and accounts. Each object has its own crawl frequency (priority interval) and scroll depth configured in the database — but there was no way for operators to know if jobs were being dispatched on time, stalling in the queue, or silently failing.</p>
+            <p>With no monitoring layer, a stalled Pusher or a backed-up Worker queue could go undetected for hours, causing gaps in data coverage for government and corporate clients who depend on continuous social media intelligence.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESS -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">02</span>
+            <span class="ps-title">Process</span>
+          </div>
+          <div class="ps-content">
+            <h3>Dual-source reads, time-slot health scoring, and a JWT-secured API layer</h3>
+            <ul>
+              <li>Designed a dual-source read architecture that simultaneously queries <strong style="color:var(--text-2)">InfluxDB</strong> for live event logs (Pusher and Worker/autocrawler activity) and <strong style="color:var(--text-2)">PostgreSQL</strong> (obj_management) for crawl configuration metadata — crawl frequency and scroll depth — on every dashboard request.</li>
+              <li>Built a time-slot health scoring system: the monitoring window is segmented into slots based on each object's priority interval, and a slot is marked successful if a push event is detected within it — accounting for minor network delays through a configurable grace period.</li>
+              <li>Computed a <strong style="color:var(--text-2)">success rate metric</strong> (completed slots ÷ expected slots) per object, alongside live on-time flags so operators can instantly spot stalled crawl processes.</li>
+              <li>Optimised query performance for tens of thousands of tracked objects by filtering to <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">isActive=True</code> entries and paginating to 100 rows per view, keeping dashboard load times fast regardless of dataset size.</li>
+              <li>Synchronised searchable account and keyword dropdowns with PostgreSQL to ensure filters reflect actual database state rather than raw InfluxDB tags, preventing stale or inconsistent filter options.</li>
+              <li>Exposed the monitoring data through <strong style="color:var(--text-2)">7 JWT-secured Django REST API endpoints</strong>, covering metrics retrieval, object search, and configuration lookups — keeping all dashboard data access authenticated and auditable.</li>
+              <li>Built the frontend in <strong style="color:var(--text-2)">vanilla JavaScript</strong> with comparative bar charts for Pusher vs. Worker throughput, interactive time range sliders, and success rate filters for auditing underperforming crawl objects.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="project-section" data-reveal>
+        <div class="project-section-inner">
+          <div class="ps-label">
+            <span class="ps-num">03</span>
+            <span class="ps-title">Result</span>
+          </div>
+          <div class="ps-content">
+            <div class="result-highlight">
+              <div class="result-stat">
+                <div class="result-stat-val">7</div>
+                <div class="result-stat-label">JWT-secured API endpoints</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">2</div>
+                <div class="result-stat-label">Live data sources (InfluxDB + PG)</div>
+              </div>
+              <div class="result-stat">
+                <div class="result-stat-val">100ms</div>
+                <div class="result-stat-label">Target load time per view</div>
+              </div>
+            </div>
+            <p>The dashboard gave operators their first real-time view into the health of the crawl pipeline — surfacing success rates, on-time flags, and Pusher vs. Worker throughput comparisons in a single interface. Stalled jobs that previously went undetected for hours could now be identified immediately via the success rate filter and on-time indicators.</p>
+            <p>The system was integrated into PT Nolimit Indonesia's internal analytics infrastructure, handling tens of thousands of active tracking objects across multiple platforms and client accounts — with dual-source reads kept performant through targeted filtering and pagination.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <div class="project-nav" data-reveal>
+        <a href="project-social-media-clustering.html" class="project-nav-back">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Social Media Clustering
+        </a>
+        <div class="project-nav-next">
+          <span class="project-nav-label">Next Project</span>
+          <a href="project-hotel-booking.html" class="project-nav-title">
+            Hotel Booking Prediction
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
+        <div class="footer-links">
+          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
+          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
