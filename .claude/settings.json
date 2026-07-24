@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --check main.js)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js --max-time 5)",
+      "Bash(node --check /Users/darrell/Documents/portfolio/main.js)",
+      "Bash(pkill -f \"http.server 8791\")"
+    ]
+  }
+}

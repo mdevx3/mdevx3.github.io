@@ -119,17 +119,92 @@ const heroSection = document.querySelector('.hero');
 if (heroSection) {
   anime.set('.nav-logo', { opacity: 0, translateY: -12 });
   anime.set('.nav-links li', { opacity: 0, translateY: -8 });
+  anime.set('.hero-name', { opacity: 0, clipPath: 'inset(0 100% 0 0)', scale: 1.04 });
 
   anime.timeline({ easing: 'easeOutExpo' })
     .add({ targets: '.nav-logo',          opacity: [0, 1], translateY: [-12, 0], duration: 600 }, 0)
     .add({ targets: '.nav-links li',      opacity: [0, 1], translateY: [  -8, 0], duration: 500, delay: anime.stagger(60) }, 100)
     .add({ targets: '.hero-eyebrow',      opacity: [0, 1], translateY: [  20, 0], duration: 700 }, 220)
-    .add({ targets: '.hero-name',         opacity: [0, 1], translateY: [  36, 0], scale: [0.96, 1], duration: 900 }, 400)
-    .add({ targets: '.hero-headline',     opacity: [0, 1], translateY: [  18, 0], duration: 700 }, 620)
-    .add({ targets: '.hero-intro',        opacity: [0, 1], translateY: [  16, 0], duration: 700 }, 760)
-    .add({ targets: '.hero-actions .btn', opacity: [0, 1], translateY: [  14, 0], duration: 600, delay: anime.stagger(110) }, 940)
-    .add({ targets: '.hero-scroll-hint',  opacity: [0, 1], translateY: [  10, 0], duration: 600 }, 1250);
+    .add({ targets: '.hero-name',         opacity: [0, 1], clipPath: ['inset(0 100% 0 0)', 'inset(0 0% 0 0)'], scale: [1.04, 1], duration: 1100, easing: 'easeOutQuint' }, 400)
+    .add({ targets: '.hero-headline',     opacity: [0, 1], translateY: [  18, 0], duration: 700 }, 700)
+    .add({ targets: '.hero-intro',        opacity: [0, 1], translateY: [  16, 0], duration: 700 }, 840)
+    .add({ targets: '.hero-actions .btn', opacity: [0, 1], translateY: [  14, 0], scale: [0.9, 1], duration: 600, delay: anime.stagger(110) }, 1020)
+    .add({ targets: '.hero-scroll-hint',  opacity: [0, 1], translateY: [  10, 0], duration: 600 }, 1330);
 }
+
+/* === MOUSE PARALLAX HERO ORBS === */
+const heroOrbs = document.querySelectorAll('.hero-orb');
+if (heroOrbs.length && heroSection) {
+  let parallaxQueued = false;
+  heroSection.addEventListener('mousemove', (e) => {
+    if (parallaxQueued) return;
+    parallaxQueued = true;
+    requestAnimationFrame(() => {
+      const rect = heroSection.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      heroOrbs.forEach((orb, i) => {
+        const strength = (i + 1) * 18;
+        anime({
+          targets: orb,
+          translateX: x * strength,
+          translateY: y * strength,
+          duration: 900,
+          easing: 'easeOutQuad',
+        });
+      });
+      parallaxQueued = false;
+    });
+  });
+}
+
+/* === PROJECT CARD 3D TILT === */
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    anime({
+      targets: card,
+      rotateY: x * 8,
+      rotateX: y * -8,
+      translateY: -6,
+      duration: 400,
+      easing: 'easeOutQuad',
+    });
+  });
+  card.addEventListener('mouseleave', () => {
+    anime({
+      targets: card,
+      rotateY: 0,
+      rotateX: 0,
+      translateY: 0,
+      duration: 500,
+      easing: 'easeOutQuad',
+    });
+  });
+});
+
+/* === SCROLL PROGRESS BAR === */
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.appendChild(progressBar);
+let progressQueued = false;
+window.addEventListener('scroll', () => {
+  if (progressQueued) return;
+  progressQueued = true;
+  requestAnimationFrame(() => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    anime({
+      targets: progressBar,
+      width: pct + '%',
+      duration: 200,
+      easing: 'easeOutQuad',
+    });
+    progressQueued = false;
+  });
+}, { passive: true });
 
 /* === EYEBROW DOT PULSE === */
 const eyebrowDot = document.querySelector('.hero-eyebrow-dot');
@@ -166,6 +241,7 @@ const revealObserver = new IntersectionObserver((entries) => {
         targets: entry.target,
         opacity: [0, 1],
         translateY: [28, 0],
+        scale: [0.96, 1],
         duration: 750,
         delay,
         easing: 'easeOutExpo',

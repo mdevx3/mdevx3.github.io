@@ -528,20 +528,22 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
   padding-bottom: 6rem;
+  perspective: 1400px;
 }
 .project-card {
   background: var(--bg-2);
   border: 1px solid var(--border);
   border-radius: var(--r-xl);
   overflow: hidden;
-  transition: var(--t-med);
+  transition: border-color var(--t-med), box-shadow var(--t-med);
   display: flex;
   flex-direction: column;
   position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 .project-card:hover {
   border-color: var(--border-mid);
-  transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
 }
 .project-cover {
@@ -1174,10 +1176,21 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
    ============================================= */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(28px) scale(0.96);
 }
 
 [data-stagger] { opacity: 0; }
+
+/* === SCROLL PROGRESS BAR === */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: var(--gradient);
+  z-index: 1002;
+  pointer-events: none;
+}
 
 /* =============================================
    KEYFRAMES
