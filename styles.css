@@ -1229,34 +1229,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   pointer-events: none;
 }
 
-/* === MAGNETIC CUSTOM CURSOR === */
-body.has-custom-cursor,
-body.has-custom-cursor a,
-body.has-custom-cursor button {
-  cursor: none;
-}
-.cursor-dot {
-  position: fixed;
-  top: 0; left: 0;
-  width: 6px; height: 6px;
-  margin: -3px 0 0 -3px;
-  border-radius: 50%;
-  background: var(--sky);
-  pointer-events: none;
-  z-index: 3000;
-  opacity: 0;
-}
-.cursor-ring {
-  position: fixed;
-  top: 0; left: 0;
-  width: 32px; height: 32px;
-  margin: -16px 0 0 -16px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border-bright);
-  pointer-events: none;
-  z-index: 2999;
-  opacity: 0;
-}
 
 /* =============================================
    KEYFRAMES
