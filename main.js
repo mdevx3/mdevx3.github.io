@@ -268,6 +268,13 @@ if (projectDetailHero) {
     .add('.project-detail-meta',  { opacity: [0, 1], translateY: [10, 0], duration: 550 }, 640);
 }
 
+/* === EXPERIENCE TIMELINE RAIL === */
+document.querySelectorAll('.exp-card').forEach(card => {
+  const rail = document.createElement('div');
+  rail.className = 'exp-timeline-rail';
+  card.insertBefore(rail, card.firstChild);
+});
+
 /* === SCROLL REVEAL === */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -281,12 +288,39 @@ const revealObserver = new IntersectionObserver((entries) => {
         delay,
         ease: 'outExpo',
       });
+      const rail = entry.target.querySelector('.exp-timeline-rail');
+      if (rail) {
+        animate(rail, { scaleY: [0, 1], duration: 700, delay: delay + 250, ease: 'outQuad' });
+      }
       revealObserver.unobserve(entry.target);
     }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
 document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+
+/* === SECTION TITLE UNDERLINE DRAW === */
+document.querySelectorAll('.section-title').forEach(title => {
+  const underline = document.createElement('span');
+  underline.className = 'title-underline';
+  title.insertAdjacentElement('afterend', underline);
+});
+
+const underlineObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animate(entry.target, {
+        scaleX: [0, 1],
+        duration: 700,
+        delay: 250,
+        ease: 'outQuad',
+      });
+      underlineObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.title-underline').forEach(el => underlineObserver.observe(el));
 
 /* === STAGGERED CHILDREN REVEAL === */
 const staggerObserver = new IntersectionObserver((entries) => {
@@ -385,3 +419,140 @@ const counterObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.result-highlight').forEach(el => counterObserver.observe(el));
+
+/* === MAGNETIC BUTTONS === */
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    animate(btn, {
+      translateX: x * 14,
+      translateY: y * 14,
+      duration: 300,
+      ease: 'outQuad',
+    });
+  });
+  btn.addEventListener('mouseleave', () => {
+    animate(btn, {
+      translateX: 0,
+      translateY: 0,
+      duration: 600,
+      ease: 'outElastic(1, .6)',
+    });
+  });
+});
+
+/* === SKILL BADGE / TAG POP === */
+document.querySelectorAll('.badge, .tag').forEach(badge => {
+  badge.addEventListener('mouseenter', () => {
+    animate(badge, {
+      scale: [1, 1.12, 1.05],
+      rotate: [0, -3, 0],
+      duration: 450,
+      ease: 'outElastic(1, .5)',
+    });
+  });
+  badge.addEventListener('mouseleave', () => {
+    animate(badge, { scale: 1, rotate: 0, duration: 350, ease: 'outQuad' });
+  });
+});
+
+/* === CONTACT CARD ICON POP === */
+document.querySelectorAll('.contact-link-card').forEach(card => {
+  const icon = card.querySelector('.contact-link-icon');
+  if (!icon) return;
+  card.addEventListener('mouseenter', () => {
+    animate(icon, {
+      scale: [1, 1.15, 1],
+      rotate: [0, -8, 0],
+      duration: 500,
+      ease: 'outBack',
+    });
+  });
+});
+
+/* === FIGURE GALLERY IMAGE ZOOM === */
+document.querySelectorAll('.figure-card').forEach(card => {
+  const img = card.querySelector('img');
+  if (!img) return;
+  card.addEventListener('mouseenter', () => {
+    animate(img, { scale: 1.06, duration: 450, ease: 'outQuad' });
+  });
+  card.addEventListener('mouseleave', () => {
+    animate(img, { scale: 1, duration: 450, ease: 'outQuad' });
+  });
+});
+
+/* === PAGE TRANSITION OVERLAY === */
+const pageOverlay = document.querySelector('.page-transition-overlay');
+if (pageOverlay) {
+  animate(pageOverlay, { opacity: 0, duration: 500, ease: 'outQuad' });
+
+  document.querySelectorAll('a[href*=".html"]').forEach(link => {
+    if (link.target === '_blank') return;
+    link.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('http')) return;
+      e.preventDefault();
+      animate(pageOverlay, {
+        opacity: 1,
+        duration: 350,
+        ease: 'inQuad',
+        onComplete: () => { window.location.href = href; },
+      });
+    });
+  });
+}
+
+/* === MAGNETIC CUSTOM CURSOR === */
+if (window.matchMedia('(pointer: fine)').matches) {
+  document.body.classList.add('has-custom-cursor');
+
+  const cursorDot = document.createElement('div');
+  cursorDot.className = 'cursor-dot';
+  const cursorRing = document.createElement('div');
+  cursorRing.className = 'cursor-ring';
+  document.body.appendChild(cursorDot);
+  document.body.appendChild(cursorRing);
+
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+  let cursorVisible = false;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
+    if (!cursorVisible) {
+      cursorVisible = true;
+      animate(cursorDot, { opacity: 1, duration: 250 });
+      animate(cursorRing, { opacity: 1, duration: 250 });
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    cursorVisible = false;
+    animate(cursorDot, { opacity: 0, duration: 250 });
+    animate(cursorRing, { opacity: 0, duration: 250 });
+  });
+
+  (function loopRing() {
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(loopRing);
+  })();
+
+  document.querySelectorAll('a, button, .project-card, .value-card, .contact-link-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      animate(cursorRing, { scale: 1.8, duration: 350, ease: 'outQuad' });
+    });
+    el.addEventListener('mouseleave', () => {
+      animate(cursorRing, { scale: 1, duration: 350, ease: 'outQuad' });
+    });
+  });
+}

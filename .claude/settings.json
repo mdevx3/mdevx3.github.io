@@ -10,7 +10,9 @@
       "Bash(node --input-type=module --check)",
       "Bash(curl -sL \"https://esm.sh/animejs@4\" --max-time 10)",
       "Bash(curl -sL \"https://esm.sh/animejs@4.5.0/es2022/animejs.mjs\" --max-time 10)",
-      "Bash(pkill -f \"http.server 879\")"
+      "Bash(pkill -f \"http.server 879\")",
+      "Bash(python3 -c ' *)",
+      "Bash(grep -n \"badge:hover\\\\|^$\" /Users/darrell/Documents/portfolio/styles.css)"
     ]
   }
 }

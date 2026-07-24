@@ -107,7 +107,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .btn-primary:hover {
   background: var(--gradient-hover);
   box-shadow: 0 0 28px rgba(56,189,248,0.4);
-  transform: translateY(-2px);
 }
 .btn-outline {
   background: transparent;
@@ -118,7 +117,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   border-color: var(--sky);
   background: rgba(56,189,248,0.07);
   box-shadow: var(--glow);
-  transform: translateY(-2px);
 }
 .btn-ghost {
   background: transparent;
@@ -129,7 +127,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .btn-ghost:hover {
   color: var(--text-1);
   border-color: var(--border-mid);
-  transform: translateY(-1px);
 }
 
 /* === SECTION HEADER === */
@@ -167,6 +164,16 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   max-width: 500px;
   margin: 0 auto;
   line-height: 1.75;
+}
+.title-underline {
+  display: inline-block;
+  width: 64px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  margin: 0.3rem 0 0.85rem;
 }
 
 /* =============================================
@@ -714,7 +721,6 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   border: 1px solid;
   transition: var(--t);
 }
-.badge:hover { transform: translateY(-2px); }
 .b-sky   { background: rgba(56,189,248,0.08);  border-color: rgba(56,189,248,0.25);  color: #38BDF8; }
 .b-indig { background: rgba(129,140,248,0.08); border-color: rgba(129,140,248,0.25); color: #818CF8; }
 .b-vio   { background: rgba(167,139,250,0.08); border-color: rgba(167,139,250,0.25); color: #A78BFA; }
@@ -1028,7 +1034,7 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   transition: border-color 0.25s ease, transform 0.25s ease;
 }
 .figure-card:hover { border-color: var(--sky); transform: translateY(-3px); }
-.figure-card img { width: 100%; height: auto; display: block; background: #fff; padding: 0.75rem; }
+.figure-card img { width: 100%; height: auto; display: block; background: #fff; padding: 0.75rem; will-change: transform; }
 .figure-cap { padding: 0.85rem 1.1rem; font-size: 0.82rem; color: var(--text-3); line-height: 1.5; border-top: 1px solid var(--border); }
 .figure-cap strong { color: var(--text-2); font-weight: 600; }
 
@@ -1080,10 +1086,23 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   background: var(--bg-2);
   border: 1px solid var(--border);
   border-radius: var(--r-xl);
-  padding: 2rem;
+  padding: 2rem 2rem 2rem 2.75rem;
   transition: var(--t);
+  position: relative;
+  overflow: hidden;
 }
 .exp-card:hover { border-color: var(--border-mid); }
+.exp-timeline-rail {
+  position: absolute;
+  left: 0.85rem;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--gradient);
+  transform: scaleY(0);
+  transform-origin: top;
+}
 .exp-header {
   display: flex;
   gap: 1.25rem;
@@ -1198,6 +1217,45 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
   background: var(--gradient);
   z-index: 1002;
   pointer-events: none;
+}
+
+/* === PAGE TRANSITION OVERLAY === */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-0);
+  z-index: 2500;
+  opacity: 1;
+  pointer-events: none;
+}
+
+/* === MAGNETIC CUSTOM CURSOR === */
+body.has-custom-cursor,
+body.has-custom-cursor a,
+body.has-custom-cursor button {
+  cursor: none;
+}
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--sky);
+  pointer-events: none;
+  z-index: 3000;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-bright);
+  pointer-events: none;
+  z-index: 2999;
+  transform: translate(-50%, -50%);
+  opacity: 0;
 }
 
 /* =============================================
