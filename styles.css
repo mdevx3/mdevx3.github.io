@@ -262,9 +262,17 @@ h1, h2, h3, h4 { line-height: 1.2; font-weight: 700; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .hero-dots {
   position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(56,189,248,0.07) 1px, transparent 1px);
-  background-size: 36px 36px;
+  display: grid;
+  padding: 3rem;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+.hero-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.45);
+  justify-self: center;
+  align-self: center;
 }
 .hero-orb {
   position: absolute;

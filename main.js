@@ -134,6 +134,45 @@ if (heroSection) {
     .add('.hero-scroll-hint',  { opacity: [0, 1], translateY: [  10, 0], duration: 600 }, 1330);
 }
 
+/* === HERO DOT GRID RIPPLE === */
+const heroDotsContainer = document.querySelector('.hero-dots');
+if (heroDotsContainer && heroSection) {
+  const cols = 18;
+  const rows = 10;
+  heroDotsContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  heroDotsContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < cols * rows; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'hero-dot';
+    frag.appendChild(dot);
+  }
+  heroDotsContainer.appendChild(frag);
+
+  const gridOptions = { grid: [cols, rows], from: 'center' };
+
+  utils.set('.hero-dot', { scale: 0, opacity: 0 });
+
+  animate('.hero-dot', {
+    scale: [0, 1],
+    opacity: [0, 1],
+    delay: stagger(35, gridOptions),
+    duration: 800,
+    ease: 'outQuad',
+  });
+
+  function rippleHeroDots() {
+    animate('.hero-dot', {
+      scale: [1, 1.7, 1],
+      delay: stagger(28, gridOptions),
+      duration: 1300,
+      ease: 'inOutQuad',
+    });
+  }
+  heroSection.addEventListener('mouseenter', rippleHeroDots);
+}
+
 /* === MOUSE PARALLAX HERO ORBS === */
 const heroOrbs = document.querySelectorAll('.hero-orb');
 if (heroOrbs.length && heroSection) {
