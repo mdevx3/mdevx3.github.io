@@ -484,6 +484,81 @@ document.querySelectorAll('.figure-card').forEach(card => {
   });
 });
 
+/* === FIGURE LIGHTBOX === */
+const figureCardsForLightbox = document.querySelectorAll('.figure-card');
+if (figureCardsForLightbox.length) {
+  const lightbox = document.createElement('div');
+  lightbox.className = 'lightbox';
+  lightbox.innerHTML = `
+    <div class="lightbox-backdrop"></div>
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <figure class="lightbox-content">
+      <img class="lightbox-img" src="" alt="">
+      <figcaption class="lightbox-caption"></figcaption>
+    </figure>
+  `;
+  document.body.appendChild(lightbox);
+
+  const lightboxImg = lightbox.querySelector('.lightbox-img');
+  const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+  const lightboxContent = lightbox.querySelector('.lightbox-content');
+  const lightboxBackdrop = lightbox.querySelector('.lightbox-backdrop');
+  const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+  let lightboxOpen = false;
+
+  function openLightbox(img, captionHTML) {
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightboxCaption.innerHTML = captionHTML || '';
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    lightboxOpen = true;
+
+    utils.set(lightboxBackdrop, { opacity: 0 });
+    utils.set(lightboxContent, { opacity: 0, scale: 0.85, translateY: 24 });
+
+    animate(lightboxBackdrop, { opacity: 1, duration: 350, ease: 'outQuad' });
+    animate(lightboxContent, {
+      opacity: [0, 1],
+      scale: [0.85, 1],
+      translateY: [24, 0],
+      duration: 450,
+      ease: 'outQuint',
+    });
+  }
+
+  function closeLightbox() {
+    if (!lightboxOpen) return;
+    lightboxOpen = false;
+    animate(lightboxBackdrop, { opacity: 0, duration: 300, ease: 'inQuad' });
+    animate(lightboxContent, {
+      opacity: 0,
+      scale: 0.9,
+      translateY: 16,
+      duration: 300,
+      ease: 'inQuad',
+      onComplete: () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      },
+    });
+  }
+
+  figureCardsForLightbox.forEach(card => {
+    const img = card.querySelector('img');
+    const cap = card.querySelector('.figure-cap');
+    if (!img) return;
+    img.addEventListener('click', () => openLightbox(img, cap ? cap.innerHTML : ''));
+  });
+
+  lightboxBackdrop.addEventListener('click', closeLightbox);
+  lightboxClose.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightboxOpen) closeLightbox();
+  });
+}
+
 /* === PAGE TRANSITION OVERLAY === */
 const pageOverlay = document.querySelector('.page-transition-overlay');
 if (pageOverlay) {
