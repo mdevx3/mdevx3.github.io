@@ -169,6 +169,63 @@ if (window.location.pathname.includes('projects')) {
   });
 }
 
+/* === STAT COUNTER ANIMATION === */
+function parseStatVal(text) {
+  const match = text.match(/^([^0-9]*)([0-9,\.]+)([^0-9]*)$/);
+  if (!match) return null;
+  const raw = match[2].replace(/,/g, '');
+  return {
+    prefix:   match[1],
+    value:    parseFloat(raw),
+    suffix:   match[3],
+    hasComma: match[2].includes(','),
+    isFloat:  raw.includes('.'),
+  };
+}
+
+function formatStatNum(val, p) {
+  if (p.isFloat) return val.toFixed(2);
+  const n = Math.round(val);
+  return p.hasComma ? n.toLocaleString() : String(n);
+}
+
+function animateCounters(container) {
+  container.querySelectorAll('.result-stat-val').forEach((el, i) => {
+    const original = el.textContent.trim();
+    const parsed = parseStatVal(original);
+    if (!parsed) return;
+
+    setTimeout(() => {
+      const duration = 1200;
+      const startTime = performance.now();
+
+      function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // easeOutExpo
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = eased * parsed.value;
+        el.textContent = parsed.prefix + formatStatNum(current, parsed) + parsed.suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+        else el.textContent = original;
+      }
+
+      requestAnimationFrame(tick);
+    }, i * 150);
+  });
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.result-highlight').forEach(el => counterObserver.observe(el));
+
 /* === MARK NAV ACTIVE ON PROJECT DETAIL PAGES === */
 if (window.location.pathname.includes('project-')) {
   navLinkItems.forEach(link => {
