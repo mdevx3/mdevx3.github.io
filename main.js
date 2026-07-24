@@ -195,23 +195,20 @@ function animateCounters(container) {
     const parsed = parseStatVal(original);
     if (!parsed) return;
 
-    setTimeout(() => {
-      const duration = 1200;
-      const startTime = performance.now();
-
-      function tick(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // easeOutExpo
-        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-        const current = eased * parsed.value;
-        el.textContent = parsed.prefix + formatStatNum(current, parsed) + parsed.suffix;
-        if (progress < 1) requestAnimationFrame(tick);
-        else el.textContent = original;
+    const obj = { val: 0 };
+    anime({
+      targets: obj,
+      val: parsed.value,
+      duration: 1400,
+      delay: i * 150,
+      easing: 'easeOutExpo',
+      update: () => {
+        el.textContent = parsed.prefix + formatStatNum(obj.val, parsed) + parsed.suffix;
+      },
+      complete: () => {
+        el.textContent = original;
       }
-
-      requestAnimationFrame(tick);
-    }, i * 150);
+    });
   });
 }
 
