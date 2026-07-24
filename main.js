@@ -218,11 +218,12 @@ function animateCounters(container) {
 const counterObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      animateCounters(entry.target);
+      // Delay to let the parent data-reveal fade-in (0.65s) finish first
+      setTimeout(() => animateCounters(entry.target), 700);
       counterObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.1 });
 
 document.querySelectorAll('.result-highlight').forEach(el => counterObserver.observe(el));
 
