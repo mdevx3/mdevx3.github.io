@@ -2,6 +2,8 @@
    DARRELL LOKADEVA LIM — PORTFOLIO SCRIPTS
    ============================================= */
 
+import { animate, createTimeline, stagger, utils } from 'https://esm.sh/animejs@4';
+
 /* === NAV SCROLL BEHAVIOR === */
 const nav = document.querySelector('.nav');
 const hamburger = document.querySelector('.hamburger');
@@ -111,25 +113,25 @@ if (form) {
 }
 
 /* =============================================
-   ANIME.JS ANIMATIONS
+   ANIME.JS v4 ANIMATIONS
    ============================================= */
 
 /* === HERO ENTRANCE (index.html) === */
 const heroSection = document.querySelector('.hero');
 if (heroSection) {
-  anime.set('.nav-logo', { opacity: 0, translateY: -12 });
-  anime.set('.nav-links li', { opacity: 0, translateY: -8 });
-  anime.set('.hero-name', { opacity: 0, clipPath: 'inset(0 100% 0 0)', scale: 1.04 });
+  utils.set('.nav-logo', { opacity: 0, translateY: -12 });
+  utils.set('.nav-links li', { opacity: 0, translateY: -8 });
+  utils.set('.hero-name', { opacity: 0, clipPath: 'inset(0 100% 0 0)', scale: 1.04 });
 
-  anime.timeline({ easing: 'easeOutExpo' })
-    .add({ targets: '.nav-logo',          opacity: [0, 1], translateY: [-12, 0], duration: 600 }, 0)
-    .add({ targets: '.nav-links li',      opacity: [0, 1], translateY: [  -8, 0], duration: 500, delay: anime.stagger(60) }, 100)
-    .add({ targets: '.hero-eyebrow',      opacity: [0, 1], translateY: [  20, 0], duration: 700 }, 220)
-    .add({ targets: '.hero-name',         opacity: [0, 1], clipPath: ['inset(0 100% 0 0)', 'inset(0 0% 0 0)'], scale: [1.04, 1], duration: 1100, easing: 'easeOutQuint' }, 400)
-    .add({ targets: '.hero-headline',     opacity: [0, 1], translateY: [  18, 0], duration: 700 }, 700)
-    .add({ targets: '.hero-intro',        opacity: [0, 1], translateY: [  16, 0], duration: 700 }, 840)
-    .add({ targets: '.hero-actions .btn', opacity: [0, 1], translateY: [  14, 0], scale: [0.9, 1], duration: 600, delay: anime.stagger(110) }, 1020)
-    .add({ targets: '.hero-scroll-hint',  opacity: [0, 1], translateY: [  10, 0], duration: 600 }, 1330);
+  createTimeline({ defaults: { ease: 'outExpo' } })
+    .add('.nav-logo',          { opacity: [0, 1], translateY: [-12, 0], duration: 600 }, 0)
+    .add('.nav-links li',      { opacity: [0, 1], translateY: [  -8, 0], duration: 500, delay: stagger(60) }, 100)
+    .add('.hero-eyebrow',      { opacity: [0, 1], translateY: [  20, 0], duration: 700 }, 220)
+    .add('.hero-name',         { opacity: [0, 1], clipPath: ['inset(0 100% 0 0)', 'inset(0 0% 0 0)'], scale: [1.04, 1], duration: 1100, ease: 'outQuint' }, 400)
+    .add('.hero-headline',     { opacity: [0, 1], translateY: [  18, 0], duration: 700 }, 700)
+    .add('.hero-intro',        { opacity: [0, 1], translateY: [  16, 0], duration: 700 }, 840)
+    .add('.hero-actions .btn', { opacity: [0, 1], translateY: [  14, 0], scale: [0.9, 1], duration: 600, delay: stagger(110) }, 1020)
+    .add('.hero-scroll-hint',  { opacity: [0, 1], translateY: [  10, 0], duration: 600 }, 1330);
 }
 
 /* === MOUSE PARALLAX HERO ORBS === */
@@ -145,12 +147,11 @@ if (heroOrbs.length && heroSection) {
       const y = (e.clientY - rect.top) / rect.height - 0.5;
       heroOrbs.forEach((orb, i) => {
         const strength = (i + 1) * 18;
-        anime({
-          targets: orb,
+        animate(orb, {
           translateX: x * strength,
           translateY: y * strength,
           duration: 900,
-          easing: 'easeOutQuad',
+          ease: 'outQuad',
         });
       });
       parallaxQueued = false;
@@ -164,23 +165,21 @@ document.querySelectorAll('.project-card').forEach(card => {
     const rect = card.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    anime({
-      targets: card,
+    animate(card, {
       rotateY: x * 8,
       rotateX: y * -8,
       translateY: -6,
       duration: 400,
-      easing: 'easeOutQuad',
+      ease: 'outQuad',
     });
   });
   card.addEventListener('mouseleave', () => {
-    anime({
-      targets: card,
+    animate(card, {
       rotateY: 0,
       rotateX: 0,
       translateY: 0,
       duration: 500,
-      easing: 'easeOutQuad',
+      ease: 'outQuad',
     });
   });
 });
@@ -196,11 +195,10 @@ window.addEventListener('scroll', () => {
   requestAnimationFrame(() => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
     const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-    anime({
-      targets: progressBar,
+    animate(progressBar, {
       width: pct + '%',
       duration: 200,
-      easing: 'easeOutQuad',
+      ease: 'outQuad',
     });
     progressQueued = false;
   });
@@ -209,27 +207,26 @@ window.addEventListener('scroll', () => {
 /* === EYEBROW DOT PULSE === */
 const eyebrowDot = document.querySelector('.hero-eyebrow-dot');
 if (eyebrowDot) {
-  anime({
-    targets: eyebrowDot,
+  animate(eyebrowDot, {
     scale: [1, 0.6],
     opacity: [1, 0.35],
     duration: 1000,
     delay: 920,
-    direction: 'alternate',
+    alternate: true,
     loop: true,
-    easing: 'easeInOutSine',
+    ease: 'inOutSine',
   });
 }
 
 /* === PROJECT DETAIL HERO ENTRANCE === */
 const projectDetailHero = document.querySelector('.project-detail-hero');
 if (projectDetailHero) {
-  anime.set('.breadcrumb, .project-detail-title, .project-detail-meta', { opacity: 0 });
+  utils.set('.breadcrumb, .project-detail-title, .project-detail-meta', { opacity: 0 });
 
-  anime.timeline({ easing: 'easeOutExpo' })
-    .add({ targets: '.breadcrumb',           opacity: [0, 1], translateY: [10, 0], duration: 500 }, 200)
-    .add({ targets: '.project-detail-title', opacity: [0, 1], translateY: [24, 0], duration: 700 }, 360)
-    .add({ targets: '.project-detail-meta',  opacity: [0, 1], translateY: [10, 0], duration: 550 }, 640);
+  createTimeline({ defaults: { ease: 'outExpo' } })
+    .add('.breadcrumb',           { opacity: [0, 1], translateY: [10, 0], duration: 500 }, 200)
+    .add('.project-detail-title', { opacity: [0, 1], translateY: [24, 0], duration: 700 }, 360)
+    .add('.project-detail-meta',  { opacity: [0, 1], translateY: [10, 0], duration: 550 }, 640);
 }
 
 /* === SCROLL REVEAL === */
@@ -237,14 +234,13 @@ const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const delay = parseInt(entry.target.dataset.revealDelay || '0') * 100;
-      anime({
-        targets: entry.target,
+      animate(entry.target, {
         opacity: [0, 1],
         translateY: [28, 0],
         scale: [0.96, 1],
         duration: 750,
         delay,
-        easing: 'easeOutExpo',
+        ease: 'outExpo',
       });
       revealObserver.unobserve(entry.target);
     }
@@ -257,13 +253,12 @@ document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(
 const staggerObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      anime({
-        targets: entry.target.querySelectorAll('[data-stagger]'),
+      animate(entry.target.querySelectorAll('[data-stagger]'), {
         opacity: [0, 1],
         translateY: [16, 0],
         duration: 550,
-        easing: 'easeOutExpo',
-        delay: anime.stagger(65),
+        ease: 'outExpo',
+        delay: stagger(65),
       });
       staggerObserver.unobserve(entry.target);
     }
@@ -284,16 +279,15 @@ if (aboutStats) {
           if (!match) return;
           const isFloat = match[2].includes('.');
           const obj = { v: 0 };
-          anime({
-            targets: obj,
+          animate(obj, {
             v: parseFloat(match[2]),
             duration: 1400,
             delay: 300 + i * 150,
-            easing: 'easeOutExpo',
-            update: () => {
+            ease: 'outExpo',
+            onUpdate: () => {
               el.textContent = match[1] + (isFloat ? obj.v.toFixed(2) : Math.round(obj.v)) + match[3];
             },
-            complete: () => { el.textContent = original; },
+            onComplete: () => { el.textContent = original; },
           });
         });
         statsObserver.unobserve(entry.target);
@@ -329,16 +323,15 @@ function animateCounters(container) {
     const parsed = parseStatVal(original);
     if (!parsed) return;
     const obj = { val: 0 };
-    anime({
-      targets: obj,
+    animate(obj, {
       val: parsed.value,
       duration: 1400,
       delay: i * 150,
-      easing: 'easeOutExpo',
-      update: () => {
+      ease: 'outExpo',
+      onUpdate: () => {
         el.textContent = parsed.prefix + formatStatNum(obj.val, parsed) + parsed.suffix;
       },
-      complete: () => { el.textContent = original; },
+      onComplete: () => { el.textContent = original; },
     });
   });
 }
