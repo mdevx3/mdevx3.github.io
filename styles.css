@@ -1239,22 +1239,22 @@ body.has-custom-cursor button {
   position: fixed;
   top: 0; left: 0;
   width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
   border-radius: 50%;
   background: var(--sky);
   pointer-events: none;
   z-index: 3000;
-  transform: translate(-50%, -50%);
   opacity: 0;
 }
 .cursor-ring {
   position: fixed;
   top: 0; left: 0;
   width: 32px; height: 32px;
+  margin: -16px 0 0 -16px;
   border-radius: 50%;
   border: 1.5px solid var(--border-bright);
   pointer-events: none;
   z-index: 2999;
-  transform: translate(-50%, -50%);
   opacity: 0;
 }
 
