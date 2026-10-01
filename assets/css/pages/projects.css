@@ -1,0 +1,23 @@
+/* =============================================
+   PROJECTS LISTING PAGE  (projects.html)
+   Page-level layout only; card visuals live in components/card.css
+   ============================================= */
+.projects-hero { position: relative; padding: calc(var(--nav-h) + var(--space-8)) 0 var(--space-6); overflow: hidden; }
+.projects-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 60% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 60%);
+  pointer-events: none;
+}
+.projects-hero .container { position: relative; }
+.projects-hero h1 { margin-bottom: var(--space-3); font-size: var(--step-4); font-weight: 900; letter-spacing: -0.035em; }
+.projects-hero p { max-width: 520px; color: var(--text-3); line-height: 1.75; }
+
+.projects-toolbar { padding-bottom: var(--space-6); }
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+  padding-bottom: var(--section-py);
+}
+@media (max-width: 760px) { .projects-grid { grid-template-columns: 1fr; } }

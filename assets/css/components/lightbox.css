@@ -1,0 +1,42 @@
+/* =============================================
+   LIGHTBOX  (native <dialog>, built by lightbox.js)
+   <dialog> gives us focus trapping + Escape for free.
+   ============================================= */
+.lightbox {
+  width: min(1600px, 96vw);
+  max-width: none;
+  max-height: 94vh;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+}
+.lightbox[open] { display: flex; flex-direction: column; animation: lightbox-in 350ms var(--ease-out); }
+.lightbox::backdrop { background: var(--overlay); backdrop-filter: blur(6px); }
+.lightbox-img { width: 100%; max-height: 82vh; object-fit: contain; background: #fff; }
+.lightbox-caption { padding: var(--space-4) var(--space-5); font-size: 0.88rem; line-height: 1.6; color: var(--text-3); border-top: 1px solid var(--border); }
+.lightbox-caption strong { color: var(--text-2); font-weight: 600; }
+.lightbox-close {
+  position: absolute;
+  top: var(--space-3); right: var(--space-3);
+  display: grid;
+  place-items: center;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #fff;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background-color var(--t), transform var(--t);
+}
+.lightbox-close:hover { background: rgba(15, 23, 42, 0.95); transform: scale(1.08); }
+
+@keyframes lightbox-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}

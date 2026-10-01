@@ -1,0 +1,194 @@
+/* =============================================
+   DESIGN TOKENS
+   Every colour, size, space and motion value used by the site lives here.
+   Components must read these variables and never hard-code colours, so that
+   the dark and light themes stay in sync.
+
+   Theme selection:
+     1. <html data-theme="dark|light"> (set by the toggle / saved choice) wins.
+     2. Otherwise the visitor's OS preference (prefers-color-scheme) decides.
+     3. Dark is the fallback when neither is available.
+   ============================================= */
+
+/* ---------- Theme-independent tokens ---------- */
+:root {
+  /* Typography: fluid scale (min, preferred, max) */
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Fira Code', Menlo, monospace;
+  --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.85rem);
+  --step-0:  clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
+  --step-1:  clamp(1.1rem, 1.04rem + 0.35vw, 1.3rem);
+  --step-2:  clamp(1.35rem, 1.2rem + 0.75vw, 1.75rem);
+  --step-3:  clamp(1.75rem, 1.45rem + 1.5vw, 2.5rem);
+  --step-4:  clamp(2.1rem, 1.6rem + 2.5vw, 3.4rem);
+  --step-5:  clamp(2.6rem, 1.7rem + 4.5vw, 5rem);
+  --leading-tight: 1.15;
+  --leading-body: 1.7;
+  --measure: 65ch; /* comfortable max line length for body copy */
+
+  /* Spacing scale (4/8px rhythm) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --section-py: clamp(3.5rem, 2.5rem + 5vw, 6rem);
+  --gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+  --container: 1120px;
+  --nav-h: 4.25rem;
+
+  /* Radii */
+  --r-sm: 8px;
+  --r: 12px;
+  --r-lg: 16px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur: 250ms;
+  --dur-slow: 500ms;
+  --t: var(--dur) var(--ease-out);
+
+  color-scheme: dark;
+}
+
+/* ---------- Dark theme (default) ---------- */
+:root,
+:root[data-theme='dark'] {
+  --bg: #060b18;
+  --bg-alt: #0b1325;
+  --surface: #111827;
+  --surface-2: #1a2332;
+  --surface-3: #243044;
+
+  --text: #f1f5f9;
+  --text-2: #cbd5e1;
+  --text-3: #94a3b8;
+  --text-4: #7a889c;
+
+  --accent: #38bdf8;       /* decorative fills, borders, glows */
+  --accent-text: #38bdf8;  /* accent used for text (needs AA contrast) */
+  --accent-2: #818cf8;
+  --on-accent: #060b18;    /* text on top of the accent gradient */
+  --gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  --gradient-hover: linear-gradient(135deg, #67cbfa 0%, #9ea6fa 100%);
+  --gradient-text: linear-gradient(135deg, #38bdf8 0%, #818cf8 60%, #a78bfa 100%);
+
+  --border: rgba(148, 163, 184, 0.14);
+  --border-strong: rgba(56, 189, 248, 0.38);
+  --nav-bg: rgba(6, 11, 24, 0.82);
+  --overlay: rgba(6, 11, 24, 0.9);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
+  --glow: 0 0 36px rgba(56, 189, 248, 0.28);
+
+  /* Category / skill tones (used by badges, icons, dots) */
+  --danger: #fb7185;
+  --tone-sky: #38bdf8;
+  --tone-indigo: #818cf8;
+  --tone-violet: #a78bfa;
+  --tone-cyan: #22d3ee;
+  --tone-amber: #fbbf24;
+  --tone-emerald: #34d399;
+
+  --orb-opacity: 1;
+}
+
+/* ---------- Light theme ---------- */
+:root[data-theme='light'] {
+  --bg: #f8fafc;
+  --bg-alt: #f1f5f9;
+  --surface: #ffffff;
+  --surface-2: #f1f5f9;
+  --surface-3: #e2e8f0;
+
+  --text: #0f172a;
+  --text-2: #334155;
+  --text-3: #475569;
+  --text-4: #64748b;
+
+  --accent: #0284c7;
+  --accent-text: #0369a1;
+  --accent-2: #4f46e5;
+  --on-accent: #ffffff;
+  --gradient: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
+  --gradient-hover: linear-gradient(135deg, #0369a1 0%, #4338ca 100%);
+  --gradient-text: linear-gradient(135deg, #0369a1 0%, #4f46e5 60%, #7c3aed 100%);
+
+  --border: rgba(15, 23, 42, 0.1);
+  --border-strong: rgba(2, 132, 199, 0.5);
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --overlay: rgba(15, 23, 42, 0.8);
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+  --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.14);
+  --glow: 0 0 30px rgba(2, 132, 199, 0.22);
+
+  --danger: #e11d48;
+  --tone-sky: #0369a1;
+  --tone-indigo: #4f46e5;
+  --tone-violet: #7c3aed;
+  --tone-cyan: #0e7490;
+  --tone-amber: #b45309;
+  --tone-emerald: #047857;
+
+  --orb-opacity: 0.55;
+  color-scheme: light;
+}
+
+/* ---------- Follow the OS when the visitor hasn't chosen ----------
+   NOTE: CSS can't share a rule between a selector and a media query, so these
+   values intentionally mirror the [data-theme='light'] block above.
+   Change both together. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg: #f8fafc;
+    --bg-alt: #f1f5f9;
+    --surface: #ffffff;
+    --surface-2: #f1f5f9;
+    --surface-3: #e2e8f0;
+
+    --text: #0f172a;
+    --text-2: #334155;
+    --text-3: #475569;
+    --text-4: #64748b;
+
+    --accent: #0284c7;
+    --accent-text: #0369a1;
+    --accent-2: #4f46e5;
+    --on-accent: #ffffff;
+    --gradient: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
+    --gradient-hover: linear-gradient(135deg, #0369a1 0%, #4338ca 100%);
+    --gradient-text: linear-gradient(135deg, #0369a1 0%, #4f46e5 60%, #7c3aed 100%);
+
+    --border: rgba(15, 23, 42, 0.1);
+    --border-strong: rgba(2, 132, 199, 0.5);
+    --nav-bg: rgba(248, 250, 252, 0.85);
+    --overlay: rgba(15, 23, 42, 0.8);
+
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+    --shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+    --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.14);
+    --glow: 0 0 30px rgba(2, 132, 199, 0.22);
+
+    --danger: #e11d48;
+  --tone-sky: #0369a1;
+    --tone-indigo: #4f46e5;
+    --tone-violet: #7c3aed;
+    --tone-cyan: #0e7490;
+    --tone-amber: #b45309;
+    --tone-emerald: #047857;
+
+    --orb-opacity: 0.55;
+    color-scheme: light;
+  }
+}

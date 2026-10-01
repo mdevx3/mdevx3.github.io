@@ -1,0 +1,23 @@
+/* =============================================
+   MAIN STYLESHEET: the only CSS file pages link to.
+   Order matters: tokens -> base -> components -> pages.
+   Each component file is self-contained and only depends on tokens.
+   ============================================= */
+@import url('tokens.css');
+@import url('base.css');
+
+@import url('components/button.css');
+@import url('components/section.css');
+@import url('components/nav.css');
+@import url('components/footer.css');
+@import url('components/hero.css');
+@import url('components/about.css');
+@import url('components/card.css');
+@import url('components/filter-bar.css');
+@import url('components/skills.css');
+@import url('components/timeline.css');
+@import url('components/contact.css');
+@import url('components/lightbox.css');
+
+@import url('pages/projects.css');
+@import url('pages/project-detail.css');

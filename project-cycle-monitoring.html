@@ -4,39 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cycle Monitoring System — Darrell Lokadeva Lim</title>
+  <meta name="description" content="Real-time monitoring dashboard for a social media crawl pipeline, built with Django, InfluxDB and PostgreSQL with JWT-secured API endpoints.">
+  <link rel="canonical" href="https://mdevx3.github.io/project-cycle-monitoring.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Darrell Lokadeva Lim">
+  <meta property="og:title" content="Cycle Monitoring System — Darrell Lokadeva Lim">
+  <meta property="og:description" content="Real-time monitoring dashboard for a social media crawl pipeline, built with Django, InfluxDB and PostgreSQL with JWT-secured API endpoints.">
+  <meta property="og:url" content="https://mdevx3.github.io/project-cycle-monitoring.html">
+  <meta property="og:image" content="https://mdevx3.github.io/assets/img/profile.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <!-- Applies the saved/OS theme before first paint (prevents a flash) and flags that JS is available -->
+  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';d.dataset.theme=t;d.classList.add('js')})(document.documentElement)</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body>
+<body data-page="project">
 
-  <div class="page-transition-overlay"></div>
+  <!-- Navigation is rendered by assets/js/components/site-chrome.js -->
+  <header class="nav" id="site-nav">
+    <noscript><div class="nav-inner container"><a href="index.html" class="nav-logo">Darrell</a><a href="projects.html">All projects</a></div></noscript>
+  </header>
 
-  <!-- NAV -->
-  <nav class="nav scrolled" id="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">Darrell</a>
-      <ul class="nav-links">
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#experience">Experience</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-        <li><a href="index.html#skills">Skills</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-      <button class="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+  <main id="main">
 
   <!-- BANNER -->
   <div class="project-detail-hero">
-    <div class="project-detail-banner" style="background: linear-gradient(135deg, #1E3A5F 0%, #1D4ED8 50%, #3B82F6 100%);">
+    <div class="project-detail-banner cover-blue">
       <div class="project-detail-banner-pattern"></div>
     </div>
     <div class="project-detail-overlay"></div>
-    <div class="container project-detail-header">
+    <div class="container project-detail-header" data-reveal>
       <div class="breadcrumb">
         <a href="index.html">Home</a>
         <span class="breadcrumb-sep">›</span>
@@ -46,10 +46,10 @@
       </div>
       <h1 class="project-detail-title">Cycle Monitoring<br>System</h1>
       <div class="project-detail-meta">
-        <span class="meta-badge">🗓 Jun 2026</span>
-        <span class="meta-badge">🏢 PT Nolimit Indonesia</span>
-        <span class="meta-badge">🔒 Company Project</span>
-        <span class="meta-badge">📡 Real-Time Monitoring</span>
+        <span class="meta-badge">Jun 2026</span>
+        <span class="meta-badge">PT Nolimit Indonesia</span>
+        <span class="meta-badge">Company Project</span>
+        <span class="meta-badge">Real-Time Monitoring</span>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
     <div class="container">
 
       <!-- TOOL TAGS -->
-      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+      <div class="project-tags" data-reveal>
         <span class="tag">Python</span>
         <span class="tag">Django</span>
         <span class="tag">JWT</span>
@@ -95,13 +95,13 @@
           <div class="ps-content">
             <h3>Dual-source reads, time-slot health scoring, and a JWT-secured API layer</h3>
             <ul>
-              <li>Designed a dual-source read architecture that simultaneously queries <strong style="color:var(--text-2)">InfluxDB</strong> for live event logs (Pusher and Worker/autocrawler activity) and <strong style="color:var(--text-2)">PostgreSQL</strong> (obj_management) for crawl configuration metadata — crawl frequency and scroll depth — on every dashboard request.</li>
+              <li>Designed a dual-source read architecture that simultaneously queries <strong>InfluxDB</strong> for live event logs (Pusher and Worker/autocrawler activity) and <strong>PostgreSQL</strong> (obj_management) for crawl configuration metadata — crawl frequency and scroll depth — on every dashboard request.</li>
               <li>Built a time-slot health scoring system: the monitoring window is segmented into slots based on each object's priority interval, and a slot is marked successful if a push event is detected within it — accounting for minor network delays through a configurable grace period.</li>
-              <li>Computed a <strong style="color:var(--text-2)">success rate metric</strong> (completed slots ÷ expected slots) per object, alongside live on-time flags so operators can instantly spot stalled crawl processes.</li>
-              <li>Optimised query performance for tens of thousands of tracked objects by filtering to <code style="background:var(--bg-3);padding:0.1rem 0.4rem;border-radius:4px;font-size:0.85em">isActive=True</code> entries and paginating to 100 rows per view, keeping dashboard load times fast regardless of dataset size.</li>
+              <li>Computed a <strong>success rate metric</strong> (completed slots ÷ expected slots) per object, alongside live on-time flags so operators can instantly spot stalled crawl processes.</li>
+              <li>Optimised query performance for tens of thousands of tracked objects by filtering to <code>isActive=True</code> entries and paginating to 100 rows per view, keeping dashboard load times fast regardless of dataset size.</li>
               <li>Synchronised searchable account and keyword dropdowns with PostgreSQL to ensure filters reflect actual database state rather than raw InfluxDB tags, preventing stale or inconsistent filter options.</li>
-              <li>Exposed the monitoring data through <strong style="color:var(--text-2)">7 JWT-secured Django REST API endpoints</strong>, covering metrics retrieval, object search, and configuration lookups — keeping all dashboard data access authenticated and auditable.</li>
-              <li>Built the frontend in <strong style="color:var(--text-2)">vanilla JavaScript</strong> with comparative bar charts for Pusher vs. Worker throughput, interactive time range sliders, and success rate filters for auditing underperforming crawl objects.</li>
+              <li>Exposed the monitoring data through <strong>7 JWT-secured Django REST API endpoints</strong>, covering metrics retrieval, object search, and configuration lookups — keeping all dashboard data access authenticated and auditable.</li>
+              <li>Built the frontend in <strong>vanilla JavaScript</strong> with comparative bar charts for Pusher vs. Worker throughput, interactive time range sliders, and success rate filters for auditing underperforming crawl objects.</li>
             </ul>
           </div>
         </div>
@@ -115,17 +115,17 @@
             <span class="ps-title">Result</span>
           </div>
           <div class="ps-content">
-            <div class="result-highlight">
+            <div class="result-highlight" data-counter-group>
               <div class="result-stat">
-                <div class="result-stat-val">7</div>
+                <div class="result-stat-val gradient-text" data-counter>7</div>
                 <div class="result-stat-label">JWT-secured API endpoints</div>
               </div>
               <div class="result-stat">
-                <div class="result-stat-val">2</div>
+                <div class="result-stat-val gradient-text" data-counter>2</div>
                 <div class="result-stat-label">Live data sources (InfluxDB + PG)</div>
               </div>
               <div class="result-stat">
-                <div class="result-stat-val">100ms</div>
+                <div class="result-stat-val gradient-text" data-counter>100ms</div>
                 <div class="result-stat-label">Target load time per view</div>
               </div>
             </div>
@@ -140,61 +140,38 @@
         <div class="figure-gallery-title">Dashboard Screenshots</div>
         <div class="figure-gallery-sub">Live views of the Cycle Monitoring system — filter controls, comparative bar charts, per-object success rate tables, and real-time Pusher/Worker event logs.</div>
         <div class="figure-grid">
-          <div class="figure-card" style="grid-column: 1 / -1">
-            <img src="images/cycle-09.49.27.png" alt="Cycle Monitoring main dashboard with filter controls and bar charts" loading="lazy">
+          <div class="figure-card figure-card--wide">
+            <img src="assets/img/cycle-09.49.27.png" alt="Cycle Monitoring main dashboard with filter controls and bar charts" loading="lazy">
             <div class="figure-cap"><strong>Main Dashboard</strong> — time range selector, success rate slider, social media and keyword filters, and comparative Pusher vs. Worker bar charts showing event counts by keyword and platform.</div>
           </div>
           <div class="figure-card">
-            <img src="images/cycle-09.49.18.png" alt="Pemantauan Keyword table with success rates and status indicators" loading="lazy">
+            <img src="assets/img/cycle-09.49.18.png" alt="Pemantauan Keyword table with success rates and status indicators" loading="lazy">
             <div class="figure-cap"><strong>Keyword Monitoring</strong> — per-keyword view showing crawl priority, scroll depth, push count, slot-based status indicators, and success rate — operators can instantly see which keywords are underperforming.</div>
           </div>
           <div class="figure-card">
-            <img src="images/cycle-09.49.24.png" alt="Pemantauan Account table with barchart and success rate" loading="lazy">
+            <img src="assets/img/cycle-09.49.24.png" alt="Pemantauan Account table with barchart and success rate" loading="lazy">
             <div class="figure-cap"><strong>Account Monitoring</strong> — same slot-health scoring applied to tracked accounts, with inline bar charts comparing Pusher vs. Worker push counts per account.</div>
           </div>
-          <div class="figure-card" style="grid-column: 1 / -1">
-            <img src="images/cycle-09.49.10.png" alt="Live Pusher and Worker keyword and account event logs" loading="lazy">
+          <div class="figure-card figure-card--wide">
+            <img src="assets/img/cycle-09.49.10.png" alt="Live Pusher and Worker keyword and account event logs" loading="lazy">
             <div class="figure-cap"><strong>Live Event Logs</strong> — side-by-side Pusher and Worker keyword and account logs pulled directly from InfluxDB, showing the latest 15 events per stream with host, platform, and queue tube metadata.</div>
           </div>
         </div>
       </div>
 
-      <!-- NAVIGATION -->
-      <div class="project-nav" data-reveal>
-        <a href="project-social-media-clustering.html" class="project-nav-back">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Social Media Clustering
-        </a>
-        <a href="projects.html" class="project-nav-back" style="flex-direction:column;gap:0.2rem;align-items:center;color:var(--text-4)">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 8 8)"/></svg>
-          <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em">All Projects</span>
-        </a>
-        <div class="project-nav-next">
-          <span class="project-nav-label">Next Project</span>
-          <a href="project-hotel-booking.html" class="project-nav-title">
-            Hotel Booking Prediction
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
+      <!-- PREV / NEXT: built by assets/js/components/project-nav.js from assets/js/data/projects.js -->
+      <nav class="project-nav" data-project-nav data-current="cycle-monitoring" data-reveal>
+        <a class="project-nav-all" href="projects.html">All Projects</a>
+      </nav>
 
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
-        <div class="footer-links">
-          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
-          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  </main>
 
-  <script type="module" src="main.js"></script>
+  <!-- Footer is rendered by assets/js/components/site-chrome.js -->
+  <footer class="footer" id="site-footer"></footer>
+
+  <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>

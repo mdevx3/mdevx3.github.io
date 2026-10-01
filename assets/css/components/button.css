@@ -1,0 +1,39 @@
+/* =============================================
+   BUTTONS
+   .btn + one variant: .btn-primary | .btn-outline
+   Hover motion is pure CSS (transform/shadow only).
+   ============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--r);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  min-height: 44px; /* comfortable touch target */
+  transition: transform var(--t), box-shadow var(--t), background-color var(--t),
+              border-color var(--t), filter var(--t), opacity var(--t);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn svg { transition: transform var(--t); }
+.btn:hover svg { transform: translateX(3px); }
+.btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+
+.btn-primary {
+  background: var(--gradient);
+  color: var(--on-accent);
+}
+.btn-primary:hover { background: var(--gradient-hover); box-shadow: var(--glow); }
+
+.btn-outline {
+  color: var(--accent-text);
+  border: 1.5px solid var(--border-strong);
+}
+.btn-outline:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); box-shadow: var(--glow); }
+
+.btn-sm { padding: 0.6rem 1.15rem; font-size: 0.82rem; min-height: 40px; }

@@ -1,0 +1,45 @@
+/* =============================================
+   SKILLS  (category cards + tone-coloured badges)
+   Colour comes from a .tone-* class on .skill-cat, so the same
+   markup works in both themes with no inline styles.
+   ============================================= */
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+
+.skill-cat {
+  padding: var(--space-5) var(--space-5) calc(var(--space-5) + 0.2rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  transition: border-color var(--t), box-shadow var(--t), transform var(--t);
+}
+.skill-cat:hover { border-color: var(--border-strong); box-shadow: var(--shadow); transform: translateY(-2px); }
+.skill-cat-head { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+.cat-dot { width: 8px; height: 8px; flex-shrink: 0; border-radius: 50%; background: var(--tone); }
+.cat-name {
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.badge-wrap { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, transparent);
+  border-radius: var(--r-pill);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 9%, transparent);
+  transition: transform var(--t), background-color var(--t), border-color var(--t);
+}
+.badge:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--tone) 17%, transparent);
+  border-color: color-mix(in srgb, var(--tone) 55%, transparent);
+}
+
+@media (max-width: 900px) { .skills-grid { grid-template-columns: 1fr; } }

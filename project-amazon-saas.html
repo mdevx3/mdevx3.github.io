@@ -4,39 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amazon SaaS Sales Analysis — Darrell Lokadeva Lim</title>
+  <meta name="description" content="Statistical analysis of 9,994 B2B SaaS transactions using Mann-Whitney U and Spearman correlation, uncovering how discounts above 20% drove extreme losses.">
+  <link rel="canonical" href="https://mdevx3.github.io/project-amazon-saas.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Darrell Lokadeva Lim">
+  <meta property="og:title" content="Amazon SaaS Sales Analysis — Darrell Lokadeva Lim">
+  <meta property="og:description" content="Statistical analysis of 9,994 B2B SaaS transactions using Mann-Whitney U and Spearman correlation, uncovering how discounts above 20% drove extreme losses.">
+  <meta property="og:url" content="https://mdevx3.github.io/project-amazon-saas.html">
+  <meta property="og:image" content="https://mdevx3.github.io/assets/img/profile.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <!-- Applies the saved/OS theme before first paint (prevents a flash) and flags that JS is available -->
+  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';d.dataset.theme=t;d.classList.add('js')})(document.documentElement)</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body>
+<body data-page="project">
 
-  <div class="page-transition-overlay"></div>
+  <!-- Navigation is rendered by assets/js/components/site-chrome.js -->
+  <header class="nav" id="site-nav">
+    <noscript><div class="nav-inner container"><a href="index.html" class="nav-logo">Darrell</a><a href="projects.html">All projects</a></div></noscript>
+  </header>
 
-  <!-- NAV -->
-  <nav class="nav scrolled" id="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">Darrell</a>
-      <ul class="nav-links">
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#experience">Experience</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-        <li><a href="index.html#skills">Skills</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-      <button class="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+  <main id="main">
 
   <!-- BANNER -->
   <div class="project-detail-hero">
-    <div class="project-detail-banner" style="background: linear-gradient(135deg, #92400E 0%, #D97706 50%, #FBBF24 100%);">
+    <div class="project-detail-banner cover-amber">
       <div class="project-detail-banner-pattern"></div>
     </div>
     <div class="project-detail-overlay"></div>
-    <div class="container project-detail-header">
+    <div class="container project-detail-header" data-reveal>
       <div class="breadcrumb">
         <a href="index.html">Home</a>
         <span class="breadcrumb-sep">›</span>
@@ -46,17 +46,17 @@
       </div>
       <h1 class="project-detail-title">Amazon SaaS<br>Sales Data Analysis</h1>
       <div class="project-detail-meta">
-        <span class="meta-badge">🗓 Apr 2026</span>
-        <span class="meta-badge">📊 Data Analysis</span>
-        <span class="meta-badge">📁 Capstone 2</span>
+        <span class="meta-badge">Apr 2026</span>
+        <span class="meta-badge">Data Analysis</span>
+        <span class="meta-badge">Capstone 2</span>
       </div>
-      <div style="margin-top:1.5rem;display:flex;gap:0.75rem;flex-wrap:wrap">
-        <a href="https://github.com/mdevx3/Capstone-2" target="_blank" rel="noopener" class="project-gh" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.875rem;font-weight:500;color:#fff;opacity:0.85;border:1px solid rgba(255,255,255,0.3);padding:0.5rem 1rem;border-radius:6px;text-decoration:none;transition:opacity 0.2s">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      <div class="project-detail-actions">
+        <a href="https://github.com/mdevx3/Capstone-2" target="_blank" rel="noopener" class="btn-on-dark">
+          <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
           View on GitHub
         </a>
-        <a href="https://public.tableau.com/app/profile/darrell.lim/viz/Capstone2_Tableau_17758167623290/LossDashboard?publish=yes" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.875rem;font-weight:500;color:#fff;opacity:0.85;border:1px solid rgba(255,255,255,0.3);padding:0.5rem 1rem;border-radius:6px;text-decoration:none;transition:opacity 0.2s">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        <a href="https://public.tableau.com/app/profile/darrell.lim/viz/Capstone2_Tableau_17758167623290/LossDashboard?publish=yes" target="_blank" rel="noopener" class="btn-on-dark">
+          <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
           View Dashboard
         </a>
       </div>
@@ -68,7 +68,7 @@
     <div class="container">
 
       <!-- TOOL TAGS -->
-      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+      <div class="project-tags" data-reveal>
         <span class="tag">Python</span>
         <span class="tag">Pandas</span>
         <span class="tag">Matplotlib</span>
@@ -107,9 +107,9 @@
             <ul>
               <li>Cleaned and standardised the dataset — corrected data types, fixed subregion misclassifications (e.g. Israel placed in EU-EAST), and confirmed zero missing values or duplicates across 9,994 rows.</li>
               <li>Performed comprehensive EDA — distribution analysis, outlier detection, and segment-level profiling — to understand the dataset's shape before testing any hypothesis.</li>
-              <li>Ran a <strong style="color:var(--text-2)">D'Agostino-Pearson normality test</strong> on both groups (discounted vs. non-discounted), confirmed non-normality in both, and selected a non-parametric approach accordingly.</li>
-              <li>Applied the <strong style="color:var(--text-2)">Mann-Whitney U test</strong> to compare profit distributions between discounted and non-discounted transactions — yielding a medium-to-large effect size (rank-biserial ≈ 0.50).</li>
-              <li>Used <strong style="color:var(--text-2)">Spearman rank correlation</strong> (ρ = −0.54, p ≈ 0) to quantify the monotonic inverse relationship between discount rate and profit.</li>
+              <li>Ran a <strong>D'Agostino-Pearson normality test</strong> on both groups (discounted vs. non-discounted), confirmed non-normality in both, and selected a non-parametric approach accordingly.</li>
+              <li>Applied the <strong>Mann-Whitney U test</strong> to compare profit distributions between discounted and non-discounted transactions — yielding a medium-to-large effect size (rank-biserial ≈ 0.50).</li>
+              <li>Used <strong>Spearman rank correlation</strong> (ρ = −0.54, p ≈ 0) to quantify the monotonic inverse relationship between discount rate and profit.</li>
               <li>Drilled down with heatmaps mapping total losses per product against both discount level and customer segment to surface where each product's leakage was concentrated.</li>
               <li>Built an interactive Tableau dashboard visualising discount vs. profit by region and product, with drill-down filters for stakeholder exploration.</li>
               <li>Synthesised findings into a stakeholder presentation with specific, actionable pricing and discount cap recommendations.</li>
@@ -126,17 +126,17 @@
             <span class="ps-title">Result</span>
           </div>
           <div class="ps-content">
-            <div class="result-highlight">
+            <div class="result-highlight" data-counter-group>
               <div class="result-stat">
-                <div class="result-stat-val">$70K+</div>
+                <div class="result-stat-val gradient-text" data-counter>$70K+</div>
                 <div class="result-stat-label">Deficit from one product</div>
               </div>
               <div class="result-stat">
-                <div class="result-stat-val">30%</div>
+                <div class="result-stat-val gradient-text" data-counter>30%</div>
                 <div class="result-stat-label">Tipping point discount</div>
               </div>
               <div class="result-stat">
-                <div class="result-stat-val">1,871</div>
+                <div class="result-stat-val gradient-text" data-counter>1,871</div>
                 <div class="result-stat-label">Loss-making transactions</div>
               </div>
             </div>
@@ -154,56 +154,33 @@
         <div class="figure-gallery-sub">Key charts from the statistical analysis — from the discount tipping point through to product- and segment-level loss attribution.</div>
         <div class="figure-grid">
           <div class="figure-card">
-            <img src="images/avg profit.png" alt="Average profit at each discount level bar chart" loading="lazy">
+            <img src="assets/img/avg profit.png" alt="Average profit at each discount level bar chart" loading="lazy">
             <div class="figure-cap"><strong>Average Profit by Discount Level</strong> — margin stays positive up to 20%, then collapses at 30% (−10.1%) with the loss rate jumping from 13.7% to 91.6%.</div>
           </div>
           <div class="figure-card">
-            <img src="images/disc level per segment.png" alt="Total losses at each discount level grouped by customer segment" loading="lazy">
+            <img src="assets/img/disc level per segment.png" alt="Total losses at each discount level grouped by customer segment" loading="lazy">
             <div class="figure-cap"><strong>Total Losses by Discount Level × Segment</strong> — SMB consistently drives the deepest losses, especially at discounts of 40–80%.</div>
           </div>
           <div class="figure-card">
-            <img src="images/heatmap loss.png" alt="Heatmaps of total loss per product by discount level and by segment" loading="lazy">
+            <img src="assets/img/heatmap loss.png" alt="Heatmaps of total loss per product by discount level and by segment" loading="lazy">
             <div class="figure-cap"><strong>Loss Heatmaps: Product × Discount &amp; Product × Segment</strong> — ContactMatcher's losses are spread across high discounts in SMB; FinanceHub uniquely loses at low discounts (20–30%), indicating a cost structure problem rather than excessive discounting.</div>
           </div>
         </div>
       </div>
 
-      <!-- NAVIGATION -->
-      <div class="project-nav" data-reveal>
-        <a href="project-hotel-booking.html" class="project-nav-back">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Hotel Booking
-        </a>
-        <a href="projects.html" class="project-nav-back" style="flex-direction:column;gap:0.2rem;align-items:center;color:var(--text-4)">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 8 8)"/></svg>
-          <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em">All Projects</span>
-        </a>
-        <div class="project-nav-next">
-          <span class="project-nav-label">Next Project</span>
-          <a href="project-sign-language.html" class="project-nav-title">
-            Sign Language Interpreter
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
+      <!-- PREV / NEXT: built by assets/js/components/project-nav.js from assets/js/data/projects.js -->
+      <nav class="project-nav" data-project-nav data-current="amazon-saas" data-reveal>
+        <a class="project-nav-all" href="projects.html">All Projects</a>
+      </nav>
 
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
-        <div class="footer-links">
-          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
-          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  </main>
 
-  <script type="module" src="main.js"></script>
+  <!-- Footer is rendered by assets/js/components/site-chrome.js -->
+  <footer class="footer" id="site-footer"></footer>
+
+  <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>

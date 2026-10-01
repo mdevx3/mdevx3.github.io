@@ -1,0 +1,13 @@
+/* =============================================
+   FOOTER  (markup rendered by site-chrome.js)
+   ============================================= */
+.footer { padding: var(--space-6) 0; border-top: 1px solid var(--border); background: var(--bg); }
+.footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.footer-copy { font-size: 0.82rem; color: var(--text-4); }
+.footer-copy a { color: var(--accent-text); transition: color var(--t); }
+.footer-copy a:hover { color: var(--text); }
+.footer-links { display: flex; gap: var(--space-5); }
+.footer-link { font-size: 0.82rem; color: var(--text-4); transition: color var(--t); }
+.footer-link:hover { color: var(--text); }
+
+@media (max-width: 600px) { .footer-inner { flex-direction: column; align-items: flex-start; } }

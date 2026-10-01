@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "vendor": "cp node_modules/animejs/dist/bundles/anime.esm.min.js assets/vendor/anime.esm.min.js"
+  },
   "dependencies": {
     "animejs": "^4.5.0"
   }

@@ -1,0 +1,117 @@
+/* =============================================
+   ABOUT  (photo + CV card, bio, stats, working-style cards)
+   ============================================= */
+.about-wrap {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+.about-left {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--space-6));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+}
+.about-photo {
+  position: relative;
+  width: 200px; height: 200px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--gradient);
+}
+.about-photo img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.about-photo::before { /* soft glow behind the photo */
+  content: '';
+  position: absolute;
+  inset: -6px;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--gradient);
+  opacity: 0.3;
+  filter: blur(14px);
+}
+
+.resume-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.resume-info { min-width: 0; }
+.resume-info-title { font-size: 0.875rem; font-weight: 600; }
+.resume-info-meta { font-size: var(--step--1); color: var(--text-4); }
+
+.about-right { display: flex; flex-direction: column; gap: var(--space-7); }
+.about-bio p {
+  max-width: var(--measure);
+  margin-bottom: var(--space-4);
+  color: var(--text-3);
+  line-height: 1.85;
+}
+.about-bio p:last-child { margin-bottom: 0; }
+
+.about-stats { display: flex; flex-wrap: wrap; gap: var(--space-6); margin-top: var(--space-6); }
+.stat-value {
+  margin-bottom: var(--space-1);
+  font-size: var(--step-2);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-size: var(--step--1);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-4);
+}
+
+.values-title { margin-bottom: var(--space-4); font-size: 1rem; font-weight: 600; color: var(--text-2); }
+.values-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-3); }
+.value-card {
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+}
+.value-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+}
+.value-icon {
+  display: grid;
+  place-items: center;
+  width: 36px; height: 36px;
+  margin-bottom: var(--space-3);
+  border-radius: var(--r-sm);
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 12%, transparent);
+}
+.value-card-title { margin-bottom: var(--space-1); font-size: 0.9rem; font-weight: 600; }
+.value-card-desc { font-size: 0.82rem; line-height: 1.6; color: var(--text-3); }
+
+@media (max-width: 900px) {
+  .resume-card { max-width: 280px; }
+  .about-wrap { grid-template-columns: 1fr; gap: var(--space-7); }
+  .about-left { position: static; flex-direction: row; align-items: center; }
+  .about-photo { width: 140px; height: 140px; }
+}
+@media (max-width: 600px) {
+  .about-left { flex-direction: column; }
+  .values-grid { grid-template-columns: 1fr; }
+}

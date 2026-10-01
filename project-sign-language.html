@@ -4,39 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Real-Time Sign Language Interpreter — Darrell Lokadeva Lim</title>
+  <meta name="description" content="Real-time ASL-to-text interpreter using Mediapipe hand landmark detection and a TensorFlow deep learning model.">
+  <link rel="canonical" href="https://mdevx3.github.io/project-sign-language.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Darrell Lokadeva Lim">
+  <meta property="og:title" content="Real-Time Sign Language Interpreter — Darrell Lokadeva Lim">
+  <meta property="og:description" content="Real-time ASL-to-text interpreter using Mediapipe hand landmark detection and a TensorFlow deep learning model.">
+  <meta property="og:url" content="https://mdevx3.github.io/project-sign-language.html">
+  <meta property="og:image" content="https://mdevx3.github.io/assets/img/profile.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <!-- Applies the saved/OS theme before first paint (prevents a flash) and flags that JS is available -->
+  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';d.dataset.theme=t;d.classList.add('js')})(document.documentElement)</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body>
+<body data-page="project">
 
-  <div class="page-transition-overlay"></div>
+  <!-- Navigation is rendered by assets/js/components/site-chrome.js -->
+  <header class="nav" id="site-nav">
+    <noscript><div class="nav-inner container"><a href="index.html" class="nav-logo">Darrell</a><a href="projects.html">All projects</a></div></noscript>
+  </header>
 
-  <!-- NAV -->
-  <nav class="nav scrolled" id="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">Darrell</a>
-      <ul class="nav-links">
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#experience">Experience</a></li>
-        <li><a href="projects.html" class="active">Projects</a></li>
-        <li><a href="index.html#skills">Skills</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-      <button class="hamburger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+  <main id="main">
 
   <!-- BANNER -->
   <div class="project-detail-hero">
-    <div class="project-detail-banner" style="background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 50%, #A78BFA 100%);">
+    <div class="project-detail-banner cover-violet">
       <div class="project-detail-banner-pattern"></div>
     </div>
     <div class="project-detail-overlay"></div>
-    <div class="container project-detail-header">
+    <div class="container project-detail-header" data-reveal>
       <div class="breadcrumb">
         <a href="index.html">Home</a>
         <span class="breadcrumb-sep">›</span>
@@ -46,9 +46,9 @@
       </div>
       <h1 class="project-detail-title">Real-Time Sign<br>Language Interpreter</h1>
       <div class="project-detail-meta">
-        <span class="meta-badge">🗓 Apr – May 2025</span>
-        <span class="meta-badge">👁 Computer Vision</span>
-        <span class="meta-badge">🤝 Team Project</span>
+        <span class="meta-badge">Apr – May 2025</span>
+        <span class="meta-badge">Computer Vision</span>
+        <span class="meta-badge">Team Project</span>
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@
     <div class="container">
 
       <!-- TOOL TAGS -->
-      <div class="project-tags" style="margin-bottom:3rem" data-reveal>
+      <div class="project-tags" data-reveal>
         <span class="tag">Python</span>
         <span class="tag">TensorFlow</span>
         <span class="tag">Scikit-learn</span>
@@ -95,9 +95,9 @@
           <div class="ps-content">
             <h3>Combining landmark detection with deep learning classification</h3>
             <ul>
-              <li>Used <strong style="color:var(--text-2)">Google Mediapipe</strong> to extract 21 3D hand landmark keypoints per frame from the live webcam feed — providing a structured, low-dimensional representation of hand pose that is robust to lighting and skin tone variation.</li>
-              <li>Trained a <strong style="color:var(--text-2)">TensorFlow deep learning model</strong> on a labelled gesture dataset, mapping sequences of landmark coordinates to ASL letter/word classes.</li>
-              <li>Integrated the full pipeline with <strong style="color:var(--text-2)">OpenCV</strong> for real-time video capture and frame-by-frame inference, overlaying the predicted text label on the live video stream.</li>
+              <li>Used <strong>Google Mediapipe</strong> to extract 21 3D hand landmark keypoints per frame from the live webcam feed — providing a structured, low-dimensional representation of hand pose that is robust to lighting and skin tone variation.</li>
+              <li>Trained a <strong>TensorFlow deep learning model</strong> on a labelled gesture dataset, mapping sequences of landmark coordinates to ASL letter/word classes.</li>
+              <li>Integrated the full pipeline with <strong>OpenCV</strong> for real-time video capture and frame-by-frame inference, overlaying the predicted text label on the live video stream.</li>
               <li>Built a Java-based frontend component for the user interface, connecting to the Python inference backend over a local bridge.</li>
               <li>Validated accuracy using held-out gesture samples and iterated on the model architecture to improve classification confidence on ambiguous hand shapes.</li>
             </ul>
@@ -113,17 +113,17 @@
             <span class="ps-title">Result</span>
           </div>
           <div class="ps-content">
-            <div class="result-highlight">
+            <div class="result-highlight" data-counter-group>
               <div class="result-stat">
-                <div class="result-stat-val">Real-Time</div>
+                <div class="result-stat-val gradient-text" data-counter>Real-Time</div>
                 <div class="result-stat-label">Inference Speed</div>
               </div>
               <div class="result-stat">
-                <div class="result-stat-val">21</div>
+                <div class="result-stat-val gradient-text" data-counter>21</div>
                 <div class="result-stat-label">3D Keypoints per Frame</div>
               </div>
               <div class="result-stat">
-                <div class="result-stat-val">Top Score</div>
+                <div class="result-stat-val gradient-text" data-counter>Top Score</div>
                 <div class="result-stat-label">Course Achievement</div>
               </div>
             </div>
@@ -134,42 +134,19 @@
       </div>
 
 
-      <!-- NAVIGATION -->
-      <div class="project-nav" data-reveal>
-        <a href="project-amazon-saas.html" class="project-nav-back">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Amazon SaaS
-        </a>
-        <a href="projects.html" class="project-nav-back" style="flex-direction:column;gap:0.2rem;align-items:center;color:var(--text-4)">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 8 8)"/></svg>
-          <span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em">All Projects</span>
-        </a>
-        <div class="project-nav-next">
-          <span class="project-nav-label">Next Project</span>
-          <a href="project-international-debt.html" class="project-nav-title">
-            International Debt Analysis
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-      </div>
+      <!-- PREV / NEXT: built by assets/js/components/project-nav.js from assets/js/data/projects.js -->
+      <nav class="project-nav" data-project-nav data-current="sign-language" data-reveal>
+        <a class="project-nav-all" href="projects.html">All Projects</a>
+      </nav>
 
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-copy">&copy; 2026 <a href="index.html">Darrell Lokadeva Lim</a>. Built with care.</div>
-        <div class="footer-links">
-          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="footer-link">LinkedIn</a>
-          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="footer-link">Email</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  </main>
 
-  <script type="module" src="main.js"></script>
+  <!-- Footer is rendered by assets/js/components/site-chrome.js -->
+  <footer class="footer" id="site-footer"></footer>
+
+  <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>

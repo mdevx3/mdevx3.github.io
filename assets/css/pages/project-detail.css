@@ -1,0 +1,190 @@
+/* =============================================
+   PROJECT DETAIL PAGES  (project-*.html)
+   Banner, numbered content sections, result stats, figure
+   gallery and prev/next navigation.
+   The banner always uses a dark overlay with white text, in both themes.
+   ============================================= */
+
+/* ----- Banner ----- */
+.project-detail-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 55vh;
+  min-height: 380px;
+  max-height: 520px;
+  padding-top: var(--nav-h);
+  overflow: hidden;
+}
+.project-detail-banner { position: absolute; inset: 0; background: var(--cover); }
+.project-detail-banner-pattern {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 48px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 48px);
+}
+.project-detail-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(6, 11, 24, 0.1), rgba(6, 11, 24, 0.82));
+}
+.project-detail-header { position: relative; padding-bottom: var(--space-6); }
+
+.breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-4); font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); }
+.breadcrumb a { transition: color var(--t); }
+.breadcrumb a:hover { color: #fff; }
+.breadcrumb-sep { font-size: 0.65rem; opacity: 0.5; }
+
+.project-detail-title { margin-bottom: var(--space-4); font-size: var(--step-4); font-weight: 900; letter-spacing: -0.03em; color: #fff; }
+.project-detail-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.meta-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+}
+.project-detail-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
+.btn-on-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: var(--r-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fff;
+  transition: background-color var(--t), border-color var(--t), transform var(--t);
+}
+.btn-on-dark:hover { background: rgba(255, 255, 255, 0.16); border-color: #fff; transform: translateY(-2px); }
+
+/* ----- Body ----- */
+.project-detail-body { padding: var(--space-8) 0 var(--section-py); }
+.project-detail-body .project-tags { margin-bottom: var(--space-7); }
+.project-section { padding: var(--space-6) 0; border-bottom: 1px solid var(--border); }
+.project-section:last-of-type { border-bottom: none; }
+.project-section-inner { display: grid; grid-template-columns: 180px 1fr; gap: var(--space-7); align-items: start; }
+.ps-label { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); padding-top: 0.25rem; }
+.ps-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-4); }
+.ps-title { font-size: var(--step-1); font-weight: 800; }
+.ps-content { min-width: 0; }
+.ps-content h3 { margin-bottom: var(--space-3); font-size: var(--step-1); }
+.ps-content p { max-width: var(--measure); margin-bottom: var(--space-3); line-height: 1.85; color: var(--text-3); }
+.ps-content p:last-child { margin-bottom: 0; }
+.ps-content strong,
+.figure-cap strong { font-weight: 600; color: var(--text-2); }
+.ps-content ul { display: flex; flex-direction: column; gap: var(--space-3); padding-left: var(--space-4); }
+.ps-content li { position: relative; max-width: var(--measure); line-height: 1.85; color: var(--text-3); }
+.ps-content li::before {
+  content: '';
+  position: absolute;
+  left: -1rem; top: 0.7rem;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+/* Inline code (used in body copy and figure captions) */
+.ps-content code,
+.figure-cap code {
+  padding: 0.12rem 0.45rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--accent-text);
+  background: var(--surface-2);
+  overflow-wrap: anywhere;
+}
+
+/* ----- Result stats ----- */
+.result-highlight { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); margin-bottom: var(--space-5); }
+.result-stat { padding: var(--space-4); text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); }
+.result-stat-val {
+  margin-bottom: 0.3rem;
+  font-size: var(--step-2);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.result-stat-label { font-size: 0.75rem; color: var(--text-4); }
+
+/* ----- Figure gallery (charts, screenshots) ----- */
+.figure-gallery { margin-top: var(--space-7); padding-top: var(--space-7); border-top: 1px solid var(--border); }
+.figure-gallery-title { margin-bottom: 0.4rem; font-size: 1rem; font-weight: 700; color: var(--text-2); }
+.figure-gallery-sub { margin-bottom: var(--space-5); font-size: 0.9rem; color: var(--text-3); }
+.figure-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+.figure-card--wide { grid-column: 1 / -1; }
+.figure-card {
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+}
+.figure-card:hover { transform: translateY(-3px); border-color: var(--border-strong); box-shadow: var(--shadow); }
+.figure-card img { width: 100%; height: auto; padding: 0.75rem; background: #fff; cursor: zoom-in; transition: transform 450ms var(--ease-out); }
+.figure-card:hover img { transform: scale(1.02); }
+.figure-card img:focus-visible { outline-offset: -3px; }
+.figure-cap { padding: var(--space-3) var(--space-4); font-size: 0.84rem; line-height: 1.55; color: var(--text-3); border-top: 1px solid var(--border); }
+
+/* ----- Prev / next navigation (built by project-nav.js) ----- */
+.project-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border);
+}
+.project-nav-link { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; max-width: 40%; }
+.project-nav-link--next { align-items: flex-end; text-align: right; }
+.project-nav-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-4); }
+.project-nav-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-text);
+  transition: color var(--t);
+}
+.project-nav-title svg { flex-shrink: 0; transition: transform var(--t); }
+.project-nav-link:hover .project-nav-title { color: var(--text); }
+.project-nav-link--prev:hover svg { transform: translateX(-4px); }
+.project-nav-link--next:hover svg { transform: translateX(4px); }
+.project-nav-all {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-4);
+  transition: color var(--t);
+}
+.project-nav-all:hover { color: var(--text); }
+
+@media (max-width: 900px) {
+  .project-section-inner { grid-template-columns: 1fr; gap: var(--space-3); }
+  .ps-label { flex-direction: row; align-items: center; gap: var(--space-3); }
+  .result-highlight { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 600px) {
+  .project-detail-hero { height: auto; min-height: 320px; padding-bottom: 0; }
+  .project-detail-header { padding-top: var(--space-7); }
+  .result-highlight { grid-template-columns: 1fr; }
+  .figure-grid { grid-template-columns: 1fr; }
+  .project-nav { flex-direction: column; align-items: flex-start; }
+  .project-nav-link { max-width: 100%; }
+  .project-nav-spacer { display: none; }
+  .project-nav-link--next { align-items: flex-start; text-align: left; }
+}

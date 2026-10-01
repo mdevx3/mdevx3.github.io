@@ -1,0 +1,57 @@
+/* =============================================
+   SECTION HEADER
+   Eyebrow tag + title + short description.
+   The title underline is pure CSS and draws in when its
+   [data-reveal] ancestor becomes visible.
+   ============================================= */
+.section-header { text-align: center; margin-bottom: var(--space-7); }
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.section-tag::before,
+.section-tag::after {
+  content: '';
+  width: 20px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.55;
+}
+.section-tag--left::after { display: none; }
+
+.section-title {
+  font-size: var(--step-3);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-4);
+}
+.section-title::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin: var(--space-3) auto 0;
+  border-radius: 2px;
+  background: var(--gradient);
+  transform-origin: left;
+  transition: transform 700ms var(--ease-out) 250ms;
+}
+.section-title--left { text-align: left; }
+.section-title--left::after { margin-left: 0; }
+:where(.js) [data-reveal]:not(.is-visible) .section-title::after { transform: scaleX(0); }
+
+.section-desc {
+  max-width: 520px;
+  margin: 0 auto;
+  color: var(--text-3);
+  line-height: 1.75;
+}
