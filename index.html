@@ -13,383 +13,291 @@
   <meta property="og:url" content="https://mdevx3.github.io/">
   <meta property="og:image" content="https://mdevx3.github.io/assets/img/profile.jpg">
   <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-  <!-- Applies the saved/OS theme before first paint (prevents a flash) and flags that JS is available -->
-  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';d.dataset.theme=t;d.classList.add('js')})(document.documentElement)</script>
+  <!-- Applies the saved theme before first paint (dark by default) and flags that JS is available.
+       Failsafe: if main.js has not started within 4s, the `js` flag is dropped so no content stays hidden. -->
+  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}d.dataset.theme=t==='light'?'light':'dark';d.classList.add('js');setTimeout(function(){if(!d.classList.contains('js-ready'))d.classList.remove('js')},4000)})(document.documentElement)</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body data-page="home">
 
   <!-- Navigation is rendered by assets/js/components/site-chrome.js -->
   <header class="nav" id="site-nav">
-    <noscript><div class="nav-inner container"><a href="index.html" class="nav-logo">Darrell</a><a href="projects.html">Projects</a></div></noscript>
+    <noscript><div class="nav-inner container"><a href="index.html" class="nav-logo">Darrell Lim</a><a href="projects.html">All projects</a></div></noscript>
   </header>
+
+  <!-- 3D layer: one fixed WebGL canvas behind every section (assets/js/scene/) -->
+  <canvas class="scene-canvas" data-scene aria-hidden="true"></canvas>
+  <div class="spotlight" aria-hidden="true"></div>
 
   <main id="main">
 
-  <!-- ==================== HERO ==================== -->
-  <section class="hero" id="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <div class="hero-dots"></div>
-      <div class="hero-orb hero-orb-1"></div>
-      <div class="hero-orb hero-orb-2"></div>
-    </div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-eyebrow" data-hero>
-          <span class="hero-eyebrow-dot"></span>
-          Data Scientist &nbsp;·&nbsp; Jakarta, Indonesia
+    <!-- ===== 01 HERO: pinned stage, two chapters over the 3D network (hero.js) ===== -->
+    <section class="hero" id="top" data-scene-state="0" aria-label="Introduction">
+      <div class="hero-stage container grid-12">
+        <div class="hero-chapter hero-intro" data-chapter="intro">
+          <p class="label">Data Scientist — Jakarta, Indonesia</p>
+          <h1 class="hero-title">
+            <span class="hero-name">Darrell Lokadeva Lim</span>
+            <span class="hero-tagline">Intelligence,<br><span class="gradient-text">connected.</span></span>
+          </h1>
+          <p class="lead">I build NLP pipelines, machine-learning systems and production APIs, delivered to enterprise and government clients while completing dual degrees.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#work">View work</a>
+            <a class="link-arrow" href="assets/docs/Darrell_Lokadeva_Lim_CV.docx" download>Download CV</a>
+          </div>
         </div>
-        <h1 class="hero-name gradient-text" data-hero>Darrell L Lim</h1>
-        <p class="hero-headline" data-hero>Ambition through Data Science</p>
-        <p class="hero-intro" data-hero>
-          Data Science practitioner with hands-on experience building NLP pipelines, machine learning systems, and production APIs — delivering real-world solutions for enterprise and government clients while pursuing dual degrees across two universities.
-        </p>
-        <div class="hero-actions" data-hero>
-          <a href="projects.html" class="btn btn-primary">
-            View My Work
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="hero-chapter hero-statement" data-chapter="statement">
+          <p class="hero-statement-text">From raw data to <span class="gradient-text">deployed systems.</span></p>
+          <dl class="hero-stats" data-counter-group data-counter-manual>
+            <div><dt class="label">GPA / 4.00</dt><dd data-counter>3.87</dd></div>
+            <div><dt class="label">Degrees in progress</dt><dd data-counter>2×</dd></div>
+            <div><dt class="label">Projects shipped</dt><dd data-counter>6</dd></div>
+            <div><dt class="label">Languages</dt><dd data-counter>2</dd></div>
+          </dl>
+        </div>
+        <div class="hero-scroll" aria-hidden="true"><span class="label">Scroll</span><span class="hero-scroll-line"></span></div>
+      </div>
+    </section>
+
+    <!-- ===== 02 EXPERTISE: each card owns a cluster of the network (expertise.js) ===== -->
+    <section class="section" id="expertise" data-scene-state="1">
+      <div class="container">
+        <header class="section-head grid-12" data-reveal>
+          <p class="label">02 — Expertise</p>
+          <h2 class="section-title">Depth across the data stack.</h2>
+          <p class="lead">Three disciplines, one pipeline: from statistical analysis and model training to the systems that put models in front of real users.</p>
+        </header>
+
+        <div class="xp-grid grid-12" data-expertise data-stagger-container>
+          <article class="xp-card span-4" data-scene-cluster="0" data-stagger>
+            <div class="xp-card-top"><span class="xp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/><circle cx="20" cy="8" r="1"/></svg></span><span class="label">01</span></div>
+            <span class="xp-badge">Bootcamp-certified · Purwadhika</span>
+            <h3>Data Science &amp; Machine Learning</h3>
+            <p>End-to-end modelling, from exploratory analysis and statistical testing to tuned, threshold-optimised classifiers and NLP pipelines running in production.</p>
+            <dl class="xp-specs">
+              <div><dt class="label">Modelling</dt><dd>scikit-learn, TensorFlow, HistGradientBoosting, Random Forest, feature engineering, hyperparameter tuning, class-imbalance handling, threshold optimisation</dd></div>
+              <div><dt class="label">NLP</dt><dd>Aspect-based sentiment analysis, BERTopic, UMAP, HDBSCAN, fasttext, langdetect, rake-nltk</dd></div>
+              <div><dt class="label">Analysis</dt><dd>Pandas, NumPy, SciPy, Mann-Whitney U, Spearman correlation, Tableau, Matplotlib, Seaborn</dd></div>
+            </dl>
+            <a class="link-arrow" href="project-hotel-booking.html">Hotel booking case study</a>
+          </article>
+          <article class="xp-card span-4" data-scene-cluster="1" data-stagger>
+            <div class="xp-card-top"><span class="xp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></span><span class="label">02</span></div>
+            <span class="xp-badge">Dual B.S. in progress</span>
+            <h3>Applied Computing &amp; Systems</h3>
+            <p>Computer-science foundations put to work: the APIs, databases and deployment that turn models into dependable services.</p>
+            <dl class="xp-specs">
+              <div><dt class="label">Education</dt><dd>B.S. Applied Computing, University of Arizona · B.S. Information Systems, Sampoerna University (GPA 3.87, SPARK scholarship, Dean’s List)</dd></div>
+              <div><dt class="label">Systems</dt><dd>FastAPI, uvicorn, Django, JWT-secured REST APIs, PostgreSQL, InfluxDB, SQL</dd></div>
+              <div><dt class="label">Engineering</dt><dd>Python, Java, Git, MLOps, pipeline design, remote deployment with Termius</dd></div>
+            </dl>
+            <a class="link-arrow" href="project-cycle-monitoring.html">Cycle monitoring case study</a>
+          </article>
+          <article class="xp-card span-4" data-scene-cluster="2" data-stagger>
+            <div class="xp-card-top"><span class="xp-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-4 0"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></span><span class="label">03</span></div>
+            <span class="xp-badge">Real-time</span>
+            <h3>Computer Vision &amp; Gesture Recognition</h3>
+            <p>Perception systems that read hands and gestures from a live camera feed and translate them into meaning as they happen.</p>
+            <dl class="xp-specs">
+              <div><dt class="label">Frameworks</dt><dd>OpenCV, Mediapipe, TensorFlow</dd></div>
+              <div><dt class="label">Techniques</dt><dd>Hand landmark detection, real-time gesture detection, ASL-to-text interpretation</dd></div>
+            </dl>
+            <a class="link-arrow" href="project-sign-language.html">Sign language case study</a>
+          </article>
+        </div>
+
+        <article class="xp-role grid-12" data-reveal>
+          <div class="xp-role-head span-5">
+            <p class="label">Experience</p>
+            <h3>Data Science Intern</h3>
+            <p class="xp-role-company">PT Nolimit Indonesia</p>
+            <p class="xp-role-meta">Jakarta · May – August 2026 · Full-time internship</p>
+            <p class="xp-role-lang">Indonesian (native) · English (IELTS 7.5)</p>
+          </div>
+          <div class="span-7">
+            <ul class="xp-role-list">
+              <li><strong>Shipped a FastAPI inference service</strong> for aspect-based sentiment analysis (Indsight Food Review), handling real-time text and batch CSV for government and corporate clients.</li>
+              <li><strong>Built an Indonesian social-media clustering pipeline</strong> (Twitter, Facebook, Instagram) with BERTopic, UMAP and HDBSCAN, producing 20–50 coherent topics per project.</li>
+              <li><strong>Fixed critical bugs</strong> in social-media and Online News Monitoring runners for a government ministry, delivering daily sentiment reports to PostgreSQL.</li>
+              <li><strong>Restored data integrity</strong> by correcting a spokesperson label-mapping error in the ONM pipeline.</li>
+              <li><strong>Set up remote engine deployment</strong> with Termius and proposed automated retraining for production drift.</li>
+            </ul>
+            <ul class="chips" aria-label="Tools used">
+              <li class="chip">Python</li><li class="chip">FastAPI</li><li class="chip">BERTopic</li><li class="chip">UMAP</li><li class="chip">HDBSCAN</li><li class="chip">PostgreSQL</li><li class="chip">Sentiment Analysis</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 03 WORK: bento of 3D showcase frames (frames.js) ===== -->
+    <section class="section" id="work" data-scene-state="2">
+      <div class="container">
+        <header class="section-head grid-12" data-reveal>
+          <p class="label">03 — Selected work</p>
+          <h2 class="section-title">Built for the real world.</h2>
+          <div class="lead">
+            <p>Six end-to-end projects, from real-time gesture recognition to production NLP for government clients. Open a case study for the full write-up, or the repository for the code.</p>
+            <a class="link-arrow" href="projects.html">All projects</a>
+          </div>
+        </header>
+
+        <div class="bento grid-12" data-frames>
+      <article class="frame cover-violet tile--feature" data-categories="cv ml">
+        <div class="frame-stage">
+          <a class="frame-media" href="project-sign-language.html" tabindex="-1" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1640550444366-b94e5752c479?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1640550444366-b94e5752c479?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1640550444366-b94e5752c479?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 1100px) 100vw, 700px" alt="" loading="lazy" decoding="async">
+            <span class="frame-tint"></span><span class="frame-glare"></span>
+            <span class="frame-index">05</span>
           </a>
-          <a href="#about" class="btn btn-outline">About Me</a>
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll-hint" data-hero aria-hidden="true">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- ==================== ABOUT ==================== -->
-  <section class="section" id="about">
-    <div class="container">
-      <div class="about-wrap">
-
-        <!-- Left: Photo + CV download -->
-        <div class="about-left" data-reveal>
-          <div class="about-photo"><img src="assets/img/profile.jpg" alt="Darrell Lokadeva Lim" width="200" height="200"></div>
-          <div class="resume-card">
-            <div class="resume-info">
-              <div class="resume-info-title">Curriculum Vitae</div>
-              <div class="resume-info-meta">DOCX · Updated 2026</div>
-            </div>
-            <a href="assets/docs/Darrell_Lokadeva_Lim_CV.docx" download class="btn btn-primary btn-sm">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8M4 7l4 4 4-4M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Download
-            </a>
+          <div class="frame-body">
+            <div class="frame-meta"><span class="label">Featured</span><span class="label">Apr – May 2025</span><span class="label">Computer Vision</span></div>
+            <h3 class="frame-title"><a href="project-sign-language.html">Real-Time Sign Language Interpreter</a></h3>
+            <p class="frame-desc">Co-developed a real-time ASL-to-text interpreter using Mediapipe hand landmark detection and a TensorFlow deep learning model trained on gesture datasets, achieving one of the top course scores.</p>
+            <ul class="frame-tags" aria-label="Tech stack"><li>Python</li><li>TensorFlow</li><li>OpenCV</li><li>Mediapipe</li><li>Java</li></ul>
+            <div class="frame-links"><a class="link-arrow" href="project-sign-language.html">Case study</a></div>
           </div>
         </div>
-
-        <!-- Right: Bio + Values -->
-        <div class="about-right">
-          <div data-reveal>
-            <div class="section-tag section-tag--left">Who I Am</div>
-            <h2 class="section-title section-title--left">Building at the intersection of data and impact</h2>
-            <div class="about-bio">
-              <p>
-                I'm a Data Science practitioner currently interning at PT NoLimit Indonesia, where I build sentiment analysis services and social media text-clustering systems deployed for government ministries and corporate clients. My work spans the full ML lifecycle — from exploratory data analysis and feature engineering to model deployment via FastAPI in production environments.
-              </p>
-              <p>
-                I'm pursuing dual degrees simultaneously: a B.S. in Information Systems at Sampoerna University (GPA 3.87/4.00, full SPARK scholarship, Dean's List) and a B.S. in Applied Computing at the University of Arizona — while completing a Data Science &amp; Machine Learning Bootcamp at Purwadhika Digital Technology School.
-              </p>
-              <p>
-                I'm fluent in Indonesian and English (IELTS 7.5). I thrive at the intersection of technical rigor and real-world impact, and I'm seeking entry-level Data Science or Machine Learning Engineering roles where I can keep building systems that matter.
-              </p>
-            </div>
-            <div class="about-stats" data-counter-group>
-              <div class="stat-item">
-                <div class="stat-value gradient-text" data-counter>3.87</div>
-                <div class="stat-label">GPA / 4.00</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-value gradient-text" data-counter>2×</div>
-                <div class="stat-label">Degrees (in progress)</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-value gradient-text" data-counter>6</div>
-                <div class="stat-label">Projects shipped</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-value gradient-text" data-counter>2</div>
-                <div class="stat-label">Languages spoken</div>
-              </div>
-            </div>
-          </div>
-
-          <div data-reveal>
-            <h3 class="values-title">Working Style</h3>
-            <div class="values-grid" data-stagger-container>
-              <div class="value-card tone-sky" data-stagger>
-                <div class="value-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                </div>
-                <div class="value-card-title">Full Pipeline Thinking</div>
-                <div class="value-card-desc">From raw data to deployed APIs — I care about the entire ML lifecycle, not just the model.</div>
-              </div>
-              <div class="value-card tone-indigo" data-stagger>
-                <div class="value-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                </div>
-                <div class="value-card-title">Rigorous by Default</div>
-                <div class="value-card-desc">I've caught critical bugs in production pipelines and a $70K+ loss-trigger in pricing data — details are a competitive edge.</div>
-              </div>
-              <div class="value-card tone-violet" data-stagger>
-                <div class="value-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                </div>
-                <div class="value-card-title">Impact-Driven</div>
-                <div class="value-card-desc">My work goes to government ministries and enterprise clients. I measure success by business outcomes, not just metrics.</div>
-              </div>
-              <div class="value-card tone-cyan" data-stagger>
-                <div class="value-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                </div>
-                <div class="value-card-title">Cross-Cultural Fluency</div>
-                <div class="value-card-desc">2 languages spoken — Indonesian and English (IELTS 7.5). I bridge technical and non-technical stakeholders across cultures.</div>
-              </div>
-              <div class="value-card tone-amber" data-stagger>
-                <div class="value-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                </div>
-                <div class="value-card-title">Scholar &amp; Practitioner</div>
-                <div class="value-card-desc">3.87 GPA across dual degrees while working real DS roles. I believe the best learning happens in production.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== EXPERIENCE ==================== -->
-  <section class="section section--alt" id="experience">
-    <div class="container">
-      <div class="section-header" data-reveal>
-        <div class="section-tag">Where I've Worked</div>
-        <h2 class="section-title">Work Experience</h2>
-        <p class="section-desc">Hands-on industry exposure building production systems for real enterprise and government clients.</p>
-      </div>
-
-      <div class="exp-list">
-        <div class="exp-card" data-reveal>
-          <div class="exp-header">
-            <div class="exp-logo" aria-hidden="true">NL</div>
-            <div class="exp-meta">
-              <h3 class="exp-role">Data Science Intern</h3>
-              <div class="exp-company">PT Nolimit Indonesia</div>
-              <div class="exp-details">
-                <span>Jakarta, Indonesia</span>
-                <span class="exp-dot">·</span>
-                <span>May 2026 – August 2026</span>
-                <span class="exp-dot">·</span>
-                <span class="tag tag--accent exp-type">Full-time Internship</span>
-              </div>
-            </div>
-          </div>
-          <ul class="exp-bullets">
-            <li>Developed and deployed a FastAPI inference service for Aspect-Based Sentiment Analysis (ABSA) trained on the Indsight Food Review dataset, enabling real-time text and batch CSV processing for enterprise clients across government and corporate sectors.</li>
-            <li>Designed and built an end-to-end Indonesian social media text-clustering pipeline (Twitter, Facebook, Instagram) using BERTopic, UMAP, and HDBSCAN, producing 20–50 coherent topic clusters per project from large-scale informal short-form content.</li>
-            <li>Diagnosed and resolved critical bugs in social media and Online News Monitoring (ONM) runner modules for a government ministry client; delivered structured daily sentiment analysis reports exported to PostgreSQL.</li>
-            <li>Identified and corrected a spokesperson label-mapping error in the ONM pipeline — a minister with a single role was incorrectly assigned two roles due to flawed spreadsheet logic — restoring downstream data integrity.</li>
-            <li>Configured Termius for remote engine deployment and proposed an automated model retraining workflow for production drift detection.</li>
-          </ul>
-          <div class="exp-tags">
-            <span class="tag">Python</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">BERTopic</span>
-            <span class="tag">UMAP</span>
-            <span class="tag">HDBSCAN</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">Sentiment Analysis</span>
-            <span class="tag">NLP</span>
-            <span class="tag">Text Clustering</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== SKILLS ==================== -->
-  <section class="section" id="skills">
-    <div class="container">
-      <div class="section-header" data-reveal>
-        <div class="section-tag">What I Work With</div>
-        <h2 class="section-title">Technical Skills</h2>
-        <p class="section-desc">A broad toolkit built through internships, coursework, and personal projects.</p>
-      </div>
-
-      <div class="skills-grid">
-        <div class="skill-cat tone-sky" data-reveal data-reveal-delay="1">
-          <div class="skill-cat-head"><div class="cat-dot"></div><span class="cat-name">Programming</span></div>
-          <div class="badge-wrap" data-stagger-container>
-            <span class="badge" data-stagger>Python</span>
-            <span class="badge" data-stagger>Pandas</span>
-            <span class="badge" data-stagger>NumPy</span>
-            <span class="badge" data-stagger>Scikit-learn</span>
-            <span class="badge" data-stagger>TensorFlow</span>
-            <span class="badge" data-stagger>FastAPI</span>
-            <span class="badge" data-stagger>Matplotlib</span>
-            <span class="badge" data-stagger>Seaborn</span>
-            <span class="badge" data-stagger>SciPy</span>
-            <span class="badge" data-stagger>SQL</span>
-            <span class="badge" data-stagger>PostgreSQL</span>
-            <span class="badge" data-stagger>Java</span>
-          </div>
-        </div>
-
-        <div class="skill-cat tone-indigo" data-reveal data-reveal-delay="2">
-          <div class="skill-cat-head"><div class="cat-dot"></div><span class="cat-name">Machine Learning</span></div>
-          <div class="badge-wrap" data-stagger-container>
-            <span class="badge" data-stagger>Classification</span>
-            <span class="badge" data-stagger>Ensemble Methods</span>
-            <span class="badge" data-stagger>HistGradientBoosting</span>
-            <span class="badge" data-stagger>Random Forest</span>
-            <span class="badge" data-stagger>Feature Engineering</span>
-            <span class="badge" data-stagger>Hyperparameter Tuning</span>
-            <span class="badge" data-stagger>Class Imbalance Handling</span>
-            <span class="badge" data-stagger>Threshold Optimization</span>
-            <span class="badge" data-stagger>Pipeline Design</span>
-            <span class="badge" data-stagger>MLOps</span>
-          </div>
-        </div>
-
-        <div class="skill-cat tone-violet" data-reveal data-reveal-delay="3">
-          <div class="skill-cat-head"><div class="cat-dot"></div><span class="cat-name">NLP &amp; Text Analytics</span></div>
-          <div class="badge-wrap" data-stagger-container>
-            <span class="badge" data-stagger>Aspect-Based Sentiment Analysis</span>
-            <span class="badge" data-stagger>BERTopic</span>
-            <span class="badge" data-stagger>HDBSCAN</span>
-            <span class="badge" data-stagger>UMAP</span>
-            <span class="badge" data-stagger>Text Clustering</span>
-            <span class="badge" data-stagger>fasttext</span>
-            <span class="badge" data-stagger>langdetect</span>
-            <span class="badge" data-stagger>rake-nltk</span>
-          </div>
-        </div>
-
-        <div class="skill-cat tone-cyan" data-reveal data-reveal-delay="4">
-          <div class="skill-cat-head"><div class="cat-dot"></div><span class="cat-name">Computer Vision</span></div>
-          <div class="badge-wrap" data-stagger-container>
-            <span class="badge" data-stagger>OpenCV</span>
-            <span class="badge" data-stagger>Mediapipe</span>
-            <span class="badge" data-stagger>Real-Time Gesture Detection</span>
-            <span class="badge" data-stagger>Hand Landmark Detection</span>
-          </div>
-        </div>
-
-        <div class="skill-cat tone-amber" data-reveal data-reveal-delay="5">
-          <div class="skill-cat-head"><div class="cat-dot"></div><span class="cat-name">Data Analysis &amp; Visualization</span></div>
-          <div class="badge-wrap" data-stagger-container>
-            <span class="badge" data-stagger>Exploratory Data Analysis</span>
-            <span class="badge" data-stagger>Statistical Testing</span>
-            <span class="badge" data-stagger>Mann-Whitney U</span>
-            <span class="badge" data-stagger>Spearman Correlation</span>
-            <span class="badge" data-stagger>Tableau</span>
-            <span class="badge" data-stagger>Matplotlib</span>
-            <span class="badge" data-stagger>Seaborn</span>
-          </div>
-        </div>
-
-        <div class="skill-cat tone-emerald" data-reveal data-reveal-delay="6">
-          <div class="skill-cat-head"><div class="cat-dot"></div><span class="cat-name">Tools &amp; Deployment</span></div>
-          <div class="badge-wrap" data-stagger-container>
-            <span class="badge" data-stagger>FastAPI</span>
-            <span class="badge" data-stagger>uvicorn</span>
-            <span class="badge" data-stagger>PostgreSQL</span>
-            <span class="badge" data-stagger>Git</span>
-            <span class="badge" data-stagger>Termius</span>
-            <span class="badge" data-stagger>Google Workspace</span>
-            <span class="badge" data-stagger>Microsoft Office</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== CONTACT ==================== -->
-  <section class="section section--alt" id="contact">
-    <div class="container">
-      <div class="section-header" data-reveal>
-        <div class="section-tag">Get In Touch</div>
-        <h2 class="section-title">Let's work together</h2>
-        <p class="contact-intro">Open to Data Science and Machine Learning Engineering roles. I'd love to chat about how I can contribute to your team.</p>
-      </div>
-
-      <div class="contact-grid">
-        <!-- Social links -->
-        <div class="contact-links" data-reveal>
-          <a href="mailto:darrell.lokadeva.lim007@gmail.com" class="contact-link-card tone-sky">
-            <div class="contact-link-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            </div>
-            <div class="contact-link-info">
-              <div class="contact-link-label">Email</div>
-              <div class="contact-link-val">darrell.lokadeva.lim007@gmail.com</div>
-            </div>
-            <svg class="contact-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </article>
+      <article class="frame cover-teal tile--side" data-categories="nlp ml">
+        <div class="frame-stage">
+          <a class="frame-media" href="project-social-media-clustering.html" tabindex="-1" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 500px" alt="" loading="lazy" decoding="async">
+            <span class="frame-tint"></span><span class="frame-glare"></span>
+            <span class="frame-index">01</span>
           </a>
-
-          <a href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener" class="contact-link-card tone-indigo">
-            <div class="contact-link-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            </div>
-            <div class="contact-link-info">
-              <div class="contact-link-label">LinkedIn</div>
-              <div class="contact-link-val">linkedin.com/in/darrell-lokadeva-lim</div>
-            </div>
-            <svg class="contact-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-
-          <a href="https://github.com/mdevx3" target="_blank" rel="noopener" class="contact-link-card tone-violet">
-            <div class="contact-link-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            </div>
-            <div class="contact-link-info">
-              <div class="contact-link-label">GitHub</div>
-              <div class="contact-link-val">github.com/mdevx3</div>
-            </div>
-            <svg class="contact-link-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+          <div class="frame-body">
+            <div class="frame-meta"><span class="label">Jun 2026</span><span class="label">NLP</span><span class="label">Company project</span></div>
+            <h3 class="frame-title"><a href="project-social-media-clustering.html">Indonesian Social Media Text-Clustering System</a></h3>
+            <p class="frame-desc">Production-grade NLP pipeline for 148K+ Indonesian social media posts (Twitter, Facebook, Instagram), surfacing ~49 coherent topic clusters per run using BERTopic, UMAP, and HDBSCAN. Deployed via FastAPI for government and corporate analytics clients at PT Nolimit Indonesia.</p>
+            <ul class="frame-tags" aria-label="Tech stack"><li>Python</li><li>BERTopic</li><li>UMAP</li><li>HDBSCAN</li><li>FastAPI</li><li>NLP</li></ul>
+            <div class="frame-links"><a class="link-arrow" href="project-social-media-clustering.html">Case study</a><span class="frame-repo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Private repository</span></div>
+          </div>
         </div>
+      </article>
+      <article class="frame cover-sky tile--side" data-categories="ml">
+        <div class="frame-stage">
+          <a class="frame-media" href="project-hotel-booking.html" tabindex="-1" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1621293954908-907159247fc8?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1621293954908-907159247fc8?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1621293954908-907159247fc8?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 500px" alt="" loading="lazy" decoding="async">
+            <span class="frame-tint"></span><span class="frame-glare"></span>
+            <span class="frame-index">03</span>
+          </a>
+          <div class="frame-body">
+            <div class="frame-meta"><span class="label">May 2026</span><span class="label">Machine Learning</span></div>
+            <h3 class="frame-title"><a href="project-hotel-booking.html">Hotel Booking Cancellation Prediction</a></h3>
+            <p class="frame-desc">End-to-end ML classification pipeline on 83,573+ hotel booking records to predict cancellations. HistGradientBoosting selected as best model (F1 0.74) with threshold analysis enabling business-driven deployment decisions.</p>
+            <ul class="frame-tags" aria-label="Tech stack"><li>Python</li><li>Scikit-learn</li><li>HistGradientBoosting</li><li>Pandas</li><li>Seaborn</li></ul>
+            <div class="frame-links"><a class="link-arrow" href="project-hotel-booking.html">Case study</a><a class="frame-repo" href="https://github.com/mdevx3/Capstone-3" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>mdevx3/Capstone-3</a></div>
+          </div>
+        </div>
+      </article>
+      <article class="frame cover-blue tile--third" data-categories="web">
+        <div class="frame-stage">
+          <a class="frame-media" href="project-cycle-monitoring.html" tabindex="-1" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 400px" alt="" loading="lazy" decoding="async">
+            <span class="frame-tint"></span><span class="frame-glare"></span>
+            <span class="frame-index">02</span>
+          </a>
+          <div class="frame-body">
+            <div class="frame-meta"><span class="label">Jun 2026</span><span class="label">Backend & Web</span><span class="label">Company project</span></div>
+            <h3 class="frame-title"><a href="project-cycle-monitoring.html">Cycle Monitoring System</a></h3>
+            <p class="frame-desc">Real-time dashboard to track operational health of the social media crawl pipeline across Twitter/X and Instagram. Dual-source reads from InfluxDB and PostgreSQL power slot-based success rate scoring across tens of thousands of tracked objects, with 7 JWT-secured Django API endpoints.</p>
+            <ul class="frame-tags" aria-label="Tech stack"><li>Django</li><li>InfluxDB</li><li>PostgreSQL</li><li>JWT</li><li>JavaScript</li></ul>
+            <div class="frame-links"><a class="link-arrow" href="project-cycle-monitoring.html">Case study</a><span class="frame-repo"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Private repository</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="frame cover-amber tile--third" data-categories="analysis">
+        <div class="frame-stage">
+          <a class="frame-media" href="project-amazon-saas.html" tabindex="-1" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 400px" alt="" loading="lazy" decoding="async">
+            <span class="frame-tint"></span><span class="frame-glare"></span>
+            <span class="frame-index">04</span>
+          </a>
+          <div class="frame-body">
+            <div class="frame-meta"><span class="label">Apr 2026</span><span class="label">Data Analysis</span></div>
+            <h3 class="frame-title"><a href="project-amazon-saas.html">Amazon SaaS Sales Data Analysis</a></h3>
+            <p class="frame-desc">Statistical analysis of 9,994 global B2B SaaS transactions using Mann-Whitney U and Spearman correlation. Uncovered that discounts above 20% triggered extreme losses — including a $70K+ deficit from one product.</p>
+            <ul class="frame-tags" aria-label="Tech stack"><li>Python</li><li>Pandas</li><li>SciPy</li><li>Tableau</li><li>Seaborn</li></ul>
+            <div class="frame-links"><a class="link-arrow" href="project-amazon-saas.html">Case study</a><a class="frame-repo" href="https://github.com/mdevx3/Capstone-2" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>mdevx3/Capstone-2</a></div>
+          </div>
+        </div>
+      </article>
+      <article class="frame cover-emerald tile--third" data-categories="analysis">
+        <div class="frame-stage">
+          <a class="frame-media" href="project-international-debt.html" tabindex="-1" aria-hidden="true">
+            <img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 400px" alt="" loading="lazy" decoding="async">
+            <span class="frame-tint"></span><span class="frame-glare"></span>
+            <span class="frame-index">06</span>
+          </a>
+          <div class="frame-body">
+            <div class="frame-meta"><span class="label">May 2025</span><span class="label">Data Analysis</span></div>
+            <h3 class="frame-title"><a href="project-international-debt.html">International Debt Analysis</a></h3>
+            <p class="frame-desc">Analyzed 2,300+ international debt indicators across 124 debtor nations using complex SQL aggregations in PostgreSQL. Identified China as the highest-indebted country and extracted key insights for financial reporting.</p>
+            <ul class="frame-tags" aria-label="Tech stack"><li>SQL</li><li>PostgreSQL</li><li>Aggregations</li><li>GROUP BY</li></ul>
+            <div class="frame-links"><a class="link-arrow" href="project-international-debt.html">Case study</a><a class="frame-repo" href="https://github.com/mdevx3/international-debt-analysis" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>mdevx3/international-debt-analysis</a></div>
+          </div>
+        </div>
+      </article>
+        </div>
+      </div>
+    </section>
 
-        <!-- Contact form: behaviour in assets/js/components/contact-form.js -->
-        <div class="contact-form" data-reveal data-reveal-delay="2">
-          <form>
+    <!-- ===== 04 CONTACT: headline framed by the network ring ===== -->
+    <section class="section contact" id="contact" data-scene-state="3">
+      <div class="container">
+        <header class="contact-head" data-reveal data-scene-ring>
+          <p class="label">04 — Contact</p>
+          <h2 class="contact-title">Let’s build something <span class="gradient-text">intelligent.</span></h2>
+          <p class="lead">Open to Data Science and Machine Learning Engineering roles. Reach out directly, or send a note below.</p>
+        </header>
+
+        <div class="grid-12 contact-panel">
+          <nav class="endpoints contact-endpoints" aria-label="Contact links" data-reveal>
+            <a class="endpoint" href="mailto:darrell.lokadeva.lim007@gmail.com"><span class="label">Email</span><span class="endpoint-value">darrell.lokadeva.lim007@gmail.com</span><span class="endpoint-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+            <a class="endpoint" href="https://linkedin.com/in/darrell-lokadeva-lim" target="_blank" rel="noopener"><span class="label">LinkedIn</span><span class="endpoint-value">in/darrell-lokadeva-lim</span><span class="endpoint-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+            <a class="endpoint" href="https://github.com/mdevx3" target="_blank" rel="noopener"><span class="label">GitHub</span><span class="endpoint-value">github.com/mdevx3</span><span class="endpoint-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+            <a class="endpoint" href="assets/docs/Darrell_Lokadeva_Lim_CV.docx" download><span class="label">Résumé</span><span class="endpoint-value">Download CV (DOCX)</span><span class="endpoint-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+          </nav>
+
+          <!-- Form behaviour: assets/js/components/contact-form.js -->
+          <form class="contact-form contact-form-wrap" data-reveal data-reveal-delay="2">
             <!-- Web3Forms: replace the value below with your own access key from https://web3forms.com -->
             <input type="hidden" name="access_key" value="b3b66bbc-1a9a-499a-8216-4146ba44ca55">
             <input type="hidden" name="subject" value="New message from your portfolio">
             <input type="hidden" name="from_name" value="Portfolio Contact Form">
             <!-- Honeypot anti-spam field (kept hidden from real users) -->
             <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" hidden>
-            <div class="form-group">
-              <label class="form-label" for="name">Name</label>
-              <input class="form-input" type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required aria-describedby="name-error">
-              <span class="form-error" id="name-error"></span>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="label" for="name">Name</label>
+                <input class="form-input" type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required aria-describedby="name-error">
+                <span class="form-error" id="name-error"></span>
+              </div>
+              <div class="form-group">
+                <label class="label" for="email">Email</label>
+                <input class="form-input" type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" required aria-describedby="email-error">
+                <span class="form-error" id="email-error"></span>
+              </div>
             </div>
             <div class="form-group">
-              <label class="form-label" for="email">Email</label>
-              <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required aria-describedby="email-error">
-              <span class="form-error" id="email-error"></span>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="message">Message</label>
+              <label class="label" for="message">Message</label>
               <textarea class="form-textarea" id="message" name="message" placeholder="What would you like to discuss?" rows="5" required aria-describedby="message-error"></textarea>
               <span class="form-error" id="message-error"></span>
             </div>
-            <button type="submit" class="btn btn-primary form-submit">
-              Send Message
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+            <div class="form-foot">
+              <button type="submit" class="btn btn-primary form-submit">Send message</button>
+              <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+            </div>
           </form>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
   </main>
 

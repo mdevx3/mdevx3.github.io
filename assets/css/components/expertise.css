@@ -1,0 +1,126 @@
+/* =============================================
+   EXPERTISE  (index.html, section 2)
+   Three glass cards over the 3D canvas. Each card owns a cluster of the
+   network (data-scene-cluster) that lights up while the card is hovered or
+   centred on screen. Pointer position drives a spotlight (--mx/--my) and a
+   spring tilt (lib/tilt.js).
+   ============================================= */
+.xp-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  /* Clear at the top so the card's cluster glows through, frosted under the text */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--glass) 25%, transparent) 0, var(--glass) 150px, var(--glass-strong) 100%);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+/* Pointer spotlight */
+.xp-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--spot-color), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+/* Gradient hairline border on hover */
+.xp-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+.xp-card:hover::before,
+.xp-card:hover::after,
+.xp-card.is-active::before,
+.xp-card.is-active::after,
+.xp-card:focus-within::after { opacity: 1; }
+
+.xp-card-top { display: flex; align-items: center; justify-content: space-between; }
+.xp-icon {
+  display: grid;
+  place-items: center;
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  color: var(--blue-text);
+  background: var(--gradient-soft);
+  border: 1px solid var(--hairline);
+}
+.xp-card h3 { font-size: var(--fs-h3); }
+.xp-card > p { color: var(--text-2); font-size: var(--fs-small); line-height: 1.6; }
+.xp-badge {
+  align-self: flex-start;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--r-pill);
+  border: 1px solid color-mix(in srgb, var(--blue-text) 40%, transparent);
+  color: var(--blue-text);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+}
+.xp-specs { display: grid; gap: var(--space-3); padding-top: var(--space-4); border-top: 1px solid var(--hairline); }
+.xp-specs dt { margin-bottom: 0.15rem; }
+.xp-specs dd { font-size: var(--fs-small); line-height: 1.5; color: var(--text); }
+.xp-card .link-arrow { margin-top: auto; }
+
+/* ----- Experience band ----- */
+.xp-role {
+  margin-top: var(--grid-gap);
+  padding: clamp(1.5rem, 1rem + 2vw, 3rem);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  background: var(--glass);
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+}
+.xp-role-head { display: flex; flex-direction: column; gap: var(--space-2); }
+.xp-role-head h3 { font-size: var(--fs-h2); line-height: var(--lh-tight); }
+.xp-role-company { font-size: var(--fs-lead); color: var(--blue-text); letter-spacing: -0.015em; }
+.xp-role-meta { color: var(--text-3); font-size: var(--fs-small); }
+.xp-role-lang { margin-top: auto; padding-top: var(--space-5); font-size: var(--fs-small); color: var(--text-2); }
+.xp-role-list { display: grid; gap: var(--space-4); }
+.xp-role-list li {
+  position: relative;
+  padding-left: var(--space-5);
+  color: var(--text-2);
+  font-size: var(--fs-small);
+  line-height: 1.65;
+}
+.xp-role-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0.62em;
+  width: 8px; height: 1px;
+  background: var(--blue-text);
+}
+.xp-role-list strong { color: var(--text); font-weight: 500; }
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-5); }
+.chip {
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--hairline-strong);
+  font-size: 0.8125rem;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+@media (max-width: 1100px) and (min-width: 901px) {
+  .xp-grid > .xp-card { grid-column: span 6; }
+  .xp-grid > .xp-card:last-of-type { grid-column: 1 / -1; }
+}

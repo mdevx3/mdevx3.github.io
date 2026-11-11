@@ -1,7 +1,7 @@
 /* =============================================
    BASE
-   Reset, typography, layout primitives and the small utilities
-   (reveal states, tones, reduced-motion) shared by every page.
+   Reset, typography, the 12-column grid, reveal states and the
+   reduced-motion rules shared by every page.
    ============================================= */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -9,43 +9,47 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--nav-h) + 1rem); /* anchors land below the fixed nav */
+  scroll-padding-top: calc(var(--nav-h) + 1.5rem);
   -webkit-text-size-adjust: 100%;
+  background: var(--bg);
 }
 
 body {
-  font-family: var(--font);
-  font-size: var(--step-0);
-  line-height: var(--leading-body);
-  background: var(--bg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: -0.011em;
   color: var(--text);
-  overflow-x: hidden;
+  background: var(--bg);
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color var(--dur) ease, color var(--dur) ease;
+  text-rendering: optimizeLegibility;
 }
 
-img, svg { max-width: 100%; display: block; }
+img, svg, canvas { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
-button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 input, textarea { font: inherit; color: inherit; }
-ul { list-style: none; }
-h1, h2, h3, h4 { line-height: var(--leading-tight); font-weight: 700; letter-spacing: -0.02em; }
+ul, ol { list-style: none; }
+h1, h2, h3, h4 { font-weight: 600; line-height: var(--lh-snug); letter-spacing: var(--tracking-title); text-wrap: balance; }
+p { text-wrap: pretty; }
+strong { font-weight: 600; }
 
-/* Set on <html> while the mobile menu or lightbox is open */
+/* Locked while the mobile menu or lightbox is open */
 html.scroll-lock { overflow: hidden; }
 
-/* The `hidden` attribute must beat component `display` rules */
+/* The `hidden` attribute must beat component display rules */
 [hidden] { display: none !important; }
 
-/* Visible keyboard focus everywhere */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--blue-text);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-/* Visually hidden but available to screen readers */
+::selection { background: rgba(41, 151, 255, 0.35); color: var(--text); }
+
 .sr-only {
   position: absolute;
   width: 1px; height: 1px;
@@ -56,63 +60,83 @@ html.scroll-lock { overflow: hidden; }
   border: 0;
 }
 
-/* Skip link for keyboard users */
 .skip-link {
   position: fixed;
   top: -4rem; left: 1rem;
-  z-index: 3000;
+  z-index: calc(var(--z-overlay) + 1);
   padding: 0.6rem 1rem;
   border-radius: var(--r-sm);
-  background: var(--accent);
-  color: var(--on-accent);
-  font-weight: 600;
-  transition: top var(--t);
+  background: var(--blue);
+  color: var(--on-blue);
+  font-weight: 500;
+  transition: top var(--dur) var(--ease-out);
 }
-.skip-link:focus { top: 1rem; }
+.skip-link:focus { top: 0.75rem; }
 
-/* ---------- Layout primitives ---------- */
+/* ---------- Layout ---------- */
+main { position: relative; z-index: var(--z-content); }
+
 .container {
   width: 100%;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
-.section { padding: var(--section-py) 0; }
-.section--alt { background: var(--bg-alt); }
 
-/* ---------- Text utilities ---------- */
+/* 12-column grid. Children place themselves with .span-* (desktop)
+   and collapse to full width below 900px. */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+.span-4 { grid-column: span 4; }
+.span-5 { grid-column: span 5; }
+.span-6 { grid-column: span 6; }
+.span-7 { grid-column: span 7; }
+.span-8 { grid-column: span 8; }
+.span-12 { grid-column: 1 / -1; }
+@media (max-width: 900px) {
+  .grid-12 > * { grid-column: 1 / -1; }
+}
+
+.section { position: relative; padding-block: var(--section-py); }
+
+/* ---------- Type utilities ---------- */
 .gradient-text {
-  background: var(--gradient-text);
+  background: var(--gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
 
-/* Tone utility: sets --tone for badges, icons and dots (see tokens.css) */
-.tone-sky { --tone: var(--tone-sky); }
-.tone-indigo { --tone: var(--tone-indigo); }
-.tone-violet { --tone: var(--tone-violet); }
-.tone-cyan { --tone: var(--tone-cyan); }
-.tone-amber { --tone: var(--tone-amber); }
-.tone-emerald { --tone: var(--tone-emerald); }
+/* Small mono label used for eyebrows and metadata */
+.label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
 
-/* ---------- Scroll reveal states ----------
-   The `js` class is added to <html> by the inline script in <head>, so
-   content is never hidden if JavaScript is unavailable.
-   reveal.js adds `.is-visible` and plays the entrance (Web Animations API),
-   so no inline transforms are left behind to fight hover styles.
-   :where() keeps specificity at zero so components can still override. */
+.lead { font-size: var(--fs-lead); line-height: 1.45; color: var(--text-2); letter-spacing: -0.015em; max-width: var(--measure); }
+
+/* ---------- Reveal states ----------
+   `js` is set on <html> by the inline <head> script, so nothing is ever
+   hidden without JavaScript. reveal.js adds .is-visible and plays the
+   entrance with Motion. Never put [data-reveal] on an element that also
+   has a CSS :hover transform (see design.md, "Animation rules"). */
 :where(.js) [data-reveal]:not(.is-visible) { opacity: 0; }
 :where(.js) [data-stagger-container]:not(.is-visible) [data-stagger] { opacity: 0; }
 
-/* ---------- Cross-page transition (progressive enhancement) ---------- */
+/* Cross-page fade (progressive enhancement) */
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
 }
 
-/* ---------- Reduced motion ----------
-   Honour the OS setting: no smooth scroll, no decorative animation. */
+/* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

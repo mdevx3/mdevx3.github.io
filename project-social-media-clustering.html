@@ -13,12 +13,14 @@
   <meta property="og:url" content="https://mdevx3.github.io/project-social-media-clustering.html">
   <meta property="og:image" content="https://mdevx3.github.io/assets/img/profile.jpg">
   <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
-  <!-- Applies the saved/OS theme before first paint (prevents a flash) and flags that JS is available -->
-  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';d.dataset.theme=t;d.classList.add('js')})(document.documentElement)</script>
+  <!-- Applies the saved theme before first paint (dark by default) and flags that JS is available.
+       Failsafe: if main.js has not started within 4s, the `js` flag is dropped so no content stays hidden. -->
+  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}d.dataset.theme=t==='light'?'light':'dark';d.classList.add('js');setTimeout(function(){if(!d.classList.contains('js-ready'))d.classList.remove('js')},4000)})(document.documentElement)</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body data-page="project">
@@ -30,29 +32,28 @@
 
   <main id="main">
 
-  <!-- BANNER -->
-  <div class="project-detail-hero">
-    <div class="project-detail-banner cover-teal">
-      <div class="project-detail-banner-pattern"></div>
-    </div>
-    <div class="project-detail-overlay"></div>
-    <div class="container project-detail-header" data-reveal>
-      <div class="breadcrumb">
-        <a href="index.html">Home</a>
-        <span class="breadcrumb-sep">›</span>
-        <a href="projects.html">Projects</a>
-        <span class="breadcrumb-sep">›</span>
-        <span>Social Media Clustering</span>
+  <!-- BANNER: cover image with scroll parallax (assets/js/components/banner.js) -->
+  <header class="detail-hero cover-teal">
+    <div class="detail-hero-media"><img src="https://images.unsplash.com/photo-1622782914767-404fb9ab3f57?auto=format&fit=crop&w=1800&q=80" alt="" fetchpriority="high"></div>
+    <div class="detail-hero-content">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb-sep">›</span>
+          <a href="projects.html">Projects</a>
+          <span class="breadcrumb-sep">›</span>
+          <span>Social Media Clustering</span>
+        </div>
+        <h1 class="project-detail-title">Indonesian Social Media<br>Text-Clustering System</h1>
+        <div class="project-detail-meta">
+          <span class="meta-badge">Jun 2026</span>
+          <span class="meta-badge">PT Nolimit Indonesia</span>
+          <span class="meta-badge">Company Project</span>
+          <span class="meta-badge">NLP · Topic Modeling</span>
+        </div>
       </div>
-      <h1 class="project-detail-title">Indonesian Social Media<br>Text-Clustering System</h1>
-      <div class="project-detail-meta">
-        <span class="meta-badge">Jun 2026</span>
-        <span class="meta-badge">PT Nolimit Indonesia</span>
-        <span class="meta-badge">Company Project</span>
-        <span class="meta-badge">NLP · Topic Modeling</span>
-      </div>
     </div>
-  </div>
+  </header>
 
   <!-- BODY -->
   <div class="project-detail-body">

@@ -1,50 +1,44 @@
 /* =============================================
-   FILTER BAR  (built by project-filter.js)
-   A row of toggle buttons; the active one has aria-pressed="true".
-   On narrow screens it scrolls horizontally instead of wrapping.
+   FILTER BAR  (projects.html, built by project-filter.js)
+   A segmented control: toggle buttons with aria-pressed. Scrolls
+   horizontally on narrow screens instead of wrapping.
    ============================================= */
 .filter-bar {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-pill);
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 .filter-btn {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   min-height: 40px;
-  padding: 0.5rem 1rem;
+  padding: 0.45rem 1rem;
   border-radius: var(--r-pill);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-3);
+  font-size: 0.875rem;
+  color: var(--text-2);
   white-space: nowrap;
-  transition: color var(--t), border-color var(--t), background-color var(--t), transform var(--t);
+  transition: color var(--dur) ease, background-color var(--dur) ease;
 }
-.filter-btn:hover { color: var(--text); border-color: var(--border-strong); transform: translateY(-1px); }
-.filter-btn[aria-pressed='true'] {
-  color: var(--on-accent);
-  background: var(--gradient);
-  border-color: transparent;
-}
-.filter-count {
-  font-size: 0.72rem;
-  font-variant-numeric: tabular-nums;
-  opacity: 0.7;
-}
-.filter-status { margin-top: var(--space-4); font-size: var(--step--1); color: var(--text-4); }
-.filter-empty { padding: var(--space-8) 0; text-align: center; color: var(--text-3); }
+.filter-btn:hover { color: var(--text); }
+.filter-btn[aria-pressed='true'] { color: var(--on-blue); background: var(--blue); }
+.filter-count { font-family: var(--font-mono); font-size: 0.6875rem; opacity: 0.7; }
+.filter-status { margin-top: var(--space-4); }
+.filter-empty { padding: var(--space-9) 0; text-align: center; color: var(--text-2); }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .filter-bar {
+    display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    margin-inline: calc(var(--gutter) * -1);
-    padding: 0 var(--gutter) var(--space-2);
-    scroll-snap-type: x proximity;
     scrollbar-width: none;
+    scroll-snap-type: x proximity;
   }
   .filter-bar::-webkit-scrollbar { display: none; }
   .filter-btn { scroll-snap-align: start; }

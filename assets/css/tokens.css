@@ -1,32 +1,37 @@
 /* =============================================
    DESIGN TOKENS
-   Every colour, size, space and motion value used by the site lives here.
-   Components must read these variables and never hard-code colours, so that
-   the dark and light themes stay in sync.
+   Every colour, size, space and motion value lives here. Components read
+   these variables and never hard-code values, so both themes stay in sync.
+   Full rationale: design.md.
 
-   Theme selection:
-     1. <html data-theme="dark|light"> (set by the toggle / saved choice) wins.
-     2. Otherwise the visitor's OS preference (prefers-color-scheme) decides.
-     3. Dark is the fallback when neither is available.
+   Theme: <html data-theme="dark|light">. Dark (deep black) is the default;
+   the nav switch flips to light and remembers the choice.
    ============================================= */
 
-/* ---------- Theme-independent tokens ---------- */
 :root {
-  /* Typography: fluid scale (min, preferred, max) */
-  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: ui-monospace, 'SF Mono', 'Fira Code', Menlo, monospace;
-  --step--1: clamp(0.78rem, 0.76rem + 0.1vw, 0.85rem);
-  --step-0:  clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
-  --step-1:  clamp(1.1rem, 1.04rem + 0.35vw, 1.3rem);
-  --step-2:  clamp(1.35rem, 1.2rem + 0.75vw, 1.75rem);
-  --step-3:  clamp(1.75rem, 1.45rem + 1.5vw, 2.5rem);
-  --step-4:  clamp(2.1rem, 1.6rem + 2.5vw, 3.4rem);
-  --step-5:  clamp(2.6rem, 1.7rem + 4.5vw, 5rem);
-  --leading-tight: 1.15;
-  --leading-body: 1.7;
-  --measure: 65ch; /* comfortable max line length for body copy */
+  /* ---------- Typography ---------- */
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* Spacing scale (4/8px rhythm) */
+  /* Fluid type scale: clamp(min, preferred, max) */
+  --fs-display: clamp(3rem, 1.4rem + 6.6vw, 7.5rem);  /* hero statement */
+  --fs-h1: clamp(2.6rem, 1.5rem + 4.4vw, 5.5rem);      /* page titles */
+  --fs-h2: clamp(2.2rem, 1.4rem + 3.2vw, 4.25rem);     /* section titles */
+  --fs-h3: clamp(1.3rem, 1.15rem + 0.6vw, 1.65rem);    /* card titles */
+  --fs-lead: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);     /* intro paragraphs */
+  --fs-body: 1.0625rem;                                 /* 17px */
+  --fs-small: 0.9375rem;                                /* 15px */
+  --fs-micro: 0.75rem;                                  /* 12px mono labels */
+
+  --lh-tight: 1.05;
+  --lh-snug: 1.25;
+  --lh-body: 1.6;
+  --tracking-display: -0.045em;
+  --tracking-title: -0.03em;
+  --tracking-label: 0.14em;
+  --measure: 62ch;
+
+  /* ---------- Space (8px rhythm) ---------- */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -36,159 +41,97 @@
   --space-7: 3rem;
   --space-8: 4rem;
   --space-9: 6rem;
-  --section-py: clamp(3.5rem, 2.5rem + 5vw, 6rem);
-  --gutter: clamp(1.25rem, 1rem + 1.5vw, 2rem);
-  --container: 1120px;
-  --nav-h: 4.25rem;
+  --section-py: clamp(6rem, 3rem + 10vw, 11rem);
+  --gutter: clamp(1.25rem, 0.6rem + 3vw, 3rem);
+  --grid-gap: clamp(1rem, 0.6rem + 1.2vw, 1.5rem);
+  --container: 1240px;
+  --nav-h: 3.25rem;
 
-  /* Radii */
-  --r-sm: 8px;
-  --r: 12px;
-  --r-lg: 16px;
-  --r-xl: 22px;
+  /* ---------- Shape ---------- */
+  --r-sm: 10px;
+  --r: 18px;
+  --r-lg: 28px;
   --r-pill: 999px;
 
-  /* Motion */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-fast: 150ms;
-  --dur: 250ms;
-  --dur-slow: 500ms;
-  --t: var(--dur) var(--ease-out);
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);  /* entrances, hovers */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur: 280ms;
+  --dur-slow: 600ms;
 
-  color-scheme: dark;
+  /* ---------- Layers ---------- */
+  --z-scene: 0;
+  --z-spotlight: 1;
+  --z-content: 2;
+  --z-nav: 100;
+  --z-overlay: 200;
 }
 
-/* ---------- Dark theme (default) ---------- */
+/* ---------- Dark (default): deep black, white, electric blue ---------- */
 :root,
 :root[data-theme='dark'] {
-  --bg: #060b18;
-  --bg-alt: #0b1325;
-  --surface: #111827;
-  --surface-2: #1a2332;
-  --surface-3: #243044;
+  color-scheme: dark;
+  --bg: #000000;
+  --bg-raised: #0b0b0e;
+  --glass: rgba(20, 20, 24, 0.66);
+  --glass-strong: rgba(14, 14, 17, 0.86);
+  --surface: #16161a;
+  --surface-2: #232329;
 
-  --text: #f1f5f9;
-  --text-2: #cbd5e1;
-  --text-3: #94a3b8;
-  --text-4: #7a889c;
+  --text: #f5f5f7;
+  --text-2: #a1a1a6;
+  --text-3: #86868b;
 
-  --accent: #38bdf8;       /* decorative fills, borders, glows */
-  --accent-text: #38bdf8;  /* accent used for text (needs AA contrast) */
-  --accent-2: #818cf8;
-  --on-accent: #060b18;    /* text on top of the accent gradient */
-  --gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-  --gradient-hover: linear-gradient(135deg, #67cbfa 0%, #9ea6fa 100%);
-  --gradient-text: linear-gradient(135deg, #38bdf8 0%, #818cf8 60%, #a78bfa 100%);
+  --hairline: rgba(255, 255, 255, 0.09);
+  --hairline-strong: rgba(255, 255, 255, 0.18);
 
-  --border: rgba(148, 163, 184, 0.14);
-  --border-strong: rgba(56, 189, 248, 0.38);
-  --nav-bg: rgba(6, 11, 24, 0.82);
-  --overlay: rgba(6, 11, 24, 0.9);
+  --blue: #0071e3;          /* solid CTA fill (white text = 4.7:1) */
+  --blue-hover: #0077ed;
+  --blue-text: #2997ff;     /* accent text on black (7:1) */
+  --on-blue: #ffffff;
+  --gradient: linear-gradient(110deg, #0066ff 0%, #2997ff 45%, #64d2ff 100%);
+  --gradient-soft: linear-gradient(110deg, rgba(0, 102, 255, 0.22), rgba(100, 210, 255, 0.12));
+  --glow: 0 0 0 1px rgba(41, 151, 255, 0.35), 0 12px 48px -12px rgba(41, 151, 255, 0.55);
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
-  --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
-  --glow: 0 0 36px rgba(56, 189, 248, 0.28);
+  /* Spotlight shading laid over the 3D canvas */
+  --spot-color: rgba(41, 151, 255, 0.16);
+  --spot-edge: rgba(0, 0, 0, 0.82);
 
-  /* Category / skill tones (used by badges, icons, dots) */
-  --danger: #fb7185;
-  --tone-sky: #38bdf8;
-  --tone-indigo: #818cf8;
-  --tone-violet: #a78bfa;
-  --tone-cyan: #22d3ee;
-  --tone-amber: #fbbf24;
-  --tone-emerald: #34d399;
-
-  --orb-opacity: 1;
+  --shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.9);
+  --danger: #ff6961;
+  --success: #30d158;
 }
 
-/* ---------- Light theme ---------- */
+/* ---------- Light: clean white, same electric blue ---------- */
 :root[data-theme='light'] {
-  --bg: #f8fafc;
-  --bg-alt: #f1f5f9;
-  --surface: #ffffff;
-  --surface-2: #f1f5f9;
-  --surface-3: #e2e8f0;
-
-  --text: #0f172a;
-  --text-2: #334155;
-  --text-3: #475569;
-  --text-4: #64748b;
-
-  --accent: #0284c7;
-  --accent-text: #0369a1;
-  --accent-2: #4f46e5;
-  --on-accent: #ffffff;
-  --gradient: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
-  --gradient-hover: linear-gradient(135deg, #0369a1 0%, #4338ca 100%);
-  --gradient-text: linear-gradient(135deg, #0369a1 0%, #4f46e5 60%, #7c3aed 100%);
-
-  --border: rgba(15, 23, 42, 0.1);
-  --border-strong: rgba(2, 132, 199, 0.5);
-  --nav-bg: rgba(248, 250, 252, 0.85);
-  --overlay: rgba(15, 23, 42, 0.8);
-
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
-  --shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
-  --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.14);
-  --glow: 0 0 30px rgba(2, 132, 199, 0.22);
-
-  --danger: #e11d48;
-  --tone-sky: #0369a1;
-  --tone-indigo: #4f46e5;
-  --tone-violet: #7c3aed;
-  --tone-cyan: #0e7490;
-  --tone-amber: #b45309;
-  --tone-emerald: #047857;
-
-  --orb-opacity: 0.55;
   color-scheme: light;
-}
+  --bg: #ffffff;
+  --bg-raised: #f5f5f7;
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-strong: rgba(255, 255, 255, 0.9);
+  --surface: #f5f5f7;
+  --surface-2: #e8e8ed;
 
-/* ---------- Follow the OS when the visitor hasn't chosen ----------
-   NOTE: CSS can't share a rule between a selector and a media query, so these
-   values intentionally mirror the [data-theme='light'] block above.
-   Change both together. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) {
-    --bg: #f8fafc;
-    --bg-alt: #f1f5f9;
-    --surface: #ffffff;
-    --surface-2: #f1f5f9;
-    --surface-3: #e2e8f0;
+  --text: #1d1d1f;
+  --text-2: #424245;
+  --text-3: #6e6e73;
 
-    --text: #0f172a;
-    --text-2: #334155;
-    --text-3: #475569;
-    --text-4: #64748b;
+  --hairline: rgba(0, 0, 0, 0.08);
+  --hairline-strong: rgba(0, 0, 0, 0.16);
 
-    --accent: #0284c7;
-    --accent-text: #0369a1;
-    --accent-2: #4f46e5;
-    --on-accent: #ffffff;
-    --gradient: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
-    --gradient-hover: linear-gradient(135deg, #0369a1 0%, #4338ca 100%);
-    --gradient-text: linear-gradient(135deg, #0369a1 0%, #4f46e5 60%, #7c3aed 100%);
+  --blue: #0071e3;
+  --blue-hover: #0077ed;
+  --blue-text: #0066cc;
+  --on-blue: #ffffff;
+  --gradient: linear-gradient(110deg, #0040dd 0%, #0071e3 45%, #0a9fe0 100%);
+  --gradient-soft: linear-gradient(110deg, rgba(0, 113, 227, 0.12), rgba(10, 159, 224, 0.06));
+  --glow: 0 0 0 1px rgba(0, 113, 227, 0.3), 0 12px 40px -14px rgba(0, 113, 227, 0.4);
 
-    --border: rgba(15, 23, 42, 0.1);
-    --border-strong: rgba(2, 132, 199, 0.5);
-    --nav-bg: rgba(248, 250, 252, 0.85);
-    --overlay: rgba(15, 23, 42, 0.8);
+  --spot-color: rgba(0, 113, 227, 0.1);
+  --spot-edge: rgba(255, 255, 255, 0.7);
 
-    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
-    --shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
-    --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.14);
-    --glow: 0 0 30px rgba(2, 132, 199, 0.22);
-
-    --danger: #e11d48;
-  --tone-sky: #0369a1;
-    --tone-indigo: #4f46e5;
-    --tone-violet: #7c3aed;
-    --tone-cyan: #0e7490;
-    --tone-amber: #b45309;
-    --tone-emerald: #047857;
-
-    --orb-opacity: 0.55;
-    color-scheme: light;
-  }
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.25);
+  --danger: #d70015;
+  --success: #248a3d;
 }

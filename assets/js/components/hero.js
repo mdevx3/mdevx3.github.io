@@ -1,74 +1,43 @@
 /* =============================================
-   HERO ENTRANCE  (index.html)
-   - [data-hero] elements slide in one after another (Web Animations API)
-   - the dot grid fades in as a ripple from the centre (anime.js stagger grid)
-   Everything is skipped under prefers-reduced-motion, and the CSS never hides
-   hero content without JavaScript.
+   HERO CHAPTERS  (index.html, section 1)
+   While the hero stage is pinned, scroll progress cross-fades two chapters:
+     0.00-0.40  intro (name, tagline, actions) lifts away
+     0.42-0.60  statement + stats rise in (stats count up once)
+   The 3D network dollies in over the same progress (scene/stage.js reads
+   the hero's scroll position itself, so the two stay in sync).
+   Reduced motion / no JS: no pinning; both chapters are simply stacked.
    ============================================= */
-import { animate, stagger, utils } from '../lib/anime.js';
-import { enter, prefersReducedMotion, EASE_OUT } from '../lib/motion.js';
+import { scroll, prefersReducedMotion } from '../lib/motion.js';
+import { runCounters } from './counters.js';
 
-const DOT_COLS = 18;
-const DOT_ROWS = 10;
+const segment = (p, start, end) => Math.min(1, Math.max(0, (p - start) / (end - start)));
 
-/** Timeline: [selector, start delay (ms), enter options] */
-const SEQUENCE = [
-  ['.hero-eyebrow', 150, { y: 20, duration: 700 }],
-  ['.hero-headline', 650, { y: 18, duration: 700 }],
-  ['.hero-intro', 790, { y: 16, duration: 700 }],
-  ['.hero-actions', 950, { y: 14, duration: 600 }],
-  ['.hero-scroll-hint', 1250, { y: 10, duration: 600 }],
-];
-
-function buildDotGrid(container) {
-  container.style.gridTemplateColumns = `repeat(${DOT_COLS}, 1fr)`;
-  container.style.gridTemplateRows = `repeat(${DOT_ROWS}, 1fr)`;
-  const frag = document.createDocumentFragment();
-  for (let i = 0; i < DOT_COLS * DOT_ROWS; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'hero-dot';
-    frag.appendChild(dot);
-  }
-  container.appendChild(frag);
+function place(el, opacity, y, scale = 1) {
+  el.style.opacity = opacity.toFixed(3);
+  el.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0) scale(${scale.toFixed(4)})`;
+  el.style.visibility = opacity < 0.01 ? 'hidden' : 'visible'; // hidden links can't take focus
 }
 
-/** @param {HTMLElement} hero the .hero section */
+/** @param {HTMLElement} hero */
 export function initHero(hero) {
-  const dots = hero.querySelector('.hero-dots');
-  if (dots) buildDotGrid(dots);
+  const intro = hero.querySelector('[data-chapter="intro"]');
+  const statement = hero.querySelector('[data-chapter="statement"]');
+  const cue = hero.querySelector('.hero-scroll');
+  const stats = statement && statement.querySelector('[data-counter-group]');
+  if (!intro || !statement) return;
 
-  // Reduced motion: reveal everything at once, no animation.
   if (prefersReducedMotion()) {
-    hero.querySelectorAll('[data-hero]').forEach((el) => el.classList.add('is-visible'));
+    if (stats) runCounters(stats); // marks as counted; no animation under reduced motion
     return;
   }
 
-  SEQUENCE.forEach(([selector, delay, opts]) => {
-    const el = hero.querySelector(selector);
-    if (el) enter(el, { delay, ...opts });
-  });
-
-  // Name: left-to-right wipe
-  const name = hero.querySelector('.hero-name');
-  if (name) {
-    name.classList.add('is-visible');
-    name.animate(
-      [
-        { opacity: 0, clipPath: 'inset(-10% 100% -10% -2%)', transform: 'scale(1.04)' },
-        { opacity: 1, clipPath: 'inset(-10% -4% -10% -2%)', transform: 'none' },
-      ],
-      { duration: 1100, delay: 350, easing: EASE_OUT, fill: 'backwards' }
-    );
-  }
-
-  if (dots) {
-    utils.set('.hero-dot', { scale: 0, opacity: 0 });
-    animate('.hero-dot', {
-      scale: [0, 1],
-      opacity: [0, 1],
-      delay: stagger(35, { grid: [DOT_COLS, DOT_ROWS], from: 'center' }),
-      duration: 800,
-      ease: 'outQuad',
-    });
-  }
+  hero.classList.add('is-scrubbed');
+  scroll((p) => {
+    const out = segment(p, 0.2, 0.4);
+    place(intro, 1 - out, -70 * out, 1 - 0.04 * out);
+    const inn = segment(p, 0.42, 0.62);
+    place(statement, inn, 70 * (1 - inn));
+    if (cue) cue.style.opacity = String(1 - segment(p, 0, 0.08));
+    if (inn > 0.6 && stats) runCounters(stats);
+  }, { target: hero, offset: ['start start', 'end end'] });
 }

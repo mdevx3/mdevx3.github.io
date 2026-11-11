@@ -1,92 +1,113 @@
 /* =============================================
-   CONTACT  (link cards + form)
-   The form is styled independently of the links, so
-   .contact-form can be dropped into any page.
+   CONTACT  (index.html, section 4)
+   Centred statement inside the 3D "halo", then call-to-action endpoints
+   (left) and a minimal form (right). Endpoint arrows are magnetic
+   (endpoints.js) and a gradient underline sweeps in on hover.
    ============================================= */
-.contact-intro { max-width: 480px; margin: var(--space-3) auto 0; color: var(--text-3); line-height: 1.75; }
-.contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--space-6); align-items: start; }
+.contact-head { text-align: center; margin-bottom: clamp(3.5rem, 2rem + 6vw, 7rem); }
+.contact-title {
+  max-width: 16ch;
+  margin: var(--space-4) auto var(--space-5);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+}
+.contact-head .lead { margin-inline: auto; }
 
-/* ----- Link cards ----- */
-.contact-links { display: flex; flex-direction: column; gap: var(--space-3); }
-.contact-link-card {
-  display: flex;
+/* One frosted panel: endpoints left, form right, an empty column between */
+.contact-panel {
+  padding: clamp(1.25rem, 0.8rem + 2vw, 3rem);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  background: var(--glass-strong);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+.contact-endpoints { grid-column: 1 / span 6; align-self: start; }
+.contact-form-wrap { grid-column: 8 / -1; }
+
+/* ----- Endpoints ----- */
+.endpoints { border-top: 1px solid var(--hairline); }
+.endpoint {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7.5rem 1fr auto;
   align-items: center;
   gap: var(--space-4);
-  padding: var(--space-4) var(--space-5);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+  min-height: 76px;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--hairline);
 }
-.contact-link-card:hover { transform: translateX(4px); border-color: var(--border-strong); box-shadow: var(--shadow); }
-.contact-link-icon {
+.endpoint::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.endpoint:hover::after,
+.endpoint:focus-visible::after { transform: scaleX(1); }
+.endpoint-value {
+  min-width: 0;
+  overflow: hidden;
+  font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.4rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color var(--dur) ease;
+}
+.endpoint:hover .endpoint-value { color: var(--blue-text); }
+.endpoint-arrow {
   display: grid;
   place-items: center;
-  width: 42px; height: 42px;
-  flex-shrink: 0;
-  border-radius: var(--r-sm);
-  color: var(--tone);
-  background: color-mix(in srgb, var(--tone) 12%, transparent);
-  transition: transform var(--t);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--hairline-strong);
+  color: var(--text-2);
+  transition: border-color var(--dur) ease, color var(--dur) ease, background-color var(--dur) ease;
 }
-.contact-link-card:hover .contact-link-icon { transform: scale(1.1) rotate(-6deg); }
-.contact-link-info { flex: 1; min-width: 0; }
-.contact-link-label {
-  margin-bottom: 0.15rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-4);
-}
-.contact-link-val { overflow: hidden; font-size: 0.88rem; font-weight: 500; color: var(--text-2); text-overflow: ellipsis; white-space: nowrap; }
-.contact-link-arrow { color: var(--text-4); transition: color var(--t), transform var(--t); }
-.contact-link-card:hover .contact-link-arrow { color: var(--accent-text); transform: translateX(3px); }
+.endpoint:hover .endpoint-arrow { border-color: transparent; background: var(--blue); color: var(--on-blue); }
 
 /* ----- Form ----- */
-.contact-form {
-  padding: var(--space-6);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-xl);
-}
-.form-group { margin-bottom: var(--space-5); }
-.form-label {
-  display: block;
-  margin-bottom: var(--space-2);
-  font-size: var(--step--1);
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
+.contact-form { display: grid; gap: var(--space-5); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+.form-group { display: grid; gap: var(--space-2); }
 .form-input,
 .form-textarea {
   width: 100%;
-  padding: 0.8rem 1rem;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  font-size: 0.95rem; /* >=16px-ish avoids iOS zoom on focus */
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--r-sm);
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-size: 1rem;
   outline: none;
-  transition: border-color var(--t), box-shadow var(--t), background-color var(--t);
+  transition: border-color var(--dur) ease, box-shadow var(--dur) ease;
 }
 .form-input::placeholder,
-.form-textarea::placeholder { color: var(--text-4); }
+.form-textarea::placeholder { color: var(--text-3); }
 .form-input:focus,
-.form-textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
-}
-.form-textarea { min-height: 130px; resize: vertical; }
+.form-textarea:focus { border-color: var(--blue-text); box-shadow: 0 0 0 4px color-mix(in srgb, var(--blue-text) 20%, transparent); }
+.form-textarea { min-height: 150px; resize: vertical; }
 .form-input[aria-invalid='true'],
 .form-textarea[aria-invalid='true'] { border-color: var(--danger); }
-.form-error { min-height: 1.1em; margin-top: var(--space-1); font-size: 0.8rem; color: var(--danger); }
-
-.form-submit { width: 100%; }
-.form-status { min-height: 1.5em; margin-top: var(--space-3); font-size: 0.9rem; text-align: center; }
-.form-status[data-state='success'] { color: var(--tone-emerald); }
+.form-error { min-height: 1.2em; font-size: 0.8125rem; color: var(--danger); }
+.form-error:empty { min-height: 0; }
+.form-foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
+.form-status { font-size: var(--fs-small); }
+.form-status[data-state='success'] { color: var(--success); }
 .form-status[data-state='error'] { color: var(--danger); }
 
-@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
-@media (max-width: 600px) { .contact-form { padding: var(--space-5); } }
+@media (max-width: 900px) {
+  .contact-endpoints, .contact-form-wrap { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .endpoint { grid-template-columns: 1fr auto; row-gap: 0; }
+  .endpoint .label { grid-column: 1 / -1; }
+  .form-row { grid-template-columns: 1fr; }
+}

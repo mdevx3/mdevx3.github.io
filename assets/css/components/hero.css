@@ -1,136 +1,99 @@
 /* =============================================
-   HERO  (index.html)
-   Self-contained: relies only on tokens + .btn.
-   Elements marked [data-hero] are revealed by hero.js.
+   HERO  (index.html, section 1)
+   Two "chapters" told over a pinned viewport while the 3D network dollies in.
+   Default (no JS / reduced motion): chapters simply stack in normal flow.
+   hero.js adds .is-scrubbed, which pins the stage and overlays the chapters
+   so scroll progress can cross-fade them.
    ============================================= */
-.hero {
+.hero { position: relative; }
+.hero-stage {
   position: relative;
-  display: flex;
-  align-items: center;
-  min-height: 100svh;
-  padding: calc(var(--nav-h) + var(--space-7)) 0 var(--space-8);
-  overflow: hidden;
-}
-.hero-bg { position: absolute; inset: 0; pointer-events: none; }
-.hero-dots {
-  position: absolute; inset: 0;
   display: grid;
-  padding: var(--space-7);
-  mask-image: radial-gradient(ellipse at center, #000 25%, transparent 72%);
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 25%, transparent 72%);
+  align-content: center;
+  min-height: 100svh;
+  padding-block: calc(var(--nav-h) + var(--space-7)) var(--space-8);
 }
-.hero-dot {
-  width: 3px; height: 3px;
-  justify-self: center;
-  align-self: center;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--tone-sky) 45%, transparent);
-}
-.hero-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: var(--orb-opacity);
-}
-.hero-orb-1 {
-  width: 640px; height: 640px;
-  top: -15%; right: -10%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.14), transparent 65%);
-  animation: float-a 16s ease-in-out infinite;
-}
-.hero-orb-2 {
-  width: 500px; height: 500px;
-  bottom: -12%; left: -8%;
-  background: radial-gradient(circle, rgba(129, 140, 248, 0.12), transparent 65%);
-  animation: float-b 18s ease-in-out infinite;
-}
+.hero-chapter { grid-column: 1 / span 7; }
 
-.hero-content { position: relative; max-width: 760px; }
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-bottom: var(--space-5);
-  font-size: var(--step--1);
+.hero-title { display: flex; flex-direction: column; gap: var(--space-3); margin-block: var(--space-4) var(--space-5); }
+.hero-name { font-size: var(--fs-lead); font-weight: 500; letter-spacing: -0.02em; color: var(--text-2); }
+.hero-tagline {
+  font-size: var(--fs-display);
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-text);
-}
-.hero-eyebrow-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2s ease-in-out infinite;
-}
-.hero-name {
-  margin-bottom: var(--space-3);
-  font-size: var(--step-5);
-  font-weight: 900;
-  letter-spacing: -0.032em;
   line-height: 0.98;
+  letter-spacing: var(--tracking-display);
 }
-.hero-headline {
-  margin-bottom: var(--space-5);
-  font-size: var(--step-2);
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  color: var(--text-2);
-}
-.hero-intro {
-  max-width: 58ch;
-  margin-bottom: var(--space-6);
-  color: var(--text-3);
-  line-height: 1.8;
-}
-.hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.hero-intro .lead { max-width: 34ch; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-5); margin-top: var(--space-6); }
 
-.hero-scroll-hint {
+.hero-statement-text {
+  font-size: var(--fs-h1);
+  font-weight: 600;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-display);
+  max-width: 13ch;
+}
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gap);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--hairline);
+  max-width: 620px;
+}
+.hero-stats > div { display: grid; grid-template-rows: auto auto; align-content: start; gap: var(--space-2); }
+.hero-stats dd { grid-row: 1; }
+.hero-stats dt { grid-row: 2; }
+.hero-stats dd {
+  font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-scroll {
   position: absolute;
-  bottom: var(--space-5); left: 50%;
-  transform: translateX(-50%);
+  left: 50%; bottom: var(--space-6);
+  translate: -50% 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-2);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-4);
 }
-.scroll-line {
-  width: 1.5px; height: 40px;
-  border-radius: 2px;
-  background: linear-gradient(to bottom, var(--accent), transparent);
-  animation: scroll-line 2s ease infinite;
+.hero-scroll-line {
+  width: 1px; height: 44px;
+  background: linear-gradient(to bottom, var(--blue-text), transparent);
+  transform-origin: top;
+  animation: scroll-cue 2.2s var(--ease-in-out) infinite;
 }
-
-/* Hidden until hero.js plays the entrance (never hidden without JS) */
-:where(.js) [data-hero]:not(.is-visible) { opacity: 0; }
-
-@keyframes float-a {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-30px, 28px) scale(1.05); }
-}
-@keyframes float-b {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(26px, -24px) scale(1.04); }
-}
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(0.6); opacity: 0.4; }
-}
-@keyframes scroll-line {
-  0% { transform: scaleY(0); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
-  51% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
+.hero:not(.is-scrubbed) .hero-scroll { display: none; }
+@keyframes scroll-cue {
+  0% { transform: scaleY(0); opacity: 1; }
+  60% { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
 }
 
-@media (max-width: 600px) {
-  .hero { min-height: auto; padding-bottom: var(--space-8); }
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .hero-actions .btn { width: 100%; }
-  .hero-scroll-hint { display: none; }
+/* ---------- Scrubbed mode (set by hero.js when motion is allowed) ---------- */
+.hero.is-scrubbed { height: 300vh; }
+.hero.is-scrubbed .hero-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 0;
+}
+/* Both chapters share row 1 so they can cross-fade in place */
+.hero.is-scrubbed .hero-chapter { grid-row: 1; align-self: center; }
+.hero.is-scrubbed .hero-statement { opacity: 0; visibility: hidden; }
+
+/* ---------- Mobile: the 3D sits in the top half, text in the bottom ---------- */
+@media (max-width: 900px) {
+  .hero-chapter { grid-column: 1 / -1; }
+  .hero-stage { align-content: end; padding-top: 46svh; } /* keeps text below the 3D */
+  .hero.is-scrubbed { height: 240vh; }
+  .hero.is-scrubbed .hero-stage { padding-block: 0; }
+  .hero.is-scrubbed .hero-chapter { align-self: end; padding-bottom: var(--space-6); }
+  .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-5); }
+  .hero-scroll { display: none; }
 }

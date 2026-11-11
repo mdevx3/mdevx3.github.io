@@ -1,0 +1,37 @@
+/* =============================================
+   3D SCENE LAYERS
+   One fixed WebGL canvas sits behind every section (scene/stage.js) and a
+   spotlight layer shades it so text above always reads cleanly.
+     z0  .scene-canvas   WebGL, pointer-events: none
+     z1  .spotlight      radial light + edge vignette
+     z2  main content
+   ============================================= */
+.scene-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-scene);
+  width: 100vw;
+  height: 100lvh;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out);
+}
+.scene-canvas.is-ready { opacity: 1; }
+
+.spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-spotlight);
+  pointer-events: none;
+  background:
+    radial-gradient(60vmax 45vmax at 70% -10%, var(--spot-color), transparent 70%),
+    radial-gradient(120vmax 90vmax at 50% 50%, transparent 55%, var(--spot-edge) 100%);
+}
+
+/* No WebGL (or it failed): keep the depth with a static glow */
+.no-webgl .spotlight {
+  background:
+    radial-gradient(28vmax 28vmax at 72% 38%, rgba(41, 151, 255, 0.28), transparent 70%),
+    radial-gradient(60vmax 45vmax at 70% -10%, var(--spot-color), transparent 70%),
+    radial-gradient(120vmax 90vmax at 50% 50%, transparent 55%, var(--spot-edge) 100%);
+}

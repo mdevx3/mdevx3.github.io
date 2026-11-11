@@ -3,24 +3,24 @@
    Progressive enhancement over a static grid:
      <div data-filter-bar></div>           buttons are generated here
      <p data-filter-status></p>            live "Showing 3 of 6" message
-     <div data-project-grid>               contains .project-card[data-categories="nlp ml"]
+     <div data-project-grid>               contains .frame[data-categories="nlp ml"]
      <p data-filter-empty hidden>
    Without JavaScript every card simply stays visible.
    The active filter is mirrored in the URL hash (projects.html#nlp) so a
    filtered view can be linked to; no history entries are added.
    ============================================= */
 import { CATEGORIES } from '../data/projects.js';
-import { enter, prefersReducedMotion } from '../lib/motion.js';
+import { animate, prefersReducedMotion, EASE_OUT } from '../lib/motion.js';
 
-const EXIT_MS = 150;
-const STAGGER_MS = 70;
+const EXIT_S = 0.16;
+const STAGGER_S = 0.07;
 
 /** @param {HTMLElement} grid the [data-project-grid] container */
 export function initProjectFilter(grid) {
   const bar = document.querySelector('[data-filter-bar]');
   const status = document.querySelector('[data-filter-status]');
   const empty = document.querySelector('[data-filter-empty]');
-  const cards = [...grid.querySelectorAll('.project-card')];
+  const cards = [...grid.querySelectorAll('[data-categories]')];
   if (!bar || !cards.length) return;
 
   const categoriesOf = (card) => (card.dataset.categories || '').split(/\s+/).filter(Boolean);
@@ -39,7 +39,8 @@ export function initProjectFilter(grid) {
     </button>`).join('');
 
   let current = null;
-  let runId = 0; // guards against overlapping transitions from rapid clicks
+  let runId = 0;     // guards against overlapping transitions from rapid clicks
+  let running = [];  // Motion controls of the transition in flight
 
   function setFilter(id, { animateCards, updateUrl }) {
     if (id === current) return;
@@ -61,29 +62,36 @@ export function initProjectFilter(grid) {
       history.replaceState(null, '', id === 'all' ? location.pathname + location.search : `#${id}`);
     }
 
-    // Reset any in-flight transition so DOM state == `hidden` flags
+    // Stop any in-flight transition so the DOM matches the `hidden` flags
     const myRun = ++runId;
-    cards.forEach((card) => card.getAnimations().forEach((a) => a.cancel()));
+    running.forEach((c) => c.stop());
+    running = [];
 
     if (!animateCards || prefersReducedMotion()) {
-      cards.forEach((card) => { card.hidden = !matches(card); });
+      cards.forEach((card) => {
+        card.hidden = !matches(card);
+        card.style.opacity = '';
+        card.style.transform = '';
+      });
       return;
     }
 
     // 1) fade out cards that no longer match, 2) reflow, 3) bring in new ones
     const leaving = cards.filter((c) => !c.hidden && !matches(c));
     const entering = cards.filter((c) => c.hidden && matches(c));
-    const exits = leaving.map((c) => c.animate(
-      [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(0.96)' }],
-      { duration: EXIT_MS, easing: 'ease-in', fill: 'forwards' }
-    ).finished.catch(() => {}));
+    const staying = cards.filter((c) => !c.hidden && matches(c));
+    const exits = leaving.map((c) => animate(c, { opacity: 0, scale: 0.96 }, { duration: EXIT_S, ease: 'easeIn' }));
+    running.push(...exits);
+    // A card caught mid-exit by a newer click settles back in place
+    staying.forEach((c) => running.push(animate(c, { opacity: 1, scale: 1 }, { duration: 0.2 })));
 
     Promise.all(exits).then(() => {
       if (myRun !== runId) return; // a newer filter took over
-      leaving.forEach((c) => { c.getAnimations().forEach((a) => a.cancel()); c.hidden = true; });
+      leaving.forEach((c) => { c.hidden = true; });
       entering.forEach((c, i) => {
         c.hidden = false;
-        enter(c, { delay: i * STAGGER_MS, y: 20, duration: 500 });
+        running.push(animate(c, { opacity: [0, 1], scale: [0.98, 1], y: [24, 0] },
+          { duration: 0.55, delay: i * STAGGER_S, ease: EASE_OUT }));
       });
     });
   }

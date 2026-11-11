@@ -8,45 +8,53 @@ Personal portfolio website for Darrell Lokadeva Lim, a Data Science practitioner
 
 | Page | Description |
 |------|-------------|
-| `index.html` | Hero, About, Experience, Skills, Contact |
-| `projects.html` | Project grid with category filter |
+| `index.html` | 3D hero, Expertise (+ experience), Selected work, Contact |
+| `projects.html` | Archive of all projects with category filter |
 | `project-*.html` (6) | Case studies: social media clustering, cycle monitoring, hotel booking, Amazon SaaS, sign language, international debt |
 
 ## Stack
 
-Plain HTML, CSS and ES-module JavaScript. No framework, no build step; GitHub Pages serves the repo as-is.
+Plain HTML, CSS and ES modules, with no framework and no runtime build. GitHub Pages serves the repo as-is.
 
-- **Font:** Inter (Google Fonts)
-- **Animation:** CSS transitions and the Web Animations API for UI motion; [anime.js](https://animejs.com) v4 (vendored in `assets/vendor/`) for the hero dot grid and count-up numbers. All motion respects `prefers-reduced-motion`.
-- **Theming:** dark/light via design tokens. Follows the OS setting until the visitor uses the toggle, then remembers the choice.
+- **3D:** [three.js](https://threejs.org): one fixed WebGL canvas with a "connected intelligence" network that morphs as you scroll (`assets/js/scene/`)
+- **Motion:** [Motion](https://motion.dev) (formerly Framer Motion, vanilla API) for scroll-linked, in-view and spring interactions
+- **Type:** Geist and Geist Mono (Google Fonts)
+- **Themes:** deep-black default and a light theme, switchable from the nav
+
+Layout rules, tokens, scene states and animation timings are documented in **[design.md](design.md)**.
 
 ## Structure
 
 ```
 assets/
-├── css/
-│   ├── main.css            only stylesheet pages link to (imports the rest)
-│   ├── tokens.css          colours, type scale, spacing, motion; dark + light themes
-│   ├── base.css            reset, layout primitives, reveal states, reduced motion
-│   ├── components/         one file per module: nav, hero, card, filter-bar, skills,
-│   │                       timeline, contact, footer, lightbox, button, section, about
-│   └── pages/              page-level layout: projects, project-detail
+├── css/        tokens.css, base.css, components/*.css, pages/*.css (main.css imports them all)
 ├── js/
-│   ├── main.js             entry point; mounts each component on its own root element
-│   ├── components/         site-chrome (nav + footer), theme, hero, reveal, counters,
-│   │                       project-filter, project-nav, contact-form, lightbox
-│   ├── data/projects.js    filter categories + project order (drives prev/next links)
-│   └── lib/                anime.js import point, motion helpers (reduced-motion aware)
-├── vendor/                 anime.esm.min.js (copy of the npm package; `npm run vendor` refreshes it)
+│   ├── main.js          entry point: mounts each component on its own root element
+│   ├── components/      site chrome, theme, hero, expertise, frames, filter, contact form, lightbox, ...
+│   ├── scene/           WebGL network: config (tune here), network, stage, scroll map
+│   ├── data/projects.js filter categories + project order
+│   └── lib/             Motion import point + helpers, spring tilt
+├── vendor/     three.js and motion.js bundles (generated, see below)
 ├── img/  docs/
 ```
 
 ## Common edits
 
-- **Add a project:** copy a card in `projects.html` (set `data-categories`, e.g. `"nlp ml"`), add the page's entry to `PROJECTS` in `assets/js/data/projects.js`, and create `project-<id>.html` from an existing one.
-- **Add a filter category:** add it to `CATEGORIES` in `assets/js/data/projects.js`, then use its id in cards' `data-categories`.
-- **Change nav/footer links:** edit `assets/js/components/site-chrome.js` (one place for all pages).
-- **Change colours or spacing:** edit `assets/css/tokens.css`. Keep the light-theme values in the `[data-theme='light']` block and the `prefers-color-scheme` block in sync.
+- **Add a project:** add a `.frame` tile to `projects.html` (copy one and set `data-categories`, e.g. `"nlp ml"`). Optionally add it to the home bento in `index.html`. Add an entry to `PROJECTS` in `assets/js/data/projects.js`, and create `project-<id>.html` from an existing case study.
+- **Change colours, type or spacing:** `assets/css/tokens.css`.
+- **Change the 3D look:** `assets/js/scene/config.js` (materials per theme, density, inertia, camera framing).
+- **Change nav/footer links:** `assets/js/components/site-chrome.js`.
+
+## Updating the libraries
+
+`assets/vendor/three.js` and `assets/vendor/motion.js` are small tree-shaken builds of the npm packages. After updating `three` or `motion`:
+
+```
+npm install
+npm run vendor
+```
+
+If you import a new name from either library, add it to the export list in `scripts/vendor.mjs` first.
 
 ## Local preview
 
@@ -54,7 +62,7 @@ assets/
 python3 -m http.server 8000
 ```
 
-(ES modules need to be served over HTTP; opening the files directly won't work.)
+ES modules must be served over HTTP; opening the files directly won't work.
 
 ## Contact
 

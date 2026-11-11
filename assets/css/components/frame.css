@@ -1,0 +1,128 @@
+/* =============================================
+   SHOWCASE FRAME  (project tile; home bento + projects page)
+   Layers, outer to inner:
+     .frame          perspective root, carries data-categories for the filter
+     .frame-stage    scroll entrance (rotateX + y), driven by frames.js
+     .frame-media    pointer tilt + hover lift (lib/tilt.js), clips the image
+       img           the project picture
+       .frame-tint   cover colour wash (cover-* class)
+       .frame-glare  light that follows the pointer (--gx/--gy)
+     .frame-body     text: always below the image, never on top of it
+   ============================================= */
+.cover-teal    { --cover-a: #0d4f5c; --cover-b: #06b6d4; }
+.cover-blue    { --cover-a: #1e3a8a; --cover-b: #3b82f6; }
+.cover-sky     { --cover-a: #0369a1; --cover-b: #38bdf8; }
+.cover-amber   { --cover-a: #b45309; --cover-b: #fbbf24; }
+.cover-violet  { --cover-a: #5b21b6; --cover-b: #a78bfa; }
+.cover-emerald { --cover-a: #065f46; --cover-b: #34d399; }
+
+.frame { display: flex; flex-direction: column; perspective: 1400px; }
+/* The stage is an opaque tile: the 3D layer may show in the gutters
+   between tiles, never behind their text. */
+.frame-stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-2) var(--space-2) var(--space-5);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  background: var(--bg-raised);
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+}
+.frame-media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: calc(var(--r-lg) - var(--space-2));
+  background: linear-gradient(135deg, var(--cover-a), var(--cover-b));
+  box-shadow: var(--shadow);
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+.frame-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.04);
+  transition: transform 900ms var(--ease-out);
+}
+.frame:hover .frame-media img { transform: scale(1.045); }
+.frame-tint {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.35)),
+    linear-gradient(135deg, var(--cover-a), var(--cover-b));
+  mix-blend-mode: multiply;
+  opacity: 0.22;
+  pointer-events: none;
+}
+.frame-glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(500px circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, 0.22), transparent 55%);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+.frame:hover .frame-glare { opacity: 1; }
+.frame-index {
+  position: absolute;
+  top: var(--space-4); left: var(--space-4);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--r-pill);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+}
+
+.frame-body { display: flex; flex: 1; flex-direction: column; gap: var(--space-3); padding-inline: var(--space-4); }
+.frame-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-4); }
+.frame-title { font-size: var(--fs-h3); line-height: 1.2; }
+.frame-title a { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size var(--dur-slow) var(--ease-out); }
+.frame-title a:hover { background-size: 100% 1px; }
+.frame-desc { color: var(--text-2); font-size: var(--fs-small); line-height: 1.6; max-width: 60ch; }
+.frame-tags { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); }
+.frame-tags li {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+.frame-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-5); margin-top: auto; }
+.frame-repo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-2);
+  transition: color var(--dur) ease;
+}
+a.frame-repo:hover { color: var(--text); }
+.frame-repo svg { flex-shrink: 0; }
+
+/* ----- Home bento (index.html #work) ----- */
+.bento { grid-auto-flow: dense; row-gap: clamp(2.5rem, 2rem + 2vw, 4rem); }
+.tile--feature { grid-column: span 7; grid-row: span 2; }
+.tile--feature .frame-media { aspect-ratio: auto; flex: 1; min-height: 360px; }
+.tile--feature .frame-title { font-size: var(--fs-h2); line-height: var(--lh-tight); }
+.tile--side { grid-column: span 5; }
+.tile--third { grid-column: span 4; }
+
+@media (max-width: 1100px) {
+  .tile--feature { grid-column: 1 / -1; grid-row: auto; }
+  .tile--feature .frame-media { aspect-ratio: 16 / 9; min-height: 0; }
+  .tile--side, .tile--third { grid-column: span 6; }
+  .tile--third:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 700px) {
+  .bento > .tile--side, .bento > .tile--third { grid-column: 1 / -1; }
+}
