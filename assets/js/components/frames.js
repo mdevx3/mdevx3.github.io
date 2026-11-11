@@ -2,28 +2,14 @@
    SHOWCASE FRAMES  (project tiles: home bento + projects page)
    - Scroll entrance: each tile tips up from 16deg as it enters the
      viewport, scrubbed to scroll position (Motion scroll + animate).
-   - Hover: the whole tile nudges up and tilts gently toward the pointer,
-     a soft ripple spreads from where the pointer entered, and a glare
-     follows the pointer across the image.
+   - Hover: the whole tile tilts toward the pointer and rises slightly. Depth
+     comes from the tile staying one flat piece (so the picture never clips)
+     plus three cues driven by the pointer: a shadow that slides away from the
+     light, the picture drifting a few px inside its frame, and a glare.
    Markup contract: see components/frame.css.
    ============================================= */
-import { animate, scroll, prefersReducedMotion, hasFinePointer, SPRING, EASE_OUT } from '../lib/motion.js';
+import { animate, scroll, prefersReducedMotion, hasFinePointer, SPRING } from '../lib/motion.js';
 import { attachTilt } from '../lib/tilt.js';
-
-const RIPPLE_SIZE = 320; // px diameter: a small, local ripple around the pointer
-
-/** Spread a small ring from the point (x, y) inside `stage`. */
-function ripple(stage, x, y) {
-  const size = RIPPLE_SIZE;
-  const ring = document.createElement('span');
-  ring.className = 'frame-ripple';
-  ring.setAttribute('aria-hidden', 'true');
-  Object.assign(ring.style, { width: `${size}px`, height: `${size}px`, left: `${x - size / 2}px`, top: `${y - size / 2}px` });
-  stage.prepend(ring);
-  // Spread fast then settle (EASE_OUT); fade slowly so the ring is seen while it grows
-  animate(ring, { scale: [0.08, 1], opacity: [1, 0] }, { duration: 1.1, ease: EASE_OUT, opacity: { duration: 1.1, ease: 'easeIn' } })
-    .then(() => ring.remove());
-}
 
 /** @param {HTMLElement} scope any container holding .frame elements */
 export function initFrames(scope) {
@@ -42,14 +28,11 @@ export function initFrames(scope) {
 
     if (reduced || !hasFinePointer()) return;
 
-    // Gentle tilt of the whole tile + glare position (--gx/--gy)
-    attachTilt(frame, { max: 4, perspective: 1100, vars: ['--gx', '--gy'] });
+    // Tilt follows the cursor; publishes glare position (--gx/--gy, %) and signed
+    // pointer offsets (--sx/--sy, -1..1) used by the shadow and parallax in frame.css
+    attachTilt(frame, { max: 9, perspective: 1000, vars: ['--gx', '--gy'], signed: ['--sx', '--sy'] });
 
-    frame.addEventListener('pointerenter', (e) => {
-      const r = stage.getBoundingClientRect();
-      ripple(stage, e.clientX - r.left, e.clientY - r.top);
-      animate(frame, { y: -6 }, SPRING);
-    });
-    frame.addEventListener('pointerleave', () => animate(frame, { y: 0 }, SPRING));
+    frame.addEventListener('pointerenter', () => animate(frame, { y: -8, scale: 1.015 }, SPRING));
+    frame.addEventListener('pointerleave', () => animate(frame, { y: 0, scale: 1 }, SPRING));
   });
 }

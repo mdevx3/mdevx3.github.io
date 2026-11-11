@@ -165,7 +165,7 @@ All JavaScript motion uses **Motion** (the vanilla build of the library formerly
 | `[data-reveal]` | Enters viewport (−8% bottom margin) | Opacity 0→1, y 28→0 | 0.9s, `EASE_OUT` | Visible immediately |
 | `[data-stagger]` children | Container enters viewport | Opacity 0→1, y 32→0 | 0.8s, 0.09s stagger | Visible immediately |
 | Project tiles | Scroll into view | rotateX 16°→0, y 90→0 (no opacity) | Scrubbed from `start end` to `start 0.62` | None |
-| Project tile | Pointer enters / moves over tile | Whole tile nudges up 6px and tilts ≤ 4° toward the pointer (flat, no 3D clipping); a small ring (320px) ripples out from the entry point; glare follows the pointer; image scales to 1.03 | Spring; ripple 1.1s (spread `EASE_OUT`, fade `easeIn`) / 900ms CSS | None |
+| Project tile | Pointer over tile | Whole tile tilts ≤ 9° toward the pointer (perspective 1000px), rises 8px and scales to 1.015. It stays one flat piece, so the picture never clips. Depth cues: shadow slides away from the pointer, picture drifts ≤ 9px the other way and zooms to 1.06, glare follows the pointer | Spring (`SPRING`); image 700ms / 220ms CSS | None |
 | Expertise card | Pointer over card | Spring tilt ≤ 5°, spotlight, gradient border | Spring / 600ms | Border and spotlight only |
 | Contact endpoint | Pointer over row | Arrow pulled ≤ 14px, underline sweeps in, arrow fills blue | Spring / 600ms | Colour change only |
 | Nav | Page scroll | Frosted after 16px; gradient progress line scaled to page progress | Scrubbed | Progress line hidden |
