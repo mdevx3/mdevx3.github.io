@@ -16,7 +16,18 @@
 .hero-chapter { grid-column: 1 / span 7; }
 
 .hero-title { display: flex; flex-direction: column; gap: var(--space-3); margin-block: var(--space-4) var(--space-5); }
-.hero-name { font-size: var(--fs-lead); font-weight: 500; letter-spacing: -0.02em; color: var(--text-2); }
+.hero-name { display: flex; align-items: center; gap: var(--space-4); font-size: var(--fs-lead); font-weight: 500; letter-spacing: -0.02em; color: var(--text-2); }
+/* Portrait: round, with a hairline gap and an electric-blue ring */
+.hero-avatar {
+  width: clamp(52px, 44px + 1.5vw, 68px);
+  height: auto;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 42%;
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 4.5px var(--blue-text), 0 8px 28px -6px rgba(41, 151, 255, 0.55);
+}
 .hero-tagline {
   font-size: var(--fs-display);
   font-weight: 600;

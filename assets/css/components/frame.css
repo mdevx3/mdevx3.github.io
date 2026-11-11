@@ -3,11 +3,14 @@
    Layers, outer to inner:
      .frame          perspective root, carries data-categories for the filter
      .frame-stage    scroll entrance (rotateX + y), driven by frames.js
-     .frame-media    pointer tilt + hover lift (lib/tilt.js), clips the image
+     .frame-ripple   ring spreading from the pointer on hover (added by frames.js)
+     .frame-media    clips the image
        img           the project picture
        .frame-tint   cover colour wash (cover-* class)
        .frame-glare  light that follows the pointer (--gx/--gy)
      .frame-body     text: always below the image, never on top of it
+   On hover the whole tile tilts slightly and lifts (frames.js). The tile
+   stays flat (no preserve-3d), so the image can never clip into the card.
    ============================================= */
 .cover-teal    { --cover-a: #0d4f5c; --cover-b: #06b6d4; }
 .cover-blue    { --cover-a: #1e3a8a; --cover-b: #3b82f6; }
@@ -29,7 +32,23 @@
   border-radius: var(--r-lg);
   background: var(--bg-raised);
   transform-origin: 50% 100%;
-  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Hover ripple: a thin translucent ring that spreads from where the pointer
+   entered and fades within a second (frames.js). Sits above the image so it's
+   visible, but never takes clicks. */
+.frame-ripple {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--blue-text) 80%, transparent);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--blue-text) 22%, transparent), transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--blue-text) 45%, transparent),
+              inset 0 0 18px color-mix(in srgb, var(--blue-text) 30%, transparent);
+  pointer-events: none;
+  opacity: 0;
 }
 .frame-media {
   position: relative;
@@ -39,7 +58,6 @@
   border-radius: calc(var(--r-lg) - var(--space-2));
   background: linear-gradient(135deg, var(--cover-a), var(--cover-b));
   box-shadow: var(--shadow);
-  transform-style: preserve-3d;
   isolation: isolate;
 }
 .frame-media img {
@@ -48,7 +66,7 @@
   filter: saturate(1.08) contrast(1.04);
   transition: transform 900ms var(--ease-out);
 }
-.frame:hover .frame-media img { transform: scale(1.045); }
+.frame:hover .frame-media img { transform: scale(1.03); }
 .frame-tint {
   position: absolute;
   inset: 0;
@@ -68,19 +86,6 @@
   pointer-events: none;
 }
 .frame:hover .frame-glare { opacity: 1; }
-.frame-index {
-  position: absolute;
-  top: var(--space-4); left: var(--space-4);
-  padding: 0.25rem 0.6rem;
-  border-radius: var(--r-pill);
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: #fff;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-}
 
 .frame-body { display: flex; flex: 1; flex-direction: column; gap: var(--space-3); padding-inline: var(--space-4); }
 .frame-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-4); }
