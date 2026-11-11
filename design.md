@@ -89,6 +89,7 @@ The pages were tested at 390, 768, 1024 and 1440px wide, with no horizontal scro
 | 2 | `main`: all content |
 | 100 | Nav |
 | 200 | Overlays (lightbox) |
+| 210 | Greeting screen (`.intro`, home only) |
 
 ### How each section keeps the 3D layer off text
 
@@ -157,6 +158,7 @@ All JavaScript motion uses **Motion** (the vanilla build of the library formerly
 
 | Element | Trigger | Animation | Timing | Reduced motion |
 |---|---|---|---|---|
+| Greeting screen (home) | First home visit per tab session; skipped for `#section` links | "Hello!" letters rise from a mask (0.07s stagger), then "and welcome to my portfolio." unblurs and rises; a faint hint breathes. Any tap/click/Enter/Space/Esc lifts the screen away like a curtain | 1s letters, sub at 0.85s, hint at 1.9s; exit 1s `[0.76, 0, 0.24, 1]` | Shown without animation; exits instantly |
 | Hero chapters | Scroll through the pinned hero | Intro lifts 70px and fades out (progress 0.20–0.40); statement rises in (0.42–0.62) | Scrubbed | Not pinned; chapters stack |
 | Hero stats | Statement chapter > 60% in | Count up | 1.5s, `EASE_OUT`, 0.12s stagger | Final values shown |
 | 3D network | Scroll / pointer / card hover | Morph, dolly, spin inertia, tilt, cluster glow | Per-frame easing (section 4) | Static per section |

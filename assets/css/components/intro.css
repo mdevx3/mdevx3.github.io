@@ -1,0 +1,56 @@
+/* =============================================
+   INTRO / GREETING SCREEN  (index.html)
+   Full-screen "Hello!" shown once per session before the portfolio.
+   Visible only while <html> has .show-intro (set by the inline <head>
+   script, so the page never flashes first). intro.js animates it in,
+   waits for a tap/click/key, then lifts it away like a curtain and removes it.
+   ============================================= */
+.intro { display: none; }
+.show-intro .intro {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-overlay) + 10);
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background:
+    radial-gradient(50vmax 40vmax at 50% 45%, var(--spot-color), transparent 70%),
+    var(--bg);
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.show-intro { overflow: hidden; } /* no scrolling behind the greeting */
+
+.intro-content { text-align: center; }
+.intro-hello {
+  font-size: clamp(4.5rem, 2rem + 13vw, 12rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+/* Mask so letters rise up from behind an invisible baseline */
+.intro-mask { display: inline-block; overflow: hidden; padding: 0.06em 0.08em 0.14em; vertical-align: top; }
+.intro-word { display: inline-block; }
+.intro-char { display: inline-block; will-change: transform; }
+.intro-char:last-child { background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+.intro-sub {
+  margin-top: var(--space-4);
+  font-size: var(--fs-lead);
+  letter-spacing: -0.015em;
+  color: var(--text-2);
+}
+
+.intro-hint {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: max(var(--space-7), env(safe-area-inset-bottom));
+  text-align: center;
+  color: var(--text-3);
+}
+.intro-hint.is-shown { animation: intro-breathe 2.4s var(--ease-in-out) infinite; }
+@keyframes intro-breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}

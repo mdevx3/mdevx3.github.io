@@ -7,6 +7,7 @@
    The WebGL scene is imported lazily so text and interactions never wait
    for three.js to download.
    ============================================= */
+import { initIntro } from './components/intro.js';
 import { initNav, initFooter } from './components/site-chrome.js';
 import { initThemeToggle } from './components/theme.js';
 import { initReveal } from './components/reveal.js';
@@ -39,6 +40,7 @@ function mount(selector, init) {
 mount('#site-nav', initNav);
 mount('#site-footer', initFooter);
 mount('.theme-toggle', initThemeToggle);
+mount('.intro', initIntro); // greeting screen (home, once per session); after the nav so it can lock it
 
 // Page sections
 mount('.hero', initHero);

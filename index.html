@@ -16,14 +16,25 @@
   <meta name="theme-color" content="#000000">
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
   <!-- Applies the saved theme before first paint (dark by default) and flags that JS is available.
-       Failsafe: if main.js has not started within 4s, the `js` flag is dropped so no content stays hidden. -->
-  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}d.dataset.theme=t==='light'?'light':'dark';d.classList.add('js');setTimeout(function(){if(!d.classList.contains('js-ready'))d.classList.remove('js')},4000)})(document.documentElement)</script>
+       Failsafe: if main.js has not started within 4s, the `js` flag is dropped so no content stays hidden.
+       Home only: `show-intro` greets first-time visitors this session (skipped for #section links). -->
+  <script>(function(d){var t;try{t=localStorage.getItem('theme')}catch(e){}d.dataset.theme=t==='light'?'light':'dark';d.classList.add('js');if(!location.hash){try{if(!sessionStorage.getItem('intro-seen'))d.classList.add('show-intro')}catch(e){}}setTimeout(function(){if(!d.classList.contains('js-ready')){d.classList.remove('js');d.classList.remove('show-intro')}},4000)})(document.documentElement)</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body data-page="home">
+
+  <!-- Greeting screen (assets/js/components/intro.js). Only displayed when the
+       <head> script sets html.show-intro; otherwise it is removed on load. -->
+  <div class="intro" role="dialog" aria-label="Welcome" tabindex="-1" hidden>
+    <div class="intro-content">
+      <p class="intro-hello" aria-label="Hello!"><span class="intro-mask"><span class="intro-word">Hello!</span></span></p>
+      <p class="intro-sub">and welcome to my portfolio.</p>
+    </div>
+    <p class="intro-hint label">Tap anywhere to continue</p>
+  </div>
 
   <!-- Navigation is rendered by assets/js/components/site-chrome.js -->
   <header class="nav" id="site-nav">
